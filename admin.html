@@ -286,7 +286,7 @@
                     <th class="p-2.5 text-center">EXISTING</th>
                     <th class="p-2.5 text-center text-amber-300">DAFTAR</th>
                     <th class="p-2.5 text-center text-indigo-300">KONFIRMASI</th>
-                    <th class="p-2.5 text-center">% CAPAIAN</th>
+                    <th class="p-2.5 text-center text-amber-300">% CAPAIAN (D/T)</th>
                     <th class="p-2.5 text-center">SISA</th>
                     <th class="p-2.5 text-center rounded-r-lg">% CAPAIAN (K/T)</th>
                   </tr>
@@ -598,14 +598,14 @@
       let chartLineInstance = null;
 
       const masterMarketingChannels = [
-        { name: "Rekomendasi", key: "wom", matchKeys: ["rekomendasi", "teman", "keluarga", "kerabat", "mulut"], color: "#0284c7" },
-        { name: "Instagram", key: "instagram", matchKeys: ["instagram", "ig"], color: "#e11d48" },
-        { name: "Digital Ads (Google/Meta)", key: "ads", matchKeys: ["ads", "iklan", "facebook", "fb", "meta", "google"], color: "#38bdf8" },
+        { name: "Rekomendasi / Mouth", key: "wom", matchKeys: ["rekomendasi", "teman", "keluarga", "kerabat", "mulut", "word of mouth", "wom"], color: "#0284c7" },
+        { name: "Instagram", key: "instagram", matchKeys: ["instagram"], color: "#e11d48" },
+        { name: "Digital Ads (Google/Meta)", key: "ads", matchKeys: ["ads", "iklan", "facebook", "meta", "google"], color: "#38bdf8" },
         { name: "Brosur / Spanduk / Baliho", key: "brosur", matchKeys: ["brosur", "spanduk", "baliho", "banner", "flyer"], color: "#16a34a" },
-        { name: "Website Resmi", key: "website", matchKeys: ["website", "web", "site"], color: "#0d9488" },
-        { name: "Kecerdasan Buatan (AI)", key: "ai", matchKeys: ["ai", "chatgpt", "gemini", "copilot", "kecerdasan"], color: "#8b5cf6" },
-        { name: "TikTok", key: "tiktok", matchKeys: ["tiktok", "tt"], color: "#0f172a" },
-        { name: "YouTube", key: "youtube", matchKeys: ["youtube", "yt"], color: "#dc2626" },
+        { name: "Website Resmi", key: "website", matchKeys: ["website"], color: "#0d9488" },
+        { name: "Kecerdasan Buatan (AI)", key: "ai", matchKeys: ["chatgpt", "gemini", "copilot", "kecerdasan", "ai"], color: "#8b5cf6" },
+        { name: "TikTok", key: "tiktok", matchKeys: ["tiktok"], color: "#0f172a" },
+        { name: "YouTube", key: "youtube", matchKeys: ["youtube"], color: "#dc2626" },
         { name: "Lainnya", key: "lainnya", matchKeys: ["lainnya", "other"], color: "#64748b" }
       ];
 
@@ -769,6 +769,10 @@
       function parseLeadDate(timestampStr) {
         if (!timestampStr) return null;
         try {
+          if (timestampStr.includes('-')) {
+            const parsed = new Date(timestampStr);
+            return isNaN(parsed.getTime()) ? null : parsed;
+          }
           const parts = timestampStr.split(' ');
           const dateParts = parts[0].split('/');
           if (dateParts.length < 3) return null;
@@ -776,7 +780,8 @@
           const month = parseInt(dateParts[1], 10) - 1;
           const year = parseInt(dateParts[2], 10);
           const timeParts = parts[1] ? parts[1].split(':') : [0, 0, 0];
-          return new Date(year, month, day, parseInt(timeParts[0], 10) || 0, parseInt(timeParts[1], 10) || 0, parseInt(timeParts[2], 10) || 0);
+          const parsed = new Date(year, month, day, parseInt(timeParts[0], 10) || 0, parseInt(timeParts[1], 10) || 0, parseInt(timeParts[2], 10) || 0);
+          return isNaN(parsed.getTime()) ? null : parsed;
         } catch (e) {
           return null;
         }
@@ -871,6 +876,9 @@
           const unitLeads = leads.filter(l => {
             const ut = (l.unitTujuan || "").toLowerCase();
             const lt = (l.levelTarget || "").toLowerCase();
+            if (ut === "tk" && !lt) {
+              return cfg.level === "TK-A";
+            }
             return cfg.matchKeys.some(k => ut.includes(k) || lt.includes(k));
           });
 
@@ -885,7 +893,7 @@
           grandDaftar += cntDaftar;
           grandKonfirmasi += cntKonfirmasi;
 
-          const capDaftarPct = cfg.target > 0 ? Math.round((cntKonfirmasi / cfg.target) * 100) : 0;
+          const capDaftarPct = cfg.target > 0 ? Math.round((cntDaftar / cfg.target) * 100) : 0;
           const capKonfPct = cfg.target > 0 ? Math.round((cntKonfirmasi / cfg.target) * 100) : 0;
           const sisaTarget = Math.max(0, cfg.target - cntKonfirmasi);
 
@@ -910,7 +918,7 @@
           tbody.appendChild(tr);
         });
 
-        const grandCapPct = grandTarget > 0 ? Math.round((grandKonfirmasi / grandTarget) * 100) : 0;
+        const grandCapPct = grandTarget > 0 ? Math.round((grandDaftar / grandTarget) * 100) : 0;
         const grandKonfPct = grandTarget > 0 ? Math.round((grandKonfirmasi / grandTarget) * 100) : 0;
         const grandSisa = Math.max(0, grandTarget - grandKonfirmasi);
 
@@ -1004,7 +1012,7 @@
             <td class="p-3 text-slate-600 max-w-xs truncate" title="${lead.catatanAdmin}">${lead.catatanAdmin || "-"}</td>
             <td class="p-3 text-center">
               <button 
-                onclick="openEditLeadModal('${lead.idLead}', '${(lead.namaSiswa || '').replace(/'/g, "\\'")}', '${lead.unitTujuan}', '${lead.statusLead}', '${lead.kategoriPendaftaran || 'Siswa Baru'}', '${lead.levelTarget || ''}', '${(lead.discount || '').replace(/'/g, "\\'")}', '${(lead.catatanAdmin || "").replace(/'/g, "\\'")}')"
+                onclick="openEditLeadModal('${lead.idLead}')"
                 class="px-2.5 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-bold text-[11px] transition shadow-sm flex items-center gap-1 mx-auto"
               >
                 <i class="fa-solid fa-pen-to-square"></i>
@@ -1183,17 +1191,20 @@
         select.value = selectedValue || "";
       }
 
-      function openEditLeadModal(idLead, namaSiswa, unitTujuan, currentStatus, currentKategori, currentLevel, currentDiscount, currentNotes) {
-        document.getElementById("editLeadIdHidden").value = idLead;
-        document.getElementById("modalLeadId").textContent = idLead;
-        document.getElementById("modalNamaSiswa").textContent = namaSiswa;
-        document.getElementById("modalUnitTujuan").textContent = unitTujuan;
+      function openEditLeadModal(idLead) {
+        const lead = rawLeadsData.find(l => l.idLead === idLead);
+        if (!lead) return;
 
-        document.getElementById("editStatusLead").value = currentStatus || "Leads Cold";
-        document.getElementById("editKategoriPendaftaran").value = currentKategori || "Siswa Baru";
-        document.getElementById("editLevelTarget").value = currentLevel || "";
-        populateDiscountOptions(currentDiscount || "");
-        document.getElementById("editCatatanAdmin").value = currentNotes || "";
+        document.getElementById("editLeadIdHidden").value = lead.idLead;
+        document.getElementById("modalLeadId").textContent = lead.idLead;
+        document.getElementById("modalNamaSiswa").textContent = lead.namaSiswa || "-";
+        document.getElementById("modalUnitTujuan").textContent = lead.unitTujuan || "-";
+
+        document.getElementById("editStatusLead").value = lead.statusLead || "Leads Cold";
+        document.getElementById("editKategoriPendaftaran").value = lead.kategoriPendaftaran || "Siswa Baru";
+        document.getElementById("editLevelTarget").value = lead.levelTarget || "";
+        populateDiscountOptions(lead.discount || "");
+        document.getElementById("editCatatanAdmin").value = lead.catatanAdmin || "";
 
         document.getElementById("editLeadModal").classList.remove("hidden");
       }

@@ -447,7 +447,6 @@
     
 
     <!-- FOOTER -->
-    >
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
@@ -456,9 +455,20 @@
       const defaultSumber = ["Rekomendasi", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Lainnya"];
 
       // Toggle Mobile Menu
-      document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+          const menu = document.getElementById('mobile-menu');
+          if (menu) menu.classList.toggle('hidden');
+        });
+      }
+
+      // Auto close mobile menu on link click
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          const menu = document.getElementById('mobile-menu');
+          if (menu) menu.classList.add('hidden');
+        });
       });
 
       document.addEventListener("DOMContentLoaded", function () {
@@ -799,7 +809,8 @@
         if (btnText) btnText.textContent = "Kirim Data Buku Tamu";
         if (btnIcon) btnIcon.className = "fa-solid fa-paper-plane";
 
-        showToast("Terjadi kesalahan: " + (err.message || err.toString()), "error");
+        const errMsg = typeof err === "string" ? err : (err && err.message ? err.message : JSON.stringify(err));
+        showToast("Terjadi kesalahan: " + errMsg, "error");
       }
 
       function resetFormState() {
