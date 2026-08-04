@@ -1,0 +1,12 @@
+{
+  "name": "crm-cendekia-muda-guestbook",
+  "version": "2.0.0",
+  "description": "Buku Tamu Digital & Information Portal - Sekolah Islam Cendekia Muda (Vercel Deployment)",
+  "main": "index.html",
+  "scripts": {
+    "start": "servor ."
+  },
+  "dependencies": {
+    "googleapis": "^140.0.0"
+  }
+}
