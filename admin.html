@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Admission Analytics & CRM - Sekolah Islam Cendekia Muda</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Font Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- jQuery & DataTables CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <!-- Toastify CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Plus Jakarta Sans", "sans-serif"] },
+            colors: {
+              cm: { navy: "#0f172a", darkblue: "#1e293b", blue: "#0284c7", green: "#16a34a", darkgreen: "#064e3b", teal: "#0d9488", amber: "#f59e0b", pink: "#e11d48" }
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      body { font-family: "Plus Jakarta Sans", sans-serif; background-color: #f8fafc; }
+      .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      
+      .dataTables_wrapper .dataTables_length select, .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.35rem 0.6rem; font-size: 0.85rem; outline: none;
+      }
+      .dataTables_wrapper .dataTables_filter input:focus { border-color: #0284c7; box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2); }
+      table.dataTable tbody tr:hover { background-color: #f1f5f9 !important; }
+      .tab-btn.active { background-color: #0284c7; color: #ffffff; box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3); }
+
+      .stale-warning { animation: pulseWarning 2s infinite; }
+      @keyframes pulseWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    </style>
+  </head>
+  <body class="text-slate-800 antialiased min-h-screen flex flex-col selection:bg-sky-600 selection:text-white">
+
+    <!-- MAIN HEADER -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between py-3 gap-4">
+          
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl flex items-center justify-center p-1.5 shadow-lg border border-slate-700/50 flex-shrink-0 text-white text-2xl font-bold">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <h1 class="font-extrabold text-white text-lg sm:text-xl tracking-tight leading-none">Cendekia Muda</h1>
+                <span class="bg-emerald-500/20 text-emerald-300 text-[11px] font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30">Admission Dashboard</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Nurturing lifelong learners with global competence & Islamic values</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between md:justify-end gap-3 text-xs">
+            <div class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-slate-300 hidden sm:inline">Live Sync PPDB 2026/2027</span>
+            </div>
+
+            <button onclick="openDatabaseModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-lg border border-slate-700 transition flex items-center gap-1.5 font-medium">
+              <i class="fa-solid fa-database text-emerald-400"></i><span>Setting Database</span>
+            </button>
+            <button onclick="openPinModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-lg border border-slate-700 transition flex items-center gap-1.5 font-medium">
+              <i class="fa-solid fa-key text-amber-400"></i><span>PIN</span>
+            </button>
+            <button onclick="loadDashboardData()" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg border border-slate-700 transition" title="Refresh Data Database">
+              <i id="refreshIcon" class="fa-solid fa-rotate"></i>
+            </button>
+            <button onclick="handleLogout()" class="px-3 py-1.5 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded-lg border border-rose-500/30 transition flex items-center gap-1.5 font-medium">
+              <i class="fa-solid fa-right-from-bracket"></i><span class="hidden sm:inline">Logout</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[1600px] mx-auto flex items-center gap-2 py-2 overflow-x-auto custom-scrollbar text-xs font-semibold">
+        <button id="tabBtnExec" onclick="switchTab('exec')" class="tab-btn active px-4 py-2 rounded-xl text-slate-300 hover:text-white transition flex items-center gap-2">
+          <i class="fa-solid fa-chart-pie"></i><span>1. Executive Analytics & Marketing Attribution</span>
+        </button>
+        <button id="tabBtnCRM" onclick="switchTab('crm')" class="tab-btn px-4 py-2 rounded-xl text-slate-300 hover:text-white transition flex items-center gap-2">
+          <i class="fa-solid fa-users-gear"></i><span>2. CRM Lead Hub</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main id="mainApp" class="flex-grow max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-6">
+      
+      <!-- TAB 1: EXECUTIVE ANALYTICS & MARKETING ATTRIBUTION -->
+      <div id="tabContentExec" class="space-y-6">
+        
+        <!-- TOP FILTER BAR -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200/80 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex flex-wrap items-center gap-3">
+            
+            <!-- Quick Date Preset -->
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px] flex items-center gap-1">
+                <i class="fa-solid fa-calendar-days text-sky-600"></i> Periode:
+              </span>
+              <select id="filterPreset" onchange="handlePresetChange()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+                <option value="all">Semua Waktu</option>
+                <option value="today">Hari Ini</option>
+                <option value="last7">7 Hari Terakhir</option>
+                <option value="last30">30 Hari Terakhir</option>
+                <option value="thisMonth" selected>Bulan Ini</option>
+                <option value="thisYear">Tahun Ini (2026)</option>
+                <option value="custom">-- Custom Range --</option>
+              </select>
+            </div>
+
+            <!-- Date Range Picker Inputs -->
+            <div class="flex items-center gap-1.5 bg-slate-50 p-1 rounded-xl border border-slate-200">
+              <input 
+                type="date" 
+                id="filterStartDate" 
+                onchange="onCustomDateChange()"
+                class="bg-white border border-slate-300 rounded-lg px-2 py-1 text-slate-700 text-xs font-mono focus:outline-none focus:border-sky-500"
+              />
+              <span class="text-slate-400 font-bold">s/d</span>
+              <input 
+                type="date" 
+                id="filterEndDate" 
+                onchange="onCustomDateChange()"
+                class="bg-white border border-slate-300 rounded-lg px-2 py-1 text-slate-700 text-xs font-mono focus:outline-none focus:border-sky-500"
+              />
+            </div>
+
+            <!-- Unit Sekolah Filter -->
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px] text-emerald-700 flex items-center gap-1">
+                <i class="fa-solid fa-filter"></i> Unit:
+              </span>
+              <select id="filterUnit" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+                <option value="all">Semua Unit Sekolah</option>
+                <option value="daycare">Daycare</option>
+                <option value="tk">TK</option>
+                <option value="sd bandung">SD Bandung</option>
+                <option value="sd makassar">SD Makassar</option>
+                <option value="sd bilingual">SD Bilingual</option>
+                <option value="smp">SMP</option>
+                <option value="sma">SMA</option>
+              </select>
+            </div>
+
+            <!-- Status Seleksi Filter -->
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px]">Status:</span>
+              <select id="filterStatus" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+                <option value="all">Semua Status</option>
+                <option value="cold">Leads Cold</option>
+                <option value="warm">Leads Warm</option>
+                <option value="hot">Leads Hot</option>
+                <option value="form">Form</option>
+                <option value="daftar">Daftar</option>
+                <option value="konfirmasi">Konfirmasi</option>
+                <option value="cancel">Cancel</option>
+                <option value="mutasi">Mutasi</option>
+              </select>
+            </div>
+
+          </div>
+
+          <button onclick="resetFilters()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition font-medium flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left"></i> Reset Filter
+          </button>
+        </div>
+
+        <!-- EXECUTIVE SUMMARY KPI CARDS -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Target (T)</p>
+            <div class="flex items-baseline justify-between mt-1">
+              <h3 id="statTotalTarget" class="text-2xl font-extrabold text-slate-800">612</h3>
+              <span class="text-xs text-slate-400 font-medium">Kuota Keseluruhan</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border-l-4 border-l-sky-500 border-t border-r border-b border-slate-200 shadow-sm">
+            <p class="text-[11px] font-bold text-sky-600 uppercase tracking-wider">Leads &lt;Buku Tamu&gt;</p>
+            <div class="flex items-baseline justify-between mt-1">
+              <h3 id="statTotalLeads" class="text-2xl font-extrabold text-sky-600">0</h3>
+              <span class="text-xs text-slate-400 font-medium">Inkuiri / Tamu Masuk</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border-l-4 border-l-amber-500 border-t border-r border-b border-slate-200 shadow-sm">
+            <p class="text-[11px] font-bold text-amber-600 uppercase tracking-wider">Daftar &lt;Keu&gt;</p>
+            <div class="flex items-baseline justify-between mt-1">
+              <h3 id="statTotalDaftar" class="text-2xl font-extrabold text-amber-600">0</h3>
+              <span class="text-xs text-slate-400 font-medium">Bayar Pendaftaran</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border-l-4 border-l-indigo-600 border-t border-r border-b border-slate-200 shadow-sm">
+            <p class="text-[11px] font-bold text-indigo-600 uppercase tracking-wider">Konfirmasi &lt;Keu&gt;</p>
+            <div class="flex items-baseline justify-between mt-1">
+              <h3 id="statTotalKonfirmasi" class="text-2xl font-extrabold text-indigo-600">0</h3>
+              <span class="text-xs text-slate-400 font-medium">Verifikasi Keuangan</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border-l-4 border-l-emerald-600 border-t border-r border-b border-slate-200 shadow-sm col-span-2 sm:col-span-1">
+            <p class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Form</p>
+            <div class="flex items-baseline justify-between mt-1">
+              <h3 id="statTotalForm" class="text-2xl font-extrabold text-emerald-600">0</h3>
+              <span class="text-xs text-slate-400 font-medium">Formulir Terisi</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 1: ADMISSION FUNNEL & TARGET TABLE -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-4 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-filter text-sky-600"></i> Admission Funnel</h2>
+                <span id="funnelFilterTag" class="text-[11px] bg-sky-100 text-sky-700 font-bold px-2.5 py-0.5 rounded-full">Filter Aktif</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-4">Perjalanan alur pendaftaran berdasarkan filter tanggal, unit, & status.</p>
+
+              <div class="space-y-3">
+                <div class="bg-sky-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
+                  <span>1. Leads &lt;buku tamu&gt;</span><span id="funnelCountLeads" class="text-sm">0</span>
+                </div>
+                <div class="bg-amber-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
+                  <span>2. Daftar &lt;keu&gt;</span><span id="funnelCountDaftar" class="text-sm">0</span>
+                </div>
+                <div class="bg-indigo-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
+                  <span>3. Konfirmasi &lt;keu&gt;</span><span id="funnelCountKonfirmasi" class="text-sm">0</span>
+                </div>
+                <div class="bg-emerald-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
+                  <span>4. Form</span><span id="funnelCountForm" class="text-sm">0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="font-semibold text-slate-600">Rasio Konversi (Leads → Form):</span>
+              <span id="funnelConversionRate" class="font-extrabold text-emerald-600 text-sm">0%</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-8 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
+              <div>
+                <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-table-cells text-emerald-600"></i> Tabel Pencapaian PPDB Per Unit Sekolah</h2>
+                <p class="text-xs text-slate-400">Unit, Level, Target (T), Leads, Existing, Daftar (D), Konfirmasi (K), % Capaian & Sisa Target</p>
+              </div>
+              <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                <span class="px-2 py-0.5 rounded bg-emerald-600 text-white">&ge; 80%</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-white">60-79%</span>
+                <span class="px-2 py-0.5 rounded bg-rose-600 text-white">&lt; 60%</span>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto custom-scrollbar">
+              <table class="w-full text-xs text-left">
+                <thead>
+                  <tr class="bg-slate-900 text-white font-semibold">
+                    <th class="p-2.5 rounded-l-lg">UNIT</th>
+                    <th class="p-2.5">LEVEL</th>
+                    <th class="p-2.5 text-center">TARGET</th>
+                    <th class="p-2.5 text-center text-sky-300">LEADS</th>
+                    <th class="p-2.5 text-center">EXISTING</th>
+                    <th class="p-2.5 text-center text-amber-300">DAFTAR</th>
+                    <th class="p-2.5 text-center text-indigo-300">KONFIRMASI</th>
+                    <th class="p-2.5 text-center">% CAPAIAN</th>
+                    <th class="p-2.5 text-center">SISA</th>
+                    <th class="p-2.5 text-center rounded-r-lg">% CAPAIAN (K/T)</th>
+                  </tr>
+                </thead>
+                <tbody id="unitAchievementTableBody" class="divide-y divide-slate-100 font-medium">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 2: MARKETING ATTRIBUTION CHANNELS -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+            <div>
+              <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-bullhorn text-emerald-600"></i> Performa Saluran Marketing (Attribution Channels)
+              </h2>
+              <p class="text-xs text-slate-400">Visualisasi perbandingan jumlah lead dari seluruh 9 saluran marketing (Termasuk nilai 0 & Tertinggi)</p>
+            </div>
+            
+            <div class="flex items-center gap-3 text-xs">
+              <div class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-trophy text-amber-500"></i>
+                <span>Saluran Tertinggi: <strong id="highestChannelText" class="text-emerald-800 font-extrabold">-</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative h-[340px] w-full">
+            <canvas id="chartMarketingChannels"></canvas>
+          </div>
+        </div>
+
+        <!-- ROW 3: DONUT CHART (UNIT DISTRIBUTION) & LINE CHART (TRENDS) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+            <div>
+              <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-1">
+                <i class="fa-solid fa-chart-pie text-sky-600"></i> Distribusi Lead Per Unit Sekolah
+              </h2>
+              <p class="text-xs text-slate-400 mb-4">Proporsi minat calon siswa berdasarkan unit tujuan.</p>
+              
+              <div class="relative h-[250px] w-full flex items-center justify-center">
+                <canvas id="chartDonutUnits"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+            <div>
+              <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-1">
+                <i class="fa-solid fa-chart-line text-indigo-600"></i> Tren Masuk Inkuiri Tamu (Timeline)
+              </h2>
+              <p class="text-xs text-slate-400 mb-4">Perkembangan jumlah tamu masuk berdasarkan tanggal & bulan.</p>
+              
+              <div class="relative h-[250px] w-full">
+                <canvas id="chartLineTrend"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: CRM LEAD HUB -->
+      <div id="tabContentCRM" class="hidden space-y-4">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-users-gear text-sky-600"></i> Data Lead Buku Tamu & Follow-Up Admin
+              </h2>
+              <p class="text-xs text-slate-400">Interactive 17-Column Data Table with Direct WhatsApp Launcher & Stale Lead Alerts (> 48 jam)</p>
+            </div>
+
+            <div class="flex items-center gap-3 text-xs">
+              <span id="staleBadgeCount" class="bg-rose-100 text-rose-700 font-bold px-3 py-1 rounded-full border border-rose-200 hidden flex items-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation text-rose-600 animate-bounce"></i>
+                <span id="staleCountText">0 Stale Leads (>48j)</span>
+              </span>
+              <span id="recordCountBadge" class="bg-sky-100 text-sky-700 font-bold px-3 py-1 rounded-full border border-sky-200">0 Data</span>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto custom-scrollbar pt-2">
+            <table id="crmLeadTable" class="w-full text-xs text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <th class="p-3">ID LEAD</th>
+                  <th class="p-3">WAKTU</th>
+                  <th class="p-3">NAMA SISWA</th>
+                  <th class="p-3">WHATSAPP</th>
+                  <th class="p-3">UNIT TUJUAN</th>
+                  <th class="p-3">KELAS</th>
+                  <th class="p-3">TGL LAHIR / UMUR</th>
+                  <th class="p-3">ASAL SEKOLAH</th>
+                  <th class="p-3">SUMBER INFO</th>
+                  <th class="p-3">STATUS LEAD</th>
+                  <th class="p-3">KATEGORI</th>
+                  <th class="p-3">LEVEL TARGET</th>
+                  <th class="p-3">DISCOUNT</th>
+                  <th class="p-3">CATATAN ADMIN</th>
+                  <th class="p-3 text-center">AKSI</th>
+                </tr>
+              </thead>
+              <tbody id="crmLeadTableBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-3 mt-auto">
+      <div class="max-w-[1600px] mx-auto px-4 text-center text-xs text-slate-400">&copy; 2026 Sekolah Islam Cendekia Muda - Admission CRM & Analytics System.</div>
+    </footer>
+
+    <!-- EDIT LEAD STATUS & DETAILS MODAL -->
+    <div id="editLeadModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+        
+        <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-user-pen"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold">Update Lead & Follow-Up Admin</h3>
+              <p id="modalLeadId" class="text-xs text-sky-400 font-mono"></p>
+            </div>
+          </div>
+          <button onclick="closeEditLeadModal()" class="text-slate-400 hover:text-white text-lg">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form onsubmit="handleUpdateLeadSubmit(event)" class="p-6 space-y-4">
+          <input type="hidden" id="editLeadIdHidden" />
+          
+          <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-500 font-medium">Nama Siswa:</span>
+              <span id="modalNamaSiswa" class="font-bold text-slate-800"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500 font-medium">Unit Tujuan:</span>
+              <span id="modalUnitTujuan" class="font-semibold text-sky-700"></span>
+            </div>
+          </div>
+
+          <div>
+            <label for="editStatusLead" class="block text-xs font-semibold text-slate-700 mb-1">
+              Status Lead <span class="text-rose-500">*</span>
+            </label>
+            <select id="editStatusLead" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="Leads Cold">Leads Cold</option>
+              <option value="Leads Warm">Leads Warm</option>
+              <option value="Leads Hot">Leads Hot</option>
+              <option value="Form">Form</option>
+              <option value="Daftar">Daftar</option>
+              <option value="Konfirmasi">Konfirmasi</option>
+              <option value="Cancel Setelah Daftar">Cancel Setelah Daftar</option>
+              <option value="Cancel Setelah Konfirmasi">Cancel Setelah Konfirmasi</option>
+              <option value="Mutasi - Daftar">Mutasi - Daftar</option>
+              <option value="Mutasi - Konfirmasi">Mutasi - Konfirmasi</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="editKategoriPendaftaran" class="block text-xs font-semibold text-slate-700 mb-1">
+                Kategori Pendaftaran
+              </label>
+              <select id="editKategoriPendaftaran" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500">
+                <option value="Siswa Baru">Siswa Baru</option>
+                <option value="Siswa Mutasi">Siswa Mutasi</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="editLevelTarget" class="block text-xs font-semibold text-slate-700 mb-1">
+                Level Target / Sub-Unit
+              </label>
+              <select id="editLevelTarget" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500">
+                <option value="">-- Pilih Level --</option>
+                <option value="Daycare">Daycare</option>
+                <option value="TK (PG)">TK (PG)</option>
+                <option value="TK-A">TK-A</option>
+                <option value="TK-B">TK-B</option>
+                <option value="SD Bandung (Reguler - Level 1)">SD Bandung (Reguler - Level 1)</option>
+                <option value="SD Bandung (Bilingual - Level 1)">SD Bandung (Bilingual - Level 1)</option>
+                <option value="SD Makassar (Level 1)">SD Makassar (Level 1)</option>
+                <option value="SMP (Level 7)">SMP (Level 7)</option>
+                <option value="SMA (Level 10)">SMA (Level 10)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="editDiscount" class="block text-xs font-semibold text-slate-700 mb-1">
+              Discount / Potongan Biaya
+            </label>
+            <select 
+              id="editDiscount" 
+              class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
+            >
+              <option value="">-- Tanpa Diskon --</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="editCatatanAdmin" class="block text-xs font-semibold text-slate-700 mb-1">
+              Catatan Admin / Follow-Up Log
+            </label>
+            <textarea 
+              id="editCatatanAdmin" 
+              rows="3" 
+              placeholder="Tuliskan catatan hasil follow up WhatsApp / telepon..."
+              class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-sky-500"
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeEditLeadModal()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-semibold">
+              Batal
+            </button>
+            <button type="submit" id="btnSaveLeadEdit" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow-md shadow-sky-600/20 flex items-center gap-1.5">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Simpan Perubahan</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- PIN SECURITY LOCK MODAL -->
+    <div id="authModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200">
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-white text-center">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3 text-2xl ring-4 ring-amber-500/10"><i class="fa-solid fa-lock"></i></div>
+          <h3 class="text-lg font-bold">Otentikasi Admin CRM</h3>
+          <p class="text-xs text-slate-300 mt-1">Masukkan PIN Admin untuk membuka CRM & Analytics</p>
+        </div>
+        <form onsubmit="handleAuthSubmit(event)" class="p-6 space-y-4">
+          <div>
+            <label for="authPinInput" class="block text-xs font-semibold text-slate-700 mb-1.5">PIN Admin / Password</label>
+            <input type="password" id="authPinInput" required placeholder="Masukkan PIN (Default: 123456)" class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-mono text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-sky-500" />
+          </div>
+          <button type="submit" id="btnAuthSubmit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-lg shadow-sky-600/20 transition flex items-center justify-center gap-2 text-sm">
+            <span>Masuk Dashboard</span><i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SETTING DATABASE MODAL -->
+    <div id="databaseModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+        <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold"><i class="fa-solid fa-database"></i></div>
+            <h3 class="text-sm font-bold">Konfigurasi Database Spreadsheet</h3>
+          </div>
+          <button onclick="closeDatabaseModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="p-6 space-y-4">
+          <div id="dbStatusBadgeBox" class="p-3 rounded-xl text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-600"></i> Terhubung langsung via Google Sheets API (Vercel Backend)
+          </div>
+          <div>
+            <label for="inputSpreadsheetId" class="block text-xs font-semibold text-slate-700 mb-1">Google Spreadsheet ID</label>
+            <input type="text" id="inputSpreadsheetId" readonly value="Terautentikasi via Environment Variable SPREADSHEET_ID" class="w-full px-3.5 py-2.5 bg-slate-100 border border-slate-300 rounded-xl text-xs font-mono text-slate-600" />
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeDatabaseModal()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-semibold">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GANTI PIN MODAL -->
+    <div id="pinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-200">
+        <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold"><i class="fa-solid fa-key"></i></div>
+            <h3 class="text-sm font-bold">Informasi PIN Admin</h3>
+          </div>
+          <button onclick="closePinModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="p-6 space-y-4 text-xs">
+          <p class="text-slate-600">PIN Admin digunakan untuk memverifikasi request ke Vercel Serverless Endpoint. Untuk mengubah PIN server, perbarui variabel lingkungan <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-800 font-mono">ADMIN_PIN</code> di Vercel Dashboard.</p>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closePinModal()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-semibold">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let adminPin = sessionStorage.getItem("adminToken") || "";
+      let rawLeadsData = [];
+      let crmDataTable = null;
+      let chartChannelsInstance = null;
+      let chartDonutInstance = null;
+      let chartLineInstance = null;
+
+      const masterMarketingChannels = [
+        { name: "Word of Mouth / Rekomendasi", key: "wom", matchKeys: ["word of mouth", "rekomendasi", "teman", "keluarga", "kerabat", "mulut"], color: "#0284c7" },
+        { name: "Instagram", key: "instagram", matchKeys: ["instagram", "ig"], color: "#e11d48" },
+        { name: "Digital Ads (Google/Meta)", key: "ads", matchKeys: ["ads", "iklan", "facebook", "fb", "meta", "google"], color: "#38bdf8" },
+        { name: "Brosur / Spanduk / Baliho", key: "brosur", matchKeys: ["brosur", "spanduk", "baliho", "banner", "flyer"], color: "#16a34a" },
+        { name: "Website Resmi", key: "website", matchKeys: ["website", "web", "site"], color: "#0d9488" },
+        { name: "Kecerdasan Buatan (AI)", key: "ai", matchKeys: ["ai", "chatgpt", "gemini", "copilot", "kecerdasan"], color: "#8b5cf6" },
+        { name: "TikTok", key: "tiktok", matchKeys: ["tiktok", "tt"], color: "#0f172a" },
+        { name: "YouTube", key: "youtube", matchKeys: ["youtube", "yt"], color: "#dc2626" },
+        { name: "Lainnya", key: "lainnya", matchKeys: ["lainnya", "other"], color: "#64748b" }
+      ];
+
+      const masterUnitsConfig = [
+        { name: "Daycare Cendekia Muda", level: "Daycare", target: 40, matchKeys: ["daycare"] },
+        { name: "TK Cendekia Muda (PG)", level: "TK (PG)", target: 20, matchKeys: ["pg", "playgroup"] },
+        { name: "TK Cendekia Muda (TK-A)", level: "TK-A", target: 80, matchKeys: ["tk-a", "tk a"] },
+        { name: "TK Cendekia Muda (TK-B)", level: "TK-B", target: 120, matchKeys: ["tk-b", "tk b"] },
+        { name: "SD Cendekia Muda Bandung (Reguler)", level: "SD Bandung (Reguler)", target: 84, matchKeys: ["sd bandung", "sd reguler"] },
+        { name: "SD Cendekia Muda Bandung (Bilingual)", level: "SD Bandung (Bilingual)", target: 28, matchKeys: ["bilingual", "sd bilingual"] },
+        { name: "SD Cendekia Muda Makassar", level: "SD Makassar", target: 40, matchKeys: ["sd makassar", "makassar"] },
+        { name: "SMP Cendekia Muda", level: "SMP (Level 7)", target: 100, matchKeys: ["smp"] },
+        { name: "SMA Cendekia Muda", level: "SMA (Level 10)", target: 100, matchKeys: ["sma"] }
+      ];
+
+      let masterDataDiskonOptions = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
+
+      document.addEventListener("DOMContentLoaded", function() {
+        initDatePreset();
+        checkAuthToken();
+      });
+
+      function initDatePreset() {
+        handlePresetChange();
+      }
+
+      function handlePresetChange() {
+        const preset = document.getElementById("filterPreset").value;
+        const now = new Date();
+
+        function formatDateInput(d) {
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          return y + '-' + m + '-' + day;
+        }
+
+        let startD = new Date();
+        let endD = new Date();
+
+        if (preset === 'all') {
+          document.getElementById("filterStartDate").value = "";
+          document.getElementById("filterEndDate").value = "";
+          applyFilters();
+          return;
+        } else if (preset === 'today') {
+          startD = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          endD = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+        } else if (preset === 'last7') {
+          startD = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        } else if (preset === 'last30') {
+          startD = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        } else if (preset === 'thisMonth') {
+          startD = new Date(now.getFullYear(), now.getMonth(), 1);
+        } else if (preset === 'thisYear') {
+          startD = new Date(now.getFullYear(), 0, 1);
+        }
+
+        if (preset !== 'custom') {
+          document.getElementById("filterStartDate").value = formatDateInput(startD);
+          document.getElementById("filterEndDate").value = formatDateInput(endD);
+        }
+        applyFilters();
+      }
+
+      function onCustomDateChange() {
+        document.getElementById("filterPreset").value = "custom";
+        applyFilters();
+      }
+
+      function switchTab(tabId) {
+        document.getElementById("tabBtnExec").classList.remove("active");
+        document.getElementById("tabBtnCRM").classList.remove("active");
+        document.getElementById("tabContentExec").classList.add("hidden");
+        document.getElementById("tabContentCRM").classList.add("hidden");
+
+        if (tabId === 'crm') {
+          document.getElementById("tabBtnCRM").classList.add("active");
+          document.getElementById("tabContentCRM").classList.remove("hidden");
+        } else {
+          document.getElementById("tabBtnExec").classList.add("active");
+          document.getElementById("tabContentExec").classList.remove("hidden");
+        }
+      }
+
+      function checkAuthToken() {
+        if (adminPin) {
+          document.getElementById("authModal").classList.add("hidden");
+          loadDashboardData();
+        } else {
+          document.getElementById("authModal").classList.remove("hidden");
+        }
+      }
+
+      function handleAuthSubmit(e) {
+        e.preventDefault();
+        const pin = document.getElementById("authPinInput").value.trim();
+        if (!pin) {
+          showToast("Masukkan PIN Admin terlebih dahulu", "error");
+          return;
+        }
+
+        adminPin = pin;
+        fetch(`/api/dashboard?pin=${encodeURIComponent(adminPin)}`, {
+          headers: { 'x-admin-pin': adminPin }
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data && (data.status === 'success' || data.status === 'demo')) {
+              sessionStorage.setItem("adminToken", adminPin);
+              document.getElementById("authModal").classList.add("hidden");
+              showToast("Autentikasi Berhasil!", "success");
+              onDashboardDataLoaded(data);
+            } else {
+              showToast(data ? data.message : "PIN Admin Salah!", "error");
+            }
+          })
+          .catch(err => {
+            showToast("Gagal memverifikasi PIN: " + err.toString(), "error");
+          });
+      }
+
+      function handleLogout() {
+        sessionStorage.removeItem("adminToken");
+        adminPin = "";
+        showToast("Dashboard terkunci.", "info");
+        checkAuthToken();
+      }
+
+      function loadDashboardData() {
+        const refreshIcon = document.getElementById("refreshIcon");
+        if (refreshIcon) refreshIcon.classList.add("animate-spin");
+
+        fetch(`/api/dashboard?pin=${encodeURIComponent(adminPin)}`, {
+          headers: { 'x-admin-pin': adminPin }
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (refreshIcon) refreshIcon.classList.remove("animate-spin");
+            if (data && (data.status === 'success' || data.status === 'demo')) {
+              onDashboardDataLoaded(data);
+            } else {
+              showToast(data ? data.message : "PIN Admin Salah", "error");
+              handleLogout();
+            }
+          })
+          .catch(err => {
+            if (refreshIcon) refreshIcon.classList.remove("animate-spin");
+            showToast("Terjadi kesalahan sistem: " + err.toString(), "error");
+          });
+      }
+
+      function onDashboardDataLoaded(res) {
+        rawLeadsData = res.leads || [];
+        if (res.masterData && res.masterData.discountList && res.masterData.discountList.length > 0) {
+          masterDataDiskonOptions = res.masterData.discountList;
+        }
+        applyFilters();
+      }
+
+      function parseLeadDate(timestampStr) {
+        if (!timestampStr) return null;
+        try {
+          const parts = timestampStr.split(' ');
+          const dateParts = parts[0].split('/');
+          if (dateParts.length < 3) return null;
+          const day = parseInt(dateParts[0], 10);
+          const month = parseInt(dateParts[1], 10) - 1;
+          const year = parseInt(dateParts[2], 10);
+          const timeParts = parts[1] ? parts[1].split(':') : [0, 0, 0];
+          return new Date(year, month, day, parseInt(timeParts[0], 10) || 0, parseInt(timeParts[1], 10) || 0, parseInt(timeParts[2], 10) || 0);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function applyFilters() {
+        const unitVal = document.getElementById("filterUnit").value;
+        const statusVal = document.getElementById("filterStatus").value;
+        const startVal = document.getElementById("filterStartDate").value;
+        const endVal = document.getElementById("filterEndDate").value;
+
+        let filtered = rawLeadsData;
+
+        if (startVal || endVal) {
+          const startDate = startVal ? new Date(startVal + "T00:00:00") : null;
+          const endDate = endVal ? new Date(endVal + "T23:59:59") : null;
+
+          filtered = filtered.filter(l => {
+            const d = parseLeadDate(l.timestamp);
+            if (!d) return true;
+            if (startDate && d < startDate) return false;
+            if (endDate && d > endDate) return false;
+            return true;
+          });
+        }
+
+        if (unitVal !== "all") {
+          filtered = filtered.filter(l => l.unitTujuan && l.unitTujuan.toLowerCase().includes(unitVal.toLowerCase()));
+        }
+
+        if (statusVal !== "all") {
+          filtered = filtered.filter(l => l.statusLead && l.statusLead.toLowerCase().includes(statusVal.toLowerCase()));
+        }
+
+        renderFilteredMetrics(filtered, unitVal);
+        renderAchievementTable(filtered);
+        renderCRMTable(filtered);
+        renderMarketingCharts(filtered);
+      }
+
+      function renderFilteredMetrics(leads, selectedUnitVal) {
+        const totalLeads = leads.length;
+        
+        let totalDaftar = 0;
+        let totalKonfirmasi = 0;
+        let totalForm = 0;
+
+        leads.forEach(l => {
+          const s = (l.statusLead || "").toLowerCase();
+          if (s.includes("daftar") || s.includes("bayar")) totalDaftar++;
+          if (s.includes("konfirmasi") || s.includes("verifikasi")) totalKonfirmasi++;
+          if (s.includes("form") || s.includes("closing")) totalForm++;
+        });
+
+        let targetQuota = 612;
+        if (selectedUnitVal !== "all") {
+          const matchUnit = masterUnitsConfig.find(u => u.matchKeys.some(k => k.includes(selectedUnitVal.toLowerCase()) || selectedUnitVal.toLowerCase().includes(k)));
+          if (matchUnit) targetQuota = matchUnit.target;
+        }
+
+        document.getElementById("statTotalTarget").textContent = targetQuota;
+        document.getElementById("statTotalLeads").textContent = totalLeads;
+        document.getElementById("statTotalDaftar").textContent = totalDaftar;
+        document.getElementById("statTotalKonfirmasi").textContent = totalKonfirmasi;
+        document.getElementById("statTotalForm").textContent = totalForm;
+
+        document.getElementById("funnelCountLeads").textContent = totalLeads;
+        document.getElementById("funnelCountDaftar").textContent = totalDaftar;
+        document.getElementById("funnelCountKonfirmasi").textContent = totalKonfirmasi;
+        document.getElementById("funnelCountForm").textContent = totalForm;
+
+        const convRate = totalLeads > 0 ? Math.round((totalForm / totalLeads) * 100) : 0;
+        document.getElementById("funnelConversionRate").textContent = convRate + "%";
+      }
+
+      function resetFilters() {
+        document.getElementById("filterPreset").value = "all";
+        document.getElementById("filterStartDate").value = "";
+        document.getElementById("filterEndDate").value = "";
+        document.getElementById("filterUnit").value = "all";
+        document.getElementById("filterStatus").value = "all";
+        applyFilters();
+      }
+
+      function renderAchievementTable(leads) {
+        const tbody = document.getElementById("unitAchievementTableBody");
+        tbody.innerHTML = "";
+
+        let grandTarget = 0, grandLeads = 0, grandExisting = 0, grandDaftar = 0, grandKonfirmasi = 0;
+
+        masterUnitsConfig.forEach((cfg) => {
+          const unitLeads = leads.filter(l => {
+            const ut = (l.unitTujuan || "").toLowerCase();
+            const lt = (l.levelTarget || "").toLowerCase();
+            return cfg.matchKeys.some(k => ut.includes(k) || lt.includes(k));
+          });
+
+          const cntLeads = unitLeads.length;
+          const cntExisting = 0;
+          const cntDaftar = unitLeads.filter(l => (l.statusLead || "").toLowerCase().includes("daftar") || (l.statusLead || "").toLowerCase().includes("bayar")).length;
+          const cntKonfirmasi = unitLeads.filter(l => (l.statusLead || "").toLowerCase().includes("konfirmasi") || (l.statusLead || "").toLowerCase().includes("verifikasi") || (l.statusLead || "").toLowerCase().includes("closing")).length;
+
+          grandTarget += cfg.target;
+          grandLeads += cntLeads;
+          grandExisting += cntExisting;
+          grandDaftar += cntDaftar;
+          grandKonfirmasi += cntKonfirmasi;
+
+          const capDaftarPct = cfg.target > 0 ? Math.round((cntKonfirmasi / cfg.target) * 100) : 0;
+          const capKonfPct = cfg.target > 0 ? Math.round((cntKonfirmasi / cfg.target) * 100) : 0;
+          const sisaTarget = Math.max(0, cfg.target - cntKonfirmasi);
+
+          let badgeClass = "bg-rose-600 text-white";
+          if (capDaftarPct >= 80) badgeClass = "bg-emerald-600 text-white";
+          else if (capDaftarPct >= 60) badgeClass = "bg-amber-500 text-white";
+
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-slate-50";
+          tr.innerHTML = `
+            <td class="p-2.5 font-bold text-slate-800">${cfg.name}</td>
+            <td class="p-2.5 text-slate-500">${cfg.level}</td>
+            <td class="p-2.5 text-center font-bold">${cfg.target}</td>
+            <td class="p-2.5 text-center font-bold text-sky-600">${cntLeads}</td>
+            <td class="p-2.5 text-center text-slate-500">${cntExisting}</td>
+            <td class="p-2.5 text-center font-bold text-amber-600">${cntDaftar}</td>
+            <td class="p-2.5 text-center font-bold text-indigo-600">${cntKonfirmasi}</td>
+            <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badgeClass}">${capDaftarPct}%</span></td>
+            <td class="p-2.5 text-center font-bold text-slate-600">${sisaTarget}</td>
+            <td class="p-2.5 text-center font-bold text-emerald-700">${capKonfPct}%</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const grandCapPct = grandTarget > 0 ? Math.round((grandKonfirmasi / grandTarget) * 100) : 0;
+        const grandKonfPct = grandTarget > 0 ? Math.round((grandKonfirmasi / grandTarget) * 100) : 0;
+        const grandSisa = Math.max(0, grandTarget - grandKonfirmasi);
+
+        const grandTr = document.createElement("tr");
+        grandTr.className = "bg-slate-900 text-white font-bold text-xs";
+        grandTr.innerHTML = `
+          <td class="p-2.5 rounded-l-lg">Grand Total (Hasil Filter)</td>
+          <td class="p-2.5">-</td>
+          <td class="p-2.5 text-center">${grandTarget}</td>
+          <td class="p-2.5 text-center text-sky-300">${grandLeads}</td>
+          <td class="p-2.5 text-center">${grandExisting}</td>
+          <td class="p-2.5 text-center text-amber-300">${grandDaftar}</td>
+          <td class="p-2.5 text-center text-indigo-300">${grandKonfirmasi}</td>
+          <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-900 font-extrabold text-[10px]">${grandCapPct}%</span></td>
+          <td class="p-2.5 text-center">${grandSisa}</td>
+          <td class="p-2.5 text-center text-emerald-300 rounded-r-lg">${grandKonfPct}%</td>
+        `;
+        tbody.appendChild(grandTr);
+      }
+
+      function renderCRMTable(leads) {
+        document.getElementById("recordCountBadge").textContent = leads.length + " Data";
+
+        if (crmDataTable) {
+          crmDataTable.destroy();
+        }
+
+        const tbody = document.getElementById("crmLeadTableBody");
+        tbody.innerHTML = "";
+
+        let staleCount = 0;
+        const now = new Date();
+
+        leads.forEach(lead => {
+          const tr = document.createElement("tr");
+          
+          let waClean = lead.noWa ? String(lead.noWa).replace(/\D/g, '') : '';
+          if (waClean.startsWith('08')) waClean = '628' + waClean.substring(2);
+
+          let isStale = false;
+          if (lead.timestamp && (lead.statusLead === "Leads Cold" || lead.statusLead === "Leads Warm")) {
+            try {
+              const leadDate = parseLeadDate(lead.timestamp);
+              if (leadDate) {
+                const diffHours = (now - leadDate) / (1000 * 60 * 60);
+                if (diffHours > 48) {
+                  isStale = true;
+                  staleCount++;
+                }
+              }
+            } catch (e) {}
+          }
+
+          let statusBadgeClass = "bg-slate-100 text-slate-700 border-slate-300";
+          if (lead.statusLead && lead.statusLead.includes("Cold")) statusBadgeClass = "bg-blue-100 text-blue-800 border-blue-200";
+          else if (lead.statusLead && lead.statusLead.includes("Warm")) statusBadgeClass = "bg-amber-100 text-amber-800 border-amber-200";
+          else if (lead.statusLead && lead.statusLead.includes("Hot")) statusBadgeClass = "bg-rose-100 text-rose-800 border-rose-200";
+          else if (lead.statusLead && lead.statusLead.includes("Daftar")) statusBadgeClass = "bg-emerald-100 text-emerald-800 border-emerald-200";
+          else if (lead.statusLead && (lead.statusLead.includes("Konfirmasi") || lead.statusLead.includes("Closing"))) statusBadgeClass = "bg-indigo-100 text-indigo-800 border-indigo-200";
+
+          const waMessage = encodeURIComponent("Assalamu'alaikum Ayah/Bunda " + lead.namaSiswa + ", perkenalkan kami dari Tim Admisi Sekolah Islam Cendekia Muda. Mengenai pendaftaran ID: " + lead.idLead + "...");
+
+          tr.className = isStale ? "bg-rose-50/50 hover:bg-rose-100/50 transition" : "hover:bg-slate-50 transition";
+
+          tr.innerHTML = `
+            <td class="p-3 font-mono font-bold text-sky-600 text-[11px]">
+              ${lead.idLead}
+              ${isStale ? '<span class="ml-1 inline-block text-rose-500 stale-warning" title="Stale Lead: >48 jam belum di-follow up!"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}
+            </td>
+            <td class="p-3 text-slate-500 text-[11px]">${lead.timestamp}</td>
+            <td class="p-3 font-bold text-slate-800">${lead.namaSiswa}</td>
+            <td class="p-3">
+              <a href="https://wa.me/${waClean}?text=${waMessage}" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-mono rounded-lg border border-emerald-200 transition font-medium text-xs">
+                <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
+                <span>${lead.noWa}</span>
+              </a>
+            </td>
+            <td class="p-3 font-medium text-slate-700">${lead.unitTujuan}</td>
+            <td class="p-3 text-slate-500">${lead.kelasSaatIni || "-"}</td>
+            <td class="p-3 text-slate-500 text-[11px]">${lead.tanggalLahir ? lead.tanggalLahir + '<br/><span class="text-sky-700 font-semibold">(' + lead.umur + ')</span>' : (lead.umur || '-')}</td>
+            <td class="p-3 text-slate-500">${lead.asalSekolah || "-"}</td>
+            <td class="p-3 text-slate-500 text-[11px]">${lead.sumberInfo} ${lead.sumberLainnya ? '('+lead.sumberLainnya+')' : ''}</td>
+            <td class="p-3">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold border ${statusBadgeClass}">
+                ${lead.statusLead || 'Leads Cold'}
+              </span>
+            </td>
+            <td class="p-3 text-slate-700 font-semibold text-[11px]">${lead.kategoriPendaftaran || "Siswa Baru"}</td>
+            <td class="p-3 text-sky-700 font-semibold text-[11px]">${lead.levelTarget || "-"}</td>
+            <td class="p-3 text-emerald-700 font-semibold text-[11px]">${lead.discount || "-"}</td>
+            <td class="p-3 text-slate-600 max-w-xs truncate" title="${lead.catatanAdmin}">${lead.catatanAdmin || "-"}</td>
+            <td class="p-3 text-center">
+              <button 
+                onclick="openEditLeadModal('${lead.idLead}', '${(lead.namaSiswa || '').replace(/'/g, "\\'")}', '${lead.unitTujuan}', '${lead.statusLead}', '${lead.kategoriPendaftaran || 'Siswa Baru'}', '${lead.levelTarget || ''}', '${(lead.discount || '').replace(/'/g, "\\'")}', '${(lead.catatanAdmin || "").replace(/'/g, "\\'")}')"
+                class="px-2.5 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-bold text-[11px] transition shadow-sm flex items-center gap-1 mx-auto"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Edit</span>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const staleBadge = document.getElementById("staleBadgeCount");
+        if (staleCount > 0) {
+          staleBadge.classList.remove("hidden");
+          document.getElementById("staleCountText").textContent = staleCount + " Stale Leads (>48j)";
+        } else {
+          staleBadge.classList.add("hidden");
+        }
+
+        crmDataTable = $('#crmLeadTable').DataTable({
+          pageLength: 10,
+          language: {
+            search: "Cari Lead:",
+            lengthMenu: "Tampilkan _MENU_ data",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ lead",
+            paginate: { first: "«", last: "»", next: "›", previous: "‹" }
+          }
+        });
+      }
+
+      function renderMarketingCharts(leads) {
+        const channelCounts = {};
+        masterMarketingChannels.forEach(ch => { channelCounts[ch.key] = 0; });
+
+        leads.forEach(l => {
+          const src = (l.sumberInfo || "").toLowerCase();
+          masterMarketingChannels.forEach(ch => {
+            const isMatch = ch.matchKeys.some(k => src.includes(k.toLowerCase()));
+            if (isMatch) {
+              channelCounts[ch.key]++;
+            }
+          });
+        });
+
+        const labelsBar = masterMarketingChannels.map(ch => ch.name);
+        const dataBar = masterMarketingChannels.map(ch => channelCounts[ch.key]);
+        const colorsBar = masterMarketingChannels.map(ch => ch.color);
+
+        let maxVal = -1;
+        let maxChannelName = "-";
+        masterMarketingChannels.forEach(ch => {
+          if (channelCounts[ch.key] > maxVal) {
+            maxVal = channelCounts[ch.key];
+            maxChannelName = ch.name + " (" + maxVal + " Lead)";
+          }
+        });
+        document.getElementById("highestChannelText").textContent = maxVal > 0 ? maxChannelName : "Belum ada data";
+
+        const ctxBar = document.getElementById("chartMarketingChannels").getContext("2d");
+        if (chartChannelsInstance) chartChannelsInstance.destroy();
+
+        chartChannelsInstance = new Chart(ctxBar, {
+          type: 'bar',
+          data: {
+            labels: labelsBar,
+            datasets: [{
+              label: 'Jumlah Lead Inkuiri',
+              data: dataBar,
+              backgroundColor: colorsBar,
+              borderRadius: 8,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.raw === 0 ? ' Total: 0 Lead (Belum Ada Inkuiri)' : ' Total: ' + context.raw + ' Lead';
+                  }
+                }
+              }
+            },
+            scales: {
+              x: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 } },
+              y: { ticks: { font: { family: 'Plus Jakarta Sans', weight: '600', size: 11 } } }
+            }
+          }
+        });
+
+        const unitCounts = { "Daycare": 0, "TK": 0, "SD Bandung": 0, "SD Makassar": 0, "SD Bilingual": 0, "SMP": 0, "SMA": 0 };
+        leads.forEach(l => {
+          const u = (l.unitTujuan || "").toLowerCase();
+          Object.keys(unitCounts).forEach(k => {
+            if (u.includes(k.toLowerCase())) unitCounts[k]++;
+          });
+        });
+
+        const ctxDonut = document.getElementById("chartDonutUnits").getContext("2d");
+        if (chartDonutInstance) chartDonutInstance.destroy();
+
+        chartDonutInstance = new Chart(ctxDonut, {
+          type: 'doughnut',
+          data: {
+            labels: Object.keys(unitCounts),
+            datasets: [{
+              data: Object.values(unitCounts),
+              backgroundColor: ['#0284c7', '#22c55e', '#f59e0b', '#8b5cf6', '#0d9488', '#e11d48', '#0f172a']
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'right', labels: { font: { size: 11 } } } }
+          }
+        });
+
+        const trendMap = {};
+        leads.forEach(l => {
+          if (l.timestamp) {
+            const dateStr = l.timestamp.split(' ')[0];
+            trendMap[dateStr] = (trendMap[dateStr] || 0) + 1;
+          }
+        });
+
+        const trendLabels = Object.keys(trendMap).length > 0 ? Object.keys(trendMap) : ["31/07/2026", "08/03/2026", "08/04/2026"];
+        const trendData = Object.keys(trendMap).length > 0 ? Object.values(trendMap) : [1, 1, 1];
+
+        const ctxLine = document.getElementById("chartLineTrend").getContext("2d");
+        if (chartLineInstance) chartLineInstance.destroy();
+
+        chartLineInstance = new Chart(ctxLine, {
+          type: 'line',
+          data: {
+            labels: trendLabels,
+            datasets: [{
+              label: 'Masuk Buku Tamu',
+              data: trendData,
+              borderColor: '#0284c7',
+              backgroundColor: 'rgba(2, 132, 199, 0.1)',
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: '#0284c7'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 } } }
+          }
+        });
+      }
+
+      function populateDiscountOptions(selectedValue) {
+        const select = document.getElementById("editDiscount");
+        select.innerHTML = '<option value="">-- Tanpa Diskon --</option>';
+
+        const allOpts = [...masterDataDiskonOptions];
+        if (selectedValue && !allOpts.includes(selectedValue)) {
+          allOpts.push(selectedValue);
+        }
+
+        allOpts.forEach(opt => {
+          if (!opt) return;
+          const optionEl = document.createElement("option");
+          optionEl.value = opt;
+          optionEl.textContent = opt;
+          select.appendChild(optionEl);
+        });
+
+        select.value = selectedValue || "";
+      }
+
+      function openEditLeadModal(idLead, namaSiswa, unitTujuan, currentStatus, currentKategori, currentLevel, currentDiscount, currentNotes) {
+        document.getElementById("editLeadIdHidden").value = idLead;
+        document.getElementById("modalLeadId").textContent = idLead;
+        document.getElementById("modalNamaSiswa").textContent = namaSiswa;
+        document.getElementById("modalUnitTujuan").textContent = unitTujuan;
+
+        document.getElementById("editStatusLead").value = currentStatus || "Leads Cold";
+        document.getElementById("editKategoriPendaftaran").value = currentKategori || "Siswa Baru";
+        document.getElementById("editLevelTarget").value = currentLevel || "";
+        populateDiscountOptions(currentDiscount || "");
+        document.getElementById("editCatatanAdmin").value = currentNotes || "";
+
+        document.getElementById("editLeadModal").classList.remove("hidden");
+      }
+
+      function closeEditLeadModal() { document.getElementById("editLeadModal").classList.add("hidden"); }
+
+      function handleUpdateLeadSubmit(e) {
+        e.preventDefault();
+        const idLead = document.getElementById("editLeadIdHidden").value;
+        const newStatus = document.getElementById("editStatusLead").value;
+        const newKategori = document.getElementById("editKategoriPendaftaran").value;
+        const newLevel = document.getElementById("editLevelTarget").value;
+        const newDiscount = document.getElementById("editDiscount").value.trim();
+        const newNotes = document.getElementById("editCatatanAdmin").value.trim();
+
+        const btn = document.getElementById("btnSaveLeadEdit");
+        btn.disabled = true;
+
+        fetch('/api/update-lead', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-pin': adminPin
+          },
+          body: JSON.stringify({
+            pin: adminPin,
+            idLead: idLead,
+            statusLead: newStatus,
+            catatanAdmin: newNotes,
+            kategoriPendaftaran: newKategori,
+            levelTarget: newLevel,
+            discount: newDiscount
+          })
+        })
+          .then(res => res.json())
+          .then(res => {
+            btn.disabled = false;
+            if (res && res.status === "success") {
+              showToast(res.message, "success");
+              const targetItem = rawLeadsData.find(i => i.idLead === idLead);
+              if (targetItem) {
+                targetItem.statusLead = newStatus;
+                targetItem.kategoriPendaftaran = newKategori;
+                targetItem.levelTarget = newLevel;
+                targetItem.discount = newDiscount;
+                targetItem.catatanAdmin = newNotes;
+                if (res.terakhirDiperbarui) targetItem.lastUpdated = res.terakhirDiperbarui;
+              }
+              closeEditLeadModal();
+              applyFilters();
+            } else {
+              showToast(res ? res.message : "Gagal memperbarui lead", "error");
+            }
+          })
+          .catch(err => {
+            btn.disabled = false;
+            showToast("Gagal memperbarui: " + err.toString(), "error");
+          });
+      }
+
+      function openDatabaseModal() {
+        document.getElementById("databaseModal").classList.remove("hidden");
+      }
+
+      function closeDatabaseModal() { document.getElementById("databaseModal").classList.add("hidden"); }
+
+      function openPinModal() { document.getElementById("pinModal").classList.remove("hidden"); }
+      function closePinModal() { document.getElementById("pinModal").classList.add("hidden"); }
+
+      function showToast(message, type) {
+        Toastify({
+          text: message, duration: 4000, close: true, gravity: "top", position: "right", stopOnFocus: true,
+          style: {
+            background: type === "success" ? "linear-gradient(to right, #059669, #10B981)" : type === "info" ? "linear-gradient(to right, #0284c7, #38bdf8)" : "linear-gradient(to right, #dc2626, #ef4444)",
+            borderRadius: "0.75rem", fontWeight: "600", boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
+          }
+        }).showToast();
+      }
+    </script>
+  </body>
+</html>
