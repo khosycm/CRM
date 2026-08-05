@@ -11,7 +11,9 @@ export default async function handler(req, res) {
   }
 
   const defaultUnits = ["Daycare", "TK", "SD Bandung", "SD Makassar", "SD Bilingual", "SMP", "SMA"];
-  const defaultSumber = ["Word of Mouth", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Lainnya"];
+  const defaultStatus = ["Leads Cold", "Leads Warm", "Leads Hot", "Form", "Daftar", "Konfirmasi", "Cancel Setelah Daftar", "Cancel Setelah Konfirmasi", "Mutasi - Daftar", "Mutasi - Konfirmasi"];
+  const defaultSumber = ["Rekomendasi", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Lainnya"];
+  const defaultDiscount = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
 
   try {
     const spreadsheetId = process.env.SPREADSHEET_ID;
@@ -22,7 +24,9 @@ export default async function handler(req, res) {
       return res.status(200).json({
         status: 'fallback',
         units: defaultUnits,
-        sumberInfo: defaultSumber
+        statusList: defaultStatus,
+        sumberInfo: defaultSumber,
+        discountList: defaultDiscount
       });
     }
 
@@ -36,31 +40,42 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: 'MasterData!A2:C100',
+      range: 'MasterData!A2:D100',
     });
 
     const rows = response.data.values || [];
     const units = [];
+    const statusList = [];
     const sumbers = [];
+    const discounts = [];
 
     rows.forEach(row => {
       const u = String(row[0] || '').trim();
+      const st = String(row[1] || '').trim();
       const s = String(row[2] || '').trim();
+      const d = String(row[3] || '').trim();
+
       if (u && !units.includes(u)) units.push(u);
+      if (st && !statusList.includes(st)) statusList.push(st);
       if (s && !sumbers.includes(s)) sumbers.push(s);
+      if (d && !discounts.includes(d)) discounts.push(d);
     });
 
     return res.status(200).json({
       status: 'success',
       units: units.length > 0 ? units : defaultUnits,
-      sumberInfo: sumbers.length > 0 ? sumbers : defaultSumber
+      statusList: statusList.length > 0 ? statusList : defaultStatus,
+      sumberInfo: sumbers.length > 0 ? sumbers : defaultSumber,
+      discountList: discounts.length > 0 ? discounts : defaultDiscount
     });
   } catch (err) {
     console.error('Error fetching masterdata:', err);
     return res.status(200).json({
       status: 'fallback',
       units: defaultUnits,
-      sumberInfo: defaultSumber
+      statusList: defaultStatus,
+      sumberInfo: defaultSumber,
+      discountList: defaultDiscount
     });
   }
 }

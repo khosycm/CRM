@@ -812,11 +812,115 @@
 
       function onDashboardDataLoaded(res) {
         rawLeadsData = res.leads || [];
-        if (res.masterData && res.masterData.discountList && res.masterData.discountList.length > 0) {
-          masterDataDiskonOptions = res.masterData.discountList;
+        if (res.masterData) {
+          updateDynamicMasterDataUI(res.masterData);
         }
         applyFilters();
         applyCRMFilters();
+      }
+
+      function updateDynamicMasterDataUI(masterData) {
+        if (!masterData) return;
+
+        // 1. Dynamic Unit Dropdowns (Unit Tujuan)
+        if (masterData.units && masterData.units.length > 0) {
+          const units = masterData.units;
+
+          const filterUnit = document.getElementById("filterUnit");
+          if (filterUnit) {
+            const current = filterUnit.value;
+            filterUnit.innerHTML = '<option value="all">Semua Unit Sekolah</option>';
+            units.forEach(u => {
+              const opt = document.createElement("option");
+              opt.value = u;
+              opt.textContent = u;
+              filterUnit.appendChild(opt);
+            });
+            filterUnit.value = current || "all";
+          }
+
+          const crmFilterUnit = document.getElementById("crmFilterUnit");
+          if (crmFilterUnit) {
+            const current = crmFilterUnit.value;
+            crmFilterUnit.innerHTML = '<option value="all">Semua Unit Sekolah</option>';
+            units.forEach(u => {
+              const opt = document.createElement("option");
+              opt.value = u;
+              opt.textContent = u;
+              crmFilterUnit.appendChild(opt);
+            });
+            crmFilterUnit.value = current || "all";
+          }
+        }
+
+        // 2. Dynamic Status Lead Dropdowns
+        if (masterData.statusList && masterData.statusList.length > 0) {
+          const statusList = masterData.statusList;
+
+          const filterStatus = document.getElementById("filterStatus");
+          if (filterStatus) {
+            const current = filterStatus.value;
+            filterStatus.innerHTML = '<option value="all">Semua Status</option>';
+            statusList.forEach(st => {
+              const opt = document.createElement("option");
+              opt.value = st;
+              opt.textContent = st;
+              filterStatus.appendChild(opt);
+            });
+            filterStatus.value = current || "all";
+          }
+
+          const crmFilterStatus = document.getElementById("crmFilterStatus");
+          if (crmFilterStatus) {
+            const current = crmFilterStatus.value;
+            crmFilterStatus.innerHTML = '<option value="all">Semua Status</option>';
+            statusList.forEach(st => {
+              const opt = document.createElement("option");
+              opt.value = st;
+              opt.textContent = st;
+              crmFilterStatus.appendChild(opt);
+            });
+            const staleOpt = document.createElement("option");
+            staleOpt.value = "stale";
+            staleOpt.textContent = "Stale Leads (>48j)";
+            crmFilterStatus.appendChild(staleOpt);
+            crmFilterStatus.value = current || "all";
+          }
+
+          const editStatusLead = document.getElementById("editStatusLead");
+          if (editStatusLead) {
+            const current = editStatusLead.value;
+            editStatusLead.innerHTML = '';
+            statusList.forEach(st => {
+              const opt = document.createElement("option");
+              opt.value = st;
+              opt.textContent = st;
+              editStatusLead.appendChild(opt);
+            });
+            if (current) editStatusLead.value = current;
+          }
+        }
+
+        // 3. Dynamic Diskon Options
+        if (masterData.discountList && masterData.discountList.length > 0) {
+          masterDataDiskonOptions = masterData.discountList;
+        }
+
+        // 4. Dynamic Sumber Informasi Options
+        if (masterData.sumberList && masterData.sumberList.length > 0) {
+          masterData.sumberList.forEach(sm => {
+            const smKey = sm.toLowerCase();
+            const exists = masterMarketingChannels.some(ch => ch.name.toLowerCase() === smKey || ch.matchKeys.includes(smKey));
+            if (!exists) {
+              masterMarketingChannels.push({
+                name: sm,
+                key: smKey.replace(/\s+/g, "_"),
+                matchKeys: [smKey],
+                color: "#64748b"
+              });
+            }
+          });
+        }
       }
 
       function parseLeadDate(timestampStr) {
@@ -1054,10 +1158,20 @@
         const tbody = document.getElementById("crmLeadTableBody");
         tbody.innerHTML = "";
 
+        // Sort leads so newest entries from the guestbook appear first
+        const sortedLeads = [...leads].sort((a, b) => {
+          const dateA = parseLeadDate(a.timestamp);
+          const dateB = parseLeadDate(b.timestamp);
+          if (dateA && dateB && dateA.getTime() !== dateB.getTime()) {
+            return dateB.getTime() - dateA.getTime();
+          }
+          return (b.idLead || "").localeCompare(a.idLead || "");
+        });
+
         let staleCount = 0;
         const now = new Date();
 
-        leads.forEach(lead => {
+        sortedLeads.forEach(lead => {
           const tr = document.createElement("tr");
           
           let waClean = lead.noWa ? String(lead.noWa).replace(/\D/g, '') : '';
@@ -1138,6 +1252,7 @@
 
         crmDataTable = $('#crmLeadTable').DataTable({
           pageLength: 10,
+          order: [],
           language: {
             search: "Cari Lead:",
             lengthMenu: "Tampilkan _MENU_ data",
