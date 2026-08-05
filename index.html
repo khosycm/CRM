@@ -444,6 +444,19 @@
         }
       });
 
+      function getWaAdminNumber(unitTujuan) {
+        if (!unitTujuan) return "628157010005";
+        const u = unitTujuan.toLowerCase();
+        if (u.includes("daycare")) return "6285135650022";
+        if (u.includes("tk")) return "6287722940433";
+        if (u.includes("bilingual")) return "6285126016065";
+        if (u.includes("makassar")) return "6282130122998";
+        if (u.includes("sd")) return "628157010005";
+        if (u.includes("smp")) return "6282121022114";
+        if (u.includes("sma")) return "6282120018399";
+        return "628157010005";
+      }
+
       function loadMasterData() {
         fetch("/api/masterdata")
           .then(res => res.json())
@@ -731,29 +744,30 @@
             }
           }
 
-          // Configure WhatsApp confirmation button link with new template
+          // Configure WhatsApp confirmation button link based on unit target and template rules
           let detailPhrase = "";
-          if (isTkDaycare && formData.umur) {
-            detailPhrase = `berusia *${formData.umur}*`;
-          } else if (formData.asalSekolah) {
-            detailPhrase = `bersekolah di *${formData.asalSekolah}*`;
+          if (isTkDaycare) {
+            const ageVal = formData.umur || "-";
+            detailPhrase = `berusia ${ageVal}`;
           } else {
-            detailPhrase = `bersekolah di unit *${formData.unitTujuan || '-'}*`;
+            const schoolVal = formData.asalSekolah || "-";
+            detailPhrase = `bersekolah di ${schoolVal}`;
           }
 
           const namaAnak = res.namaSiswa || formData.namaSiswa || 'Siswa';
-          const dummyWaAdmin = "628987830000";
-          const waMessage = encodeURIComponent(
+          const targetAdminWa = getWaAdminNumber(formData.unitTujuan);
+          
+          const waMessageRaw = 
             `Assalamu'alaikum warahmatullahi wabarakatuh.\n\n` +
-            `Saya orang tua dari *${namaAnak}*, yang saat ini ${detailPhrase}.\n\n` +
-            `Saya telah mengisi buku tamu dan bermaksud untuk mendaftarkan Ananda di Sekolah Islam Cendekia Muda.\n` +
+            `Saya orang tua dari ${namaAnak}, yang saat ini ${detailPhrase}.\n\n` +
+            `Saya telah mengisi buku tamu dan bermaksud untuk mendaftarkan Ananda di Sekolah Islam Cendekia Muda.\n\n` +
             `Mohon informasi mengenai proses dan tahapan pendaftarannya.\n\n` +
-            `Terima kasih. 🙏\n` +
-            `Wassalamu'alaikum warahmatullahi wabarakatuh.`
-          );
+            `Terima kasih. 🙏\n\n` +
+            `Wassalamu'alaikum warahmatullahi wabarakatuh.`;
+
           const btnWaConfirm = document.getElementById("btnWaConfirm");
           if (btnWaConfirm) {
-            btnWaConfirm.href = `https://wa.me/${dummyWaAdmin}?text=${waMessage}`;
+            btnWaConfirm.href = `https://wa.me/${targetAdminWa}?text=${encodeURIComponent(waMessageRaw)}`;
           }
 
           document.getElementById("formContainer").classList.add("hidden");
