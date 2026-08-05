@@ -523,14 +523,19 @@
         }
       }
 
+      function checkIsTkDaycare(unitName) {
+        if (!unitName) return false;
+        const u = String(unitName).toLowerCase();
+        return u.includes("tk") || u.includes("daycare") || u.includes("quranic");
+      }
+
       function handleUnitChange() {
         const unitVal = document.getElementById("unitTujuan").value;
         const dobAgeWrapper = document.getElementById("dobAgeWrapper");
         const asalSekolahWrapper = document.getElementById("asalSekolahWrapper");
         const dobInput = document.getElementById("tanggalLahir");
 
-        const u = (unitVal || "").toLowerCase();
-        const isTkDaycare = u.includes("tk") || u.includes("daycare");
+        const isTkDaycare = checkIsTkDaycare(unitVal);
 
         if (isTkDaycare) {
           dobAgeWrapper.classList.remove("hidden");
@@ -721,7 +726,7 @@
           document.getElementById("resIdLead").textContent = res.idLead || "-";
           document.getElementById("resNamaSiswa").textContent = res.namaSiswa || formData.namaSiswa || "-";
 
-          const isTkDaycare = formData.unitTujuan === "TK" || formData.unitTujuan === "Daycare";
+          const isTkDaycare = checkIsTkDaycare(formData.unitTujuan);
 
           // Point 2 Rule: Umur ONLY for TK & Daycare
           const umurRow = document.getElementById("resUmurRow");
