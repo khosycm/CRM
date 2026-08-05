@@ -150,21 +150,26 @@
               />
             </div>
 
-            <!-- Unit Sekolah Filter -->
-            <div class="flex items-center gap-1.5">
+            <!-- Unit Sekolah Filter (Multi-Select Dropdown) -->
+            <div class="relative flex items-center gap-1.5">
               <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px] text-emerald-700 flex items-center gap-1">
                 <i class="fa-solid fa-filter"></i> Unit:
               </span>
-              <select id="filterUnit" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
-                <option value="all">Semua Unit Sekolah</option>
-                <option value="daycare">Daycare</option>
-                <option value="tk">TK</option>
-                <option value="sd bandung">SD Bandung</option>
-                <option value="sd makassar">SD Makassar</option>
-                <option value="sd bilingual">SD Bilingual</option>
-                <option value="smp">SMP</option>
-                <option value="sma">SMA</option>
-              </select>
+              <div class="relative">
+                <button type="button" onclick="toggleMultiSelectDropdown('unitDropdownTab1')" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500 flex items-center justify-between gap-2 min-w-[170px] text-xs shadow-sm">
+                  <span id="unitDropdownLabelTab1" class="truncate font-semibold">Semua Unit Sekolah</span>
+                  <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                </button>
+                <div id="unitDropdownTab1" class="hidden absolute left-0 top-full mt-1.5 w-64 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-2.5 space-y-1.5 text-xs">
+                  <div class="flex items-center justify-between pb-1.5 border-b border-slate-100 px-1 font-bold text-slate-700">
+                    <span>Pilih Unit Sekolah</span>
+                    <button type="button" onclick="resetMultiSelectUnit('Tab1')" class="text-sky-600 hover:underline font-semibold text-[11px]">Pilih Semua</button>
+                  </div>
+                  <div id="unitCheckboxListTab1" class="space-y-1 max-h-52 overflow-y-auto custom-scrollbar pt-1">
+                    <!-- Checkboxes populated dynamically -->
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Status Seleksi Filter -->
@@ -423,21 +428,26 @@
                 </select>
               </div>
 
-              <!-- Filter Unit CRM -->
-              <div class="flex items-center gap-1.5">
+              <!-- Filter Unit CRM (Multi-Select Dropdown) -->
+              <div class="relative flex items-center gap-1.5">
                 <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px] text-emerald-700 flex items-center gap-1">
                   <i class="fa-solid fa-school"></i> Unit:
                 </span>
-                <select id="crmFilterUnit" onchange="applyCRMFilters()" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
-                  <option value="all">Semua Unit Sekolah</option>
-                  <option value="daycare">Daycare</option>
-                  <option value="tk">TK</option>
-                  <option value="sd bandung">SD Bandung</option>
-                  <option value="sd makassar">SD Makassar</option>
-                  <option value="sd bilingual">SD Bilingual</option>
-                  <option value="smp">SMP</option>
-                  <option value="sma">SMA</option>
-                </select>
+                <div class="relative">
+                  <button type="button" onclick="toggleMultiSelectDropdown('unitDropdownTab2')" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500 flex items-center justify-between gap-2 min-w-[170px] text-xs shadow-sm">
+                    <span id="unitDropdownLabelTab2" class="truncate font-semibold">Semua Unit Sekolah</span>
+                    <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                  </button>
+                  <div id="unitDropdownTab2" class="hidden absolute left-0 top-full mt-1.5 w-64 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-2.5 space-y-1.5 text-xs">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-slate-100 px-1 font-bold text-slate-700">
+                      <span>Pilih Unit Sekolah</span>
+                      <button type="button" onclick="resetMultiSelectUnit('Tab2')" class="text-sky-600 hover:underline font-semibold text-[11px]">Pilih Semua</button>
+                    </div>
+                    <div id="unitCheckboxListTab2" class="space-y-1 max-h-52 overflow-y-auto custom-scrollbar pt-1">
+                      <!-- Checkboxes populated dynamically -->
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Search Input -->
@@ -554,16 +564,22 @@
                 Level Target / Sub-Unit
               </label>
               <select id="editLevelTarget" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500">
-                <option value="">-- Pilih Level --</option>
-                <option value="Daycare">Daycare</option>
-                <option value="TK (PG)">TK (PG)</option>
+                <option value="">-- Pilih Level Target --</option>
+                <option value="PG">PG</option>
                 <option value="TK-A">TK-A</option>
                 <option value="TK-B">TK-B</option>
-                <option value="SD Bandung (Reguler - Level 1)">SD Bandung (Reguler - Level 1)</option>
-                <option value="SD Bandung (Bilingual - Level 1)">SD Bandung (Bilingual - Level 1)</option>
-                <option value="SD Makassar (Level 1)">SD Makassar (Level 1)</option>
-                <option value="SMP (Level 7)">SMP (Level 7)</option>
-                <option value="SMA (Level 10)">SMA (Level 10)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
               </select>
             </div>
           </div>
@@ -691,15 +707,15 @@
       ];
 
       const masterUnitsConfig = [
-        { name: "Quranic Daycare Cendekia Muda", level: "Daycare", target: 40, matchKeys: ["daycare", "quranic daycare"] },
-        { name: "TK Islam Cendekia Muda (PG)", level: "TK (PG)", target: 20, matchKeys: ["pg", "playgroup"] },
-        { name: "TK Islam Cendekia Muda (TK-A)", level: "TK-A", target: 80, matchKeys: ["tk-a", "tk a"] },
-        { name: "TK Islam Cendekia Muda (TK-B)", level: "TK-B", target: 120, matchKeys: ["tk-b", "tk b"] },
-        { name: "SD Islam Cendekia Muda Bandung", level: "SD Bandung (Reguler)", target: 84, matchKeys: ["sd bandung", "sd reguler", "bandung"] },
-        { name: "SD Islam Cendekia Muda Bilingual", level: "SD Bandung (Bilingual)", target: 28, matchKeys: ["bilingual", "sd bilingual"] },
-        { name: "SD Islam Cendekia Muda Makassar", level: "SD Makassar", target: 40, matchKeys: ["sd makassar", "makassar"] },
-        { name: "SMP Islam Cendekia Muda", level: "SMP (Level 7)", target: 100, matchKeys: ["smp"] },
-        { name: "SMA Islam Cendekia Muda", level: "SMA (Level 10)", target: 100, matchKeys: ["sma"] }
+        { name: "Quranic Daycare Cendekia Muda", level: "Daycare", target: 40, existing: 0, matchKeys: ["daycare", "quranic daycare"] },
+        { name: "TK Islam Cendekia Muda (PG)", level: "TK (PG)", target: 20, existing: 0, matchKeys: ["pg", "playgroup"] },
+        { name: "TK Islam Cendekia Muda (TK-A)", level: "TK-A", target: 80, existing: 17, matchKeys: ["tk-a", "tk a"] },
+        { name: "TK Islam Cendekia Muda (TK-B)", level: "TK-B", target: 120, existing: 90, matchKeys: ["tk-b", "tk b"] },
+        { name: "SD Islam Cendekia Muda Bandung", level: "SD Bandung (Reguler)", target: 84, existing: 0, matchKeys: ["sd bandung", "sd reguler", "bandung"] },
+        { name: "SD Islam Cendekia Muda Bilingual", level: "SD Bandung (Bilingual)", target: 28, existing: 0, matchKeys: ["bilingual", "sd bilingual"] },
+        { name: "SD Islam Cendekia Muda Makassar", level: "SD Makassar", target: 40, existing: 0, matchKeys: ["sd makassar", "makassar"] },
+        { name: "SMP Islam Cendekia Muda", level: "SMP (Level 7)", target: 100, existing: 0, matchKeys: ["smp"] },
+        { name: "SMA Islam Cendekia Muda", level: "SMA (Level 10)", target: 100, existing: 0, matchKeys: ["sma"] }
       ];
 
       function matchLeadToUnitConfig(lead, cfg) {
@@ -710,6 +726,23 @@
           return true;
         }
 
+        // Explicit PG, TK-A, TK-B Level Matching (Requires explicit levelTarget setting)
+        if (cfg.level === "TK (PG)") {
+          return lt === "pg" || lt === "playgroup" || lt === "tk (pg)";
+        }
+        if (cfg.level === "TK-A") {
+          return lt === "tk-a" || lt === "tk a";
+        }
+        if (cfg.level === "TK-B") {
+          return lt === "tk-b" || lt === "tk b";
+        }
+
+        // Daycare matching
+        if (cfg.level === "Daycare" || cfg.name.toLowerCase().includes("daycare")) {
+          return ut.includes("daycare") || lt.includes("daycare");
+        }
+
+        // SD Sub-unit matching (Bilingual vs Makassar vs Bandung)
         if (ut.includes("bilingual") || lt.includes("bilingual")) {
           return cfg.name.toLowerCase().includes("bilingual") || cfg.level.toLowerCase().includes("bilingual");
         }
@@ -718,12 +751,21 @@
           return cfg.name.toLowerCase().includes("makassar") || cfg.level.toLowerCase().includes("makassar");
         }
 
-        if ((ut.includes("bandung") || (ut.includes("sd") && ut.includes("bandung"))) && !ut.includes("bilingual") && !ut.includes("makassar")) {
+        // Numeric Level Matching (1-6 for SD, 7-9 for SMP, 10-12 for SMA)
+        if (["1", "2", "3", "4", "5", "6"].includes(lt)) {
+          if (ut.includes("bilingual")) return cfg.name.toLowerCase().includes("bilingual");
+          if (ut.includes("makassar")) return cfg.name.toLowerCase().includes("makassar");
           return cfg.name.toLowerCase().includes("bandung") && !cfg.name.toLowerCase().includes("bilingual");
         }
+        if (["7", "8", "9"].includes(lt)) {
+          return cfg.level.toLowerCase().includes("smp") || cfg.name.toLowerCase().includes("smp");
+        }
+        if (["10", "11", "12"].includes(lt)) {
+          return cfg.level.toLowerCase().includes("sma") || cfg.name.toLowerCase().includes("sma");
+        }
 
-        if ((ut === "tk" || ut.includes("tk islam")) && !lt) {
-          return cfg.level === "TK-A";
+        if ((ut.includes("bandung") || (ut.includes("sd") && ut.includes("bandung"))) && !ut.includes("bilingual") && !ut.includes("makassar")) {
+          return cfg.name.toLowerCase().includes("bandung") && !cfg.name.toLowerCase().includes("bilingual");
         }
 
         return cfg.matchKeys.some(k => ut.includes(k) || lt.includes(k));
@@ -732,9 +774,119 @@
       let masterDataDiskonOptions = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
 
       document.addEventListener("DOMContentLoaded", function() {
+        renderUnitCheckboxes();
         initDatePreset();
         checkAuthToken();
       });
+
+      function toggleMultiSelectDropdown(dropdownId) {
+        const dd = document.getElementById(dropdownId);
+        if (!dd) return;
+        const isHidden = dd.classList.contains("hidden");
+        document.querySelectorAll("[id^='unitDropdown']").forEach(el => el.classList.add("hidden"));
+        if (isHidden) {
+          dd.classList.remove("hidden");
+        }
+      }
+
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest(".relative")) {
+          document.querySelectorAll("[id^='unitDropdown']").forEach(el => el.classList.add("hidden"));
+        }
+      });
+
+      function renderUnitCheckboxes(unitsList) {
+        const list1 = document.getElementById("unitCheckboxListTab1");
+        const list2 = document.getElementById("unitCheckboxListTab2");
+
+        const defaultUnitsList = unitsList && unitsList.length > 0 ? unitsList : [
+          "Quranic Daycare Cendekia Muda",
+          "TK Islam Cendekia Muda",
+          "SD Islam Cendekia Muda Bandung",
+          "SD Islam Cendekia Muda Makassar",
+          "SD Islam Cendekia Muda Bilingual",
+          "SMP Islam Cendekia Muda",
+          "SMA Islam Cendekia Muda"
+        ];
+
+        [ { container: list1, tab: 'Tab1' }, { container: list2, tab: 'Tab2' } ].forEach(target => {
+          if (!target.container) return;
+          target.container.innerHTML = "";
+          
+          defaultUnitsList.forEach((uName) => {
+            const label = document.createElement("label");
+            label.className = "flex items-center gap-2 px-1.5 py-1 rounded hover:bg-slate-100 cursor-pointer font-medium text-slate-700 text-xs";
+            label.innerHTML = `
+              <input type="checkbox" value="${uName}" onchange="onUnitCheckboxChange('${target.tab}')" class="rounded border-slate-300 text-sky-600 focus:ring-sky-500 unit-cb-${target.tab}" checked />
+              <span class="truncate">${uName}</span>
+            `;
+            target.container.appendChild(label);
+          });
+        });
+
+        updateUnitDropdownLabel('Tab1');
+        updateUnitDropdownLabel('Tab2');
+      }
+
+      function onUnitCheckboxChange(tab) {
+        updateUnitDropdownLabel(tab);
+        if (tab === 'Tab1') {
+          applyFilters();
+        } else {
+          applyCRMFilters();
+        }
+      }
+
+      function getSelectedUnits(tab) {
+        const checkboxes = document.querySelectorAll(`.unit-cb-${tab}:checked`);
+        const allCheckboxes = document.querySelectorAll(`.unit-cb-${tab}`);
+        if (checkboxes.length === 0 || checkboxes.length === allCheckboxes.length) {
+          return ["all"];
+        }
+        const vals = [];
+        checkboxes.forEach(cb => vals.push(cb.value));
+        return vals;
+      }
+
+      function updateUnitDropdownLabel(tab) {
+        const labelEl = document.getElementById(`unitDropdownLabel${tab}`);
+        if (!labelEl) return;
+        const checkboxes = document.querySelectorAll(`.unit-cb-${tab}:checked`);
+        const allCheckboxes = document.querySelectorAll(`.unit-cb-${tab}`);
+
+        if (checkboxes.length === 0 || checkboxes.length === allCheckboxes.length) {
+          labelEl.textContent = "Semua Unit Sekolah";
+        } else if (checkboxes.length === 1) {
+          labelEl.textContent = checkboxes[0].value;
+        } else if (checkboxes.length === 2) {
+          const u1 = checkboxes[0].value.split(' ')[0];
+          const u2 = checkboxes[1].value.split(' ')[0];
+          labelEl.textContent = `${u1}, ${u2}`;
+        } else {
+          labelEl.textContent = `${checkboxes.length} Unit Terpilih`;
+        }
+      }
+
+      function resetMultiSelectUnit(tab) {
+        const checkboxes = document.querySelectorAll(`.unit-cb-${tab}`);
+        checkboxes.forEach(cb => cb.checked = true);
+        onUnitCheckboxChange(tab);
+      }
+
+      function matchLeadToUnitVal(unitTujuanStr, filterVal) {
+        if (!unitTujuanStr || !filterVal) return false;
+        const ut = unitTujuanStr.toLowerCase();
+        const uv = filterVal.toLowerCase();
+
+        if (uv.includes("bilingual")) return ut.includes("bilingual");
+        if (uv.includes("makassar")) return ut.includes("makassar");
+        if (uv.includes("bandung")) return ut.includes("bandung") && !ut.includes("bilingual") && !ut.includes("makassar");
+        if (uv.includes("daycare")) return ut.includes("daycare");
+        if (uv.includes("tk")) return ut.includes("tk");
+        if (uv.includes("smp")) return ut.includes("smp");
+        if (uv.includes("sma")) return ut.includes("sma");
+        return ut.includes(uv) || uv.includes(ut);
+      }
 
       function initDatePreset() {
         handlePresetChange();
@@ -878,35 +1030,9 @@
       function updateDynamicMasterDataUI(masterData) {
         if (!masterData) return;
 
-        // 1. Dynamic Unit Dropdowns (Unit Tujuan)
+        // 1. Dynamic Unit Dropdowns (Multi-Select Checkboxes)
         if (masterData.units && masterData.units.length > 0) {
-          const units = masterData.units;
-
-          const filterUnit = document.getElementById("filterUnit");
-          if (filterUnit) {
-            const current = filterUnit.value;
-            filterUnit.innerHTML = '<option value="all">Semua Unit Sekolah</option>';
-            units.forEach(u => {
-              const opt = document.createElement("option");
-              opt.value = u;
-              opt.textContent = u;
-              filterUnit.appendChild(opt);
-            });
-            filterUnit.value = current || "all";
-          }
-
-          const crmFilterUnit = document.getElementById("crmFilterUnit");
-          if (crmFilterUnit) {
-            const current = crmFilterUnit.value;
-            crmFilterUnit.innerHTML = '<option value="all">Semua Unit Sekolah</option>';
-            units.forEach(u => {
-              const opt = document.createElement("option");
-              opt.value = u;
-              opt.textContent = u;
-              crmFilterUnit.appendChild(opt);
-            });
-            crmFilterUnit.value = current || "all";
-          }
+          renderUnitCheckboxes(masterData.units);
         }
 
         // 2. Dynamic Status Lead Dropdowns
@@ -1001,7 +1127,7 @@
       }
 
       function applyFilters() {
-        const unitVal = document.getElementById("filterUnit").value;
+        const selectedUnits = getSelectedUnits('Tab1');
         const statusVal = document.getElementById("filterStatus").value;
         const startVal = document.getElementById("filterStartDate").value;
         const endVal = document.getElementById("filterEndDate").value;
@@ -1022,8 +1148,11 @@
           });
         }
 
-        if (unitVal !== "all") {
-          baseFiltered = baseFiltered.filter(l => l.unitTujuan && l.unitTujuan.toLowerCase().includes(unitVal.toLowerCase()));
+        if (selectedUnits.length > 0 && !selectedUnits.includes("all")) {
+          baseFiltered = baseFiltered.filter(l => {
+            if (!l.unitTujuan) return false;
+            return selectedUnits.some(uVal => matchLeadToUnitVal(l.unitTujuan, uVal));
+          });
         }
 
         // Status Filtered: Evaluates status filter for top 4 cards preview when status filter is selected
@@ -1032,12 +1161,12 @@
           statusFiltered = baseFiltered.filter(l => l.statusLead && l.statusLead.toLowerCase().includes(statusVal.toLowerCase()));
         }
 
-        renderFilteredMetrics(baseFiltered, statusFiltered, unitVal, statusVal);
+        renderFilteredMetrics(baseFiltered, statusFiltered, selectedUnits, statusVal);
         renderAchievementTable(baseFiltered);
         renderMarketingCharts(baseFiltered);
       }
 
-      function renderFilteredMetrics(baseLeads, statusLeads, selectedUnitVal, selectedStatusVal) {
+      function renderFilteredMetrics(baseLeads, statusLeads, selectedUnits, selectedStatusVal) {
         // Base Leads Count (All guestbook entries matching date/unit filter - NEVER drops when status changes)
         const totalBaseLeads = baseLeads.length;
         
@@ -1053,9 +1182,14 @@
         });
 
         let targetQuota = 612;
-        if (selectedUnitVal !== "all") {
-          const matchUnit = masterUnitsConfig.find(u => u.matchKeys.some(k => k.includes(selectedUnitVal.toLowerCase()) || selectedUnitVal.toLowerCase().includes(k)));
-          if (matchUnit) targetQuota = matchUnit.target;
+        if (selectedUnits && selectedUnits.length > 0 && !selectedUnits.includes("all")) {
+          targetQuota = 0;
+          masterUnitsConfig.forEach(u => {
+            if (selectedUnits.some(uVal => matchLeadToUnitVal(u.name, uVal) || matchLeadToUnitVal(u.level, uVal))) {
+              targetQuota += u.target;
+            }
+          });
+          if (targetQuota === 0) targetQuota = 612;
         }
 
         // Top 4 Overview KPI Cards
@@ -1080,21 +1214,23 @@
         document.getElementById("filterPreset").value = "all";
         document.getElementById("filterStartDate").value = "";
         document.getElementById("filterEndDate").value = "";
-        document.getElementById("filterUnit").value = "all";
         document.getElementById("filterStatus").value = "all";
-        applyFilters();
+        resetMultiSelectUnit('Tab1');
       }
 
       function applyCRMFilters() {
+        const selectedUnits = getSelectedUnits('Tab2');
         const statusVal = document.getElementById("crmFilterStatus") ? document.getElementById("crmFilterStatus").value : "all";
-        const unitVal = document.getElementById("crmFilterUnit") ? document.getElementById("crmFilterUnit").value : "all";
         const searchVal = document.getElementById("crmSearchInput") ? document.getElementById("crmSearchInput").value.toLowerCase().trim() : "";
 
         const now = new Date();
         let crmFiltered = rawLeadsData;
 
-        if (unitVal !== "all") {
-          crmFiltered = crmFiltered.filter(l => l.unitTujuan && l.unitTujuan.toLowerCase().includes(unitVal.toLowerCase()));
+        if (selectedUnits.length > 0 && !selectedUnits.includes("all")) {
+          crmFiltered = crmFiltered.filter(l => {
+            if (!l.unitTujuan) return false;
+            return selectedUnits.some(uVal => matchLeadToUnitVal(l.unitTujuan, uVal));
+          });
         }
 
         if (statusVal === "stale") {
@@ -1126,9 +1262,8 @@
 
       function resetCRMFilters() {
         if (document.getElementById("crmFilterStatus")) document.getElementById("crmFilterStatus").value = "all";
-        if (document.getElementById("crmFilterUnit")) document.getElementById("crmFilterUnit").value = "all";
         if (document.getElementById("crmSearchInput")) document.getElementById("crmSearchInput").value = "";
-        applyCRMFilters();
+        resetMultiSelectUnit('Tab2');
       }
 
       function renderAchievementTable(leads) {
@@ -1141,7 +1276,7 @@
           const unitLeads = leads.filter(l => matchLeadToUnitConfig(l, cfg));
 
           const cntLeads = unitLeads.length;
-          const cntExisting = 0;
+          const cntExisting = (cfg.existing !== undefined ? cfg.existing : 0);
           const cntDaftar = unitLeads.filter(l => (l.statusLead || "").toLowerCase().includes("daftar") || (l.statusLead || "").toLowerCase().includes("bayar")).length;
           const cntKonfirmasi = unitLeads.filter(l => (l.statusLead || "").toLowerCase().includes("konfirmasi") || (l.statusLead || "").toLowerCase().includes("verifikasi") || (l.statusLead || "").toLowerCase().includes("closing")).length;
 
