@@ -247,11 +247,11 @@
                   <!-- Kelas Saat Ini -->
                   <div>
                     <label for="kelasSaatIni" class="block text-xs font-bold text-slate-700 mb-1.5">
-                      Kelas Saat Ini <span class="text-slate-400 font-normal">(Opsional)</span>
+                      Kelas Saat Ini <span id="kelasRequiredAsterisk" class="text-rose-500 hidden">*</span><span id="kelasOptionalText" class="text-slate-400 font-normal">(Opsional)</span>
                     </label>
                     <div class="relative">
                       <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-layer-group"></i></span>
-                      <input type="text" id="kelasSaatIni" name="kelasSaatIni" placeholder="Contoh: TK B / Kelas 5 SD"
+                      <input type="text" id="kelasSaatIni" name="kelasSaatIni" placeholder="Contoh: Kelas 5 SD / Kelas 8 SMP"
                         class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" />
                     </div>
                   </div>
@@ -534,6 +534,9 @@
         const dobAgeWrapper = document.getElementById("dobAgeWrapper");
         const asalSekolahWrapper = document.getElementById("asalSekolahWrapper");
         const dobInput = document.getElementById("tanggalLahir");
+        const kelasInput = document.getElementById("kelasSaatIni");
+        const kelasAsterisk = document.getElementById("kelasRequiredAsterisk");
+        const kelasOptional = document.getElementById("kelasOptionalText");
 
         const isTkDaycare = checkIsTkDaycare(unitVal);
 
@@ -543,16 +546,25 @@
           if (dobInput) dobInput.setAttribute("required", "required");
 
           asalSekolahWrapper.classList.add("hidden");
+
+          if (kelasAsterisk) kelasAsterisk.classList.add("hidden");
+          if (kelasOptional) kelasOptional.classList.remove("hidden");
+          if (kelasInput) kelasInput.removeAttribute("required");
         } else {
           dobAgeWrapper.classList.add("hidden");
           dobAgeWrapper.classList.remove("grid");
           if (dobInput) {
             dobInput.removeAttribute("required");
             dobInput.value = "";
-            document.getElementById("umur").value = "";
+            const umurEl = document.getElementById("umur");
+            if (umurEl) umurEl.value = "";
           }
 
           asalSekolahWrapper.classList.remove("hidden");
+
+          if (kelasAsterisk) kelasAsterisk.classList.remove("hidden");
+          if (kelasOptional) kelasOptional.classList.add("hidden");
+          if (kelasInput) kelasInput.setAttribute("required", "required");
         }
       }
 
@@ -651,8 +663,26 @@
       function handleFormSubmit(e) {
         e.preventDefault();
 
+        const unitVal = document.getElementById("unitTujuan").value;
+        const isTkDaycare = checkIsTkDaycare(unitVal);
+        const kelasInput = document.getElementById("kelasSaatIni");
+        const dobInput = document.getElementById("tanggalLahir");
+
         if (!isWaValid) {
           showToast("Mohon masukkan nomor WhatsApp yang valid terlebih dahulu.", "error");
+          document.getElementById("noWa").focus();
+          return;
+        }
+
+        if (isTkDaycare && dobInput && !dobInput.value) {
+          showToast("Mohon isi Tanggal Lahir Calon Siswa.", "error");
+          dobInput.focus();
+          return;
+        }
+
+        if (!isTkDaycare && kelasInput && !kelasInput.value.trim()) {
+          showToast("Mohon isi Kelas Saat Ini untuk pendaftaran SD/SMP/SMA.", "error");
+          kelasInput.focus();
           return;
         }
 

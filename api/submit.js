@@ -78,21 +78,43 @@ export default async function handler(req, res) {
     const dateStr = `${wibTime.getFullYear()}${pad(wibTime.getMonth() + 1)}${pad(wibTime.getDate())}`;
     const timeFormatted = `${pad(wibTime.getDate())}/${pad(wibTime.getMonth() + 1)}/${wibTime.getFullYear()} ${pad(wibTime.getHours())}:${pad(wibTime.getMinutes())}:${pad(wibTime.getSeconds())}`;
 
-    // Get current row count for sequence ID
-    let countSeq = 1;
+    // Get all existing Lead IDs from Column A to find maxSeqToday and prevent collisions
+    const existingIds = new Set();
+    let maxSeqToday = 0;
+    const todayPrefix = `LD-${dateStr}-`;
+
     try {
       const getRows = await sheets.spreadsheets.values.get({
         spreadsheetId,
-        range: 'Leads!A:A',
+        range: 'Leads!A2:A10000',
       });
-      const numRows = getRows.data.values ? getRows.data.values.length : 0;
-      countSeq = numRows > 0 ? numRows : 1;
+      const rows = getRows.data.values || [];
+      rows.forEach(r => {
+        const id = String(r[0] || '').trim();
+        if (id) {
+          existingIds.add(id);
+          if (id.startsWith(todayPrefix)) {
+            const parts = id.split('-');
+            const seqNum = parseInt(parts[parts.length - 1], 10);
+            if (!isNaN(seqNum) && seqNum > maxSeqToday) {
+              maxSeqToday = seqNum;
+            }
+          }
+        }
+      });
     } catch (e) {
-      countSeq = 1;
+      console.warn('Warning reading existing Lead IDs:', e);
     }
 
-    const seqPadded = String(countSeq).padStart(3, '0');
-    const idLead = `LD-${dateStr}-${seqPadded}`;
+    // Candidate sequence start at maxSeqToday + 1
+    let candidateSeq = maxSeqToday + 1;
+    let idLead = `${todayPrefix}${String(candidateSeq).padStart(3, '0')}`;
+
+    // Anti-Collision Loop: Ensure final idLead is 100% unique in existingIds Set
+    while (existingIds.has(idLead)) {
+      candidateSeq++;
+      idLead = `${todayPrefix}${String(candidateSeq).padStart(3, '0')}`;
+    }
 
     // Process Sumber Informasi
     let sumberStr = '';
