@@ -637,19 +637,7 @@
         </div>
         <div class="p-8 space-y-5">
           <div id="googleSignInContainer" class="flex flex-col items-center justify-center min-h-[50px] gap-3">
-            <div id="g_id_onload"
-              data-client_id="866597793390-v8g0bvh8l76v00m2m1m01.apps.googleusercontent.com"
-              data-callback="handleGoogleCallback"
-              data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin"
-              data-type="standard"
-              data-size="large"
-              data-theme="outline"
-              data-text="sign_in_with"
-              data-shape="pill"
-              data-logo_alignment="left">
-            </div>
+            <div id="googleButtonRenderArea"></div>
           </div>
 
           <p id="authErrorMsg" class="text-xs text-rose-600 font-semibold bg-rose-50 p-3 rounded-xl border border-rose-200 hidden"></p>
@@ -995,7 +983,42 @@
           loadDashboardData();
         } else {
           document.getElementById("authModal").classList.remove("hidden");
+          initGoogleAuth();
         }
+      }
+
+      function initGoogleAuth() {
+        fetch("/api/auth-config")
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === "success" && data.clientId) {
+              if (window.google && window.google.accounts) {
+                window.google.accounts.id.initialize({
+                  client_id: data.clientId,
+                  callback: handleGoogleCallback
+                });
+                const btnContainer = document.getElementById("googleButtonRenderArea");
+                if (btnContainer) {
+                  btnContainer.innerHTML = "";
+                  window.google.accounts.id.renderButton(
+                    btnContainer,
+                    { theme: "outline", size: "large", type: "standard", shape: "pill", logo_alignment: "left" }
+                  );
+                }
+              } else {
+                setTimeout(initGoogleAuth, 300);
+              }
+            } else {
+              const errEl = document.getElementById("authErrorMsg");
+              if (errEl) {
+                errEl.textContent = "GOOGLE_CLIENT_ID belum dikonfigurasi di Vercel Environment Variables.";
+                errEl.classList.remove("hidden");
+              }
+            }
+          })
+          .catch(err => {
+            console.warn("Error fetching auth config:", err);
+          });
       }
 
       function handleGoogleCallback(response) {
