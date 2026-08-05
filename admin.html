@@ -662,16 +662,43 @@
       ];
 
       const masterUnitsConfig = [
-        { name: "Daycare Cendekia Muda", level: "Daycare", target: 40, matchKeys: ["daycare"] },
-        { name: "TK Cendekia Muda (PG)", level: "TK (PG)", target: 20, matchKeys: ["pg", "playgroup"] },
-        { name: "TK Cendekia Muda (TK-A)", level: "TK-A", target: 80, matchKeys: ["tk-a", "tk a"] },
-        { name: "TK Cendekia Muda (TK-B)", level: "TK-B", target: 120, matchKeys: ["tk-b", "tk b"] },
-        { name: "SD Cendekia Muda Bandung (Reguler)", level: "SD Bandung (Reguler)", target: 84, matchKeys: ["sd bandung", "sd reguler"] },
-        { name: "SD Cendekia Muda Bandung (Bilingual)", level: "SD Bandung (Bilingual)", target: 28, matchKeys: ["bilingual", "sd bilingual"] },
-        { name: "SD Cendekia Muda Makassar", level: "SD Makassar", target: 40, matchKeys: ["sd makassar", "makassar"] },
-        { name: "SMP Cendekia Muda", level: "SMP (Level 7)", target: 100, matchKeys: ["smp"] },
-        { name: "SMA Cendekia Muda", level: "SMA (Level 10)", target: 100, matchKeys: ["sma"] }
+        { name: "Quranic Daycare Cendekia Muda", level: "Daycare", target: 40, matchKeys: ["daycare", "quranic daycare"] },
+        { name: "TK Islam Cendekia Muda (PG)", level: "TK (PG)", target: 20, matchKeys: ["pg", "playgroup"] },
+        { name: "TK Islam Cendekia Muda (TK-A)", level: "TK-A", target: 80, matchKeys: ["tk-a", "tk a"] },
+        { name: "TK Islam Cendekia Muda (TK-B)", level: "TK-B", target: 120, matchKeys: ["tk-b", "tk b"] },
+        { name: "SD Islam Cendekia Muda Bandung", level: "SD Bandung (Reguler)", target: 84, matchKeys: ["sd bandung", "sd reguler", "bandung"] },
+        { name: "SD Islam Cendekia Muda Bilingual", level: "SD Bandung (Bilingual)", target: 28, matchKeys: ["bilingual", "sd bilingual"] },
+        { name: "SD Islam Cendekia Muda Makassar", level: "SD Makassar", target: 40, matchKeys: ["sd makassar", "makassar"] },
+        { name: "SMP Islam Cendekia Muda", level: "SMP (Level 7)", target: 100, matchKeys: ["smp"] },
+        { name: "SMA Islam Cendekia Muda", level: "SMA (Level 10)", target: 100, matchKeys: ["sma"] }
       ];
+
+      function matchLeadToUnitConfig(lead, cfg) {
+        const ut = (lead.unitTujuan || "").toLowerCase().trim();
+        const lt = (lead.levelTarget || "").toLowerCase().trim();
+
+        if (ut === cfg.name.toLowerCase() || lt === cfg.name.toLowerCase()) {
+          return true;
+        }
+
+        if (ut.includes("bilingual") || lt.includes("bilingual")) {
+          return cfg.name.toLowerCase().includes("bilingual") || cfg.level.toLowerCase().includes("bilingual");
+        }
+
+        if (ut.includes("makassar") || lt.includes("makassar")) {
+          return cfg.name.toLowerCase().includes("makassar") || cfg.level.toLowerCase().includes("makassar");
+        }
+
+        if ((ut.includes("bandung") || (ut.includes("sd") && ut.includes("bandung"))) && !ut.includes("bilingual") && !ut.includes("makassar")) {
+          return cfg.name.toLowerCase().includes("bandung") && !cfg.name.toLowerCase().includes("bilingual");
+        }
+
+        if ((ut === "tk" || ut.includes("tk islam")) && !lt) {
+          return cfg.level === "TK-A";
+        }
+
+        return cfg.matchKeys.some(k => ut.includes(k) || lt.includes(k));
+      }
 
       let masterDataDiskonOptions = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
 
@@ -1082,14 +1109,7 @@
         let grandTarget = 0, grandLeads = 0, grandExisting = 0, grandDaftar = 0, grandKonfirmasi = 0;
 
         masterUnitsConfig.forEach((cfg) => {
-          const unitLeads = leads.filter(l => {
-            const ut = (l.unitTujuan || "").toLowerCase();
-            const lt = (l.levelTarget || "").toLowerCase();
-            if (ut === "tk" && !lt) {
-              return cfg.level === "TK-A";
-            }
-            return cfg.matchKeys.some(k => ut.includes(k) || lt.includes(k));
-          });
+          const unitLeads = leads.filter(l => matchLeadToUnitConfig(l, cfg));
 
           const cntLeads = unitLeads.length;
           const cntExisting = 0;
@@ -1326,12 +1346,24 @@
           }
         });
 
-        const unitCounts = { "Daycare": 0, "TK": 0, "SD Bandung": 0, "SD Makassar": 0, "SD Bilingual": 0, "SMP": 0, "SMA": 0 };
+        const unitCounts = { 
+          "Daycare": 0, 
+          "TK": 0, 
+          "SD Bandung": 0, 
+          "SD Bilingual": 0, 
+          "SD Makassar": 0, 
+          "SMP": 0, 
+          "SMA": 0 
+        };
         leads.forEach(l => {
           const u = (l.unitTujuan || "").toLowerCase();
-          Object.keys(unitCounts).forEach(k => {
-            if (u.includes(k.toLowerCase())) unitCounts[k]++;
-          });
+          if (u.includes("daycare")) unitCounts["Daycare"]++;
+          else if (u.includes("tk")) unitCounts["TK"]++;
+          else if (u.includes("bilingual")) unitCounts["SD Bilingual"]++;
+          else if (u.includes("makassar")) unitCounts["SD Makassar"]++;
+          else if (u.includes("bandung") || (u.includes("sd") && u.includes("bandung"))) unitCounts["SD Bandung"]++;
+          else if (u.includes("smp")) unitCounts["SMP"]++;
+          else if (u.includes("sma")) unitCounts["SMA"]++;
         });
 
         const ctxDonut = document.getElementById("chartDonutUnits").getContext("2d");

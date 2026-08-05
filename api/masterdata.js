@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const defaultUnits = ["Daycare", "TK", "SD Bandung", "SD Makassar", "SD Bilingual", "SMP", "SMA"];
+  const defaultUnits = ["Quranic Daycare Cendekia Muda", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Makassar", "SD Islam Cendekia Muda Bilingual", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
   const defaultStatus = ["Leads Cold", "Leads Warm", "Leads Hot", "Form", "Daftar", "Konfirmasi", "Cancel Setelah Daftar", "Cancel Setelah Konfirmasi", "Mutasi - Daftar", "Mutasi - Konfirmasi"];
   const defaultSumber = ["Rekomendasi", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Lainnya"];
   const defaultDiscount = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
