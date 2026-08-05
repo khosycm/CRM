@@ -61,7 +61,7 @@
           
           <div class="flex items-center space-x-3">
             <div class="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center p-1.5 flex-shrink-0 text-white text-2xl font-bold">
-              <img src="/assets/logo-cm.png">
+              <img src="/assets/logo-cm-white.png">
             </div>
             <div>
               <div class="flex items-center space-x-2">
@@ -256,7 +256,7 @@
             </div>
 
             <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <span class="font-semibold text-slate-600">Rasio Konversi (Leads → Form):</span>
+              <span class="font-semibold text-slate-600">Rasio Konversi (Leads → Konfirmasi):</span>
               <span id="funnelConversionRate" class="font-extrabold text-emerald-600 text-sm">0%</span>
             </div>
           </div>
@@ -369,6 +369,59 @@
               </span>
               <span id="recordCountBadge" class="bg-sky-100 text-sky-700 font-bold px-3 py-1 rounded-full border border-sky-200">0 Data</span>
             </div>
+          </div>
+
+          <!-- CRM OPERATIONAL FILTER BAR -->
+          <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div class="flex flex-wrap items-center gap-3">
+              
+              <!-- Filter Status CRM -->
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px] flex items-center gap-1">
+                  <i class="fa-solid fa-filter text-sky-600"></i> Status Lead:
+                </span>
+                <select id="crmFilterStatus" onchange="applyCRMFilters()" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+                  <option value="all">Semua Status</option>
+                  <option value="cold">Leads Cold</option>
+                  <option value="warm">Leads Warm</option>
+                  <option value="hot">Leads Hot</option>
+                  <option value="form">Form</option>
+                  <option value="daftar">Daftar</option>
+                  <option value="konfirmasi">Konfirmasi</option>
+                  <option value="cancel">Cancel</option>
+                  <option value="mutasi">Mutasi</option>
+                  <option value="stale">Stale Leads (>48j)</option>
+                </select>
+              </div>
+
+              <!-- Filter Unit CRM -->
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-slate-600 uppercase tracking-wider text-[11px] text-emerald-700 flex items-center gap-1">
+                  <i class="fa-solid fa-school"></i> Unit:
+                </span>
+                <select id="crmFilterUnit" onchange="applyCRMFilters()" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+                  <option value="all">Semua Unit Sekolah</option>
+                  <option value="daycare">Daycare</option>
+                  <option value="tk">TK</option>
+                  <option value="sd bandung">SD Bandung</option>
+                  <option value="sd makassar">SD Makassar</option>
+                  <option value="sd bilingual">SD Bilingual</option>
+                  <option value="smp">SMP</option>
+                  <option value="sma">SMA</option>
+                </select>
+              </div>
+
+              <!-- Search Input -->
+              <div class="relative">
+                <span class="absolute left-2.5 top-2 text-slate-400"><i class="fa-solid fa-magnifying-glass text-xs"></i></span>
+                <input type="text" id="crmSearchInput" onkeyup="applyCRMFilters()" placeholder="Cari nama, WA, ID..." class="pl-8 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-medium focus:outline-none focus:border-sky-500" />
+              </div>
+
+            </div>
+
+            <button onclick="resetCRMFilters()" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-600 rounded-lg transition font-medium flex items-center gap-1.5">
+              <i class="fa-solid fa-rotate-left"></i> Reset Filter CRM
+            </button>
           </div>
 
           <div class="overflow-x-auto custom-scrollbar pt-2">
@@ -763,6 +816,7 @@
           masterDataDiskonOptions = res.masterData.discountList;
         }
         applyFilters();
+        applyCRMFilters();
       }
 
       function parseLeadDate(timestampStr) {
@@ -792,13 +846,14 @@
         const startVal = document.getElementById("filterStartDate").value;
         const endVal = document.getElementById("filterEndDate").value;
 
-        let filtered = rawLeadsData;
+        // Base Filtered: Date Range & Unit selection (Scope for Overview Funnel & Charts)
+        let baseFiltered = rawLeadsData;
 
         if (startVal || endVal) {
           const startDate = startVal ? new Date(startVal + "T00:00:00") : null;
           const endDate = endVal ? new Date(endVal + "T23:59:59") : null;
 
-          filtered = filtered.filter(l => {
+          baseFiltered = baseFiltered.filter(l => {
             const d = parseLeadDate(l.timestamp);
             if (!d) return true;
             if (startDate && d < startDate) return false;
@@ -808,31 +863,33 @@
         }
 
         if (unitVal !== "all") {
-          filtered = filtered.filter(l => l.unitTujuan && l.unitTujuan.toLowerCase().includes(unitVal.toLowerCase()));
+          baseFiltered = baseFiltered.filter(l => l.unitTujuan && l.unitTujuan.toLowerCase().includes(unitVal.toLowerCase()));
         }
 
+        // Status Filtered: Evaluates status filter for top 4 cards preview when status filter is selected
+        let statusFiltered = baseFiltered;
         if (statusVal !== "all") {
-          filtered = filtered.filter(l => l.statusLead && l.statusLead.toLowerCase().includes(statusVal.toLowerCase()));
+          statusFiltered = baseFiltered.filter(l => l.statusLead && l.statusLead.toLowerCase().includes(statusVal.toLowerCase()));
         }
 
-        renderFilteredMetrics(filtered, unitVal);
-        renderAchievementTable(filtered);
-        renderCRMTable(filtered);
-        renderMarketingCharts(filtered);
+        renderFilteredMetrics(baseFiltered, statusFiltered, unitVal, statusVal);
+        renderAchievementTable(baseFiltered);
+        renderMarketingCharts(baseFiltered);
       }
 
-      function renderFilteredMetrics(leads, selectedUnitVal) {
-        const totalLeads = leads.length;
+      function renderFilteredMetrics(baseLeads, statusLeads, selectedUnitVal, selectedStatusVal) {
+        // Base Leads Count (All guestbook entries matching date/unit filter - NEVER drops when status changes)
+        const totalBaseLeads = baseLeads.length;
         
         let totalDaftar = 0;
         let totalKonfirmasi = 0;
         let totalForm = 0;
 
-        leads.forEach(l => {
+        baseLeads.forEach(l => {
           const s = (l.statusLead || "").toLowerCase();
           if (s.includes("daftar") || s.includes("bayar")) totalDaftar++;
-          if (s.includes("konfirmasi") || s.includes("verifikasi")) totalKonfirmasi++;
-          if (s.includes("form") || s.includes("closing")) totalForm++;
+          if (s.includes("konfirmasi") || s.includes("verifikasi") || s.includes("closing")) totalKonfirmasi++;
+          if (s.includes("form")) totalForm++;
         });
 
         let targetQuota = 612;
@@ -841,18 +898,21 @@
           if (matchUnit) targetQuota = matchUnit.target;
         }
 
+        // Top 4 Overview KPI Cards
         document.getElementById("statTotalTarget").textContent = targetQuota;
-        document.getElementById("statTotalLeads").textContent = totalLeads;
+        document.getElementById("statTotalLeads").textContent = selectedStatusVal !== "all" ? statusLeads.length : totalBaseLeads;
         document.getElementById("statTotalDaftar").textContent = totalDaftar;
         document.getElementById("statTotalKonfirmasi").textContent = totalKonfirmasi;
         document.getElementById("statTotalForm").textContent = totalForm;
 
-        document.getElementById("funnelCountLeads").textContent = totalLeads;
+        // Admission Funnel (Leads is cumulative DB total matching date/unit, ignores status filter drop)
+        document.getElementById("funnelCountLeads").textContent = totalBaseLeads;
         document.getElementById("funnelCountDaftar").textContent = totalDaftar;
         document.getElementById("funnelCountKonfirmasi").textContent = totalKonfirmasi;
         document.getElementById("funnelCountForm").textContent = totalForm;
 
-        const convRate = totalLeads > 0 ? Math.round((totalForm / totalLeads) * 100) : 0;
+        // Rasio Konversi = Konfirmasi / Leads
+        const convRate = totalBaseLeads > 0 ? Math.round((totalKonfirmasi / totalBaseLeads) * 100) : 0;
         document.getElementById("funnelConversionRate").textContent = convRate + "%";
       }
 
@@ -863,6 +923,52 @@
         document.getElementById("filterUnit").value = "all";
         document.getElementById("filterStatus").value = "all";
         applyFilters();
+      }
+
+      function applyCRMFilters() {
+        const statusVal = document.getElementById("crmFilterStatus") ? document.getElementById("crmFilterStatus").value : "all";
+        const unitVal = document.getElementById("crmFilterUnit") ? document.getElementById("crmFilterUnit").value : "all";
+        const searchVal = document.getElementById("crmSearchInput") ? document.getElementById("crmSearchInput").value.toLowerCase().trim() : "";
+
+        const now = new Date();
+        let crmFiltered = rawLeadsData;
+
+        if (unitVal !== "all") {
+          crmFiltered = crmFiltered.filter(l => l.unitTujuan && l.unitTujuan.toLowerCase().includes(unitVal.toLowerCase()));
+        }
+
+        if (statusVal === "stale") {
+          crmFiltered = crmFiltered.filter(l => {
+            if (l.timestamp && (l.statusLead === "Leads Cold" || l.statusLead === "Leads Warm")) {
+              const leadDate = parseLeadDate(l.timestamp);
+              if (leadDate) {
+                const diffHours = (now - leadDate) / (1000 * 60 * 60);
+                return diffHours > 48;
+              }
+            }
+            return false;
+          });
+        } else if (statusVal !== "all") {
+          crmFiltered = crmFiltered.filter(l => l.statusLead && l.statusLead.toLowerCase().includes(statusVal.toLowerCase()));
+        }
+
+        if (searchVal) {
+          crmFiltered = crmFiltered.filter(l => {
+            const nameMatch = (l.namaSiswa || "").toLowerCase().includes(searchVal);
+            const idMatch = (l.idLead || "").toLowerCase().includes(searchVal);
+            const waMatch = (l.noWa || "").includes(searchVal);
+            return nameMatch || idMatch || waMatch;
+          });
+        }
+
+        renderCRMTable(crmFiltered);
+      }
+
+      function resetCRMFilters() {
+        if (document.getElementById("crmFilterStatus")) document.getElementById("crmFilterStatus").value = "all";
+        if (document.getElementById("crmFilterUnit")) document.getElementById("crmFilterUnit").value = "all";
+        if (document.getElementById("crmSearchInput")) document.getElementById("crmSearchInput").value = "";
+        applyCRMFilters();
       }
 
       function renderAchievementTable(leads) {
@@ -1254,6 +1360,7 @@
               }
               closeEditLeadModal();
               applyFilters();
+              applyCRMFilters();
             } else {
               showToast(res ? res.message : "Gagal memperbarui lead", "error");
             }
