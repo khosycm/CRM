@@ -231,68 +231,97 @@
 
         <!-- ROW 1: ADMISSION FUNNEL & TARGET TABLE -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-4 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="lg:col-span-5 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
             <div>
               <div class="flex items-center justify-between mb-1">
                 <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-filter text-sky-600"></i> Admission Funnel</h2>
                 <span id="funnelFilterTag" class="text-[11px] bg-sky-100 text-sky-700 font-bold px-2.5 py-0.5 rounded-full">Filter Aktif</span>
               </div>
-              <p class="text-xs text-slate-400 mb-4">Perjalanan alur pendaftaran berdasarkan filter tanggal, unit, & status.</p>
+              <p class="text-xs text-slate-400 mb-4">Inverted pyramid alur pendaftaran dari inkuiri awal hingga siswa form.</p>
 
-              <div class="space-y-3">
-                <div class="bg-sky-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
-                  <span>1. Leads &lt;buku tamu&gt;</span><span id="funnelCountLeads" class="text-sm">0</span>
+              <!-- Inverted Pyramid Container -->
+              <div class="flex flex-col items-center gap-2.5 my-2">
+                <!-- Tier 1: Leads (100% Width) -->
+                <div class="w-full bg-gradient-to-r from-sky-500 to-sky-600 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex justify-between items-center shadow-md border border-sky-400/30 transition-transform hover:scale-[1.01]">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px] font-mono">1</span>
+                    <span>1. Leads &lt;buku tamu&gt;</span>
+                  </div>
+                  <span id="funnelCountLeads" class="text-sm font-extrabold bg-white/20 px-2.5 py-0.5 rounded-lg">0</span>
                 </div>
-                <div class="bg-amber-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
-                  <span>2. Daftar &lt;keu&gt;</span><span id="funnelCountDaftar" class="text-sm">0</span>
+
+                <!-- Tier 2: Daftar (84% Width) -->
+                <div class="w-[84%] bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex justify-between items-center shadow-md border border-amber-400/30 transition-transform hover:scale-[1.01]">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px] font-mono">2</span>
+                    <span>2. Daftar &lt;keu&gt;</span>
+                  </div>
+                  <span id="funnelCountDaftar" class="text-sm font-extrabold bg-white/20 px-2.5 py-0.5 rounded-lg">0</span>
                 </div>
-                <div class="bg-indigo-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
-                  <span>3. Konfirmasi &lt;keu&gt;</span><span id="funnelCountKonfirmasi" class="text-sm">0</span>
+
+                <!-- Tier 3: Konfirmasi (68% Width) -->
+                <div class="w-[68%] bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex justify-between items-center shadow-md border border-indigo-400/30 transition-transform hover:scale-[1.01]">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px] font-mono">3</span>
+                    <span>3. Konfirmasi &lt;keu&gt;</span>
+                  </div>
+                  <span id="funnelCountKonfirmasi" class="text-sm font-extrabold bg-white/20 px-2.5 py-0.5 rounded-lg">0</span>
                 </div>
-                <div class="bg-emerald-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex justify-between items-center shadow-sm">
-                  <span>4. Form</span><span id="funnelCountForm" class="text-sm">0</span>
+
+                <!-- Tier 4: Form (52% Width) -->
+                <div class="w-[52%] bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex justify-between items-center shadow-md border border-emerald-400/30 transition-transform hover:scale-[1.01]">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px] font-mono">4</span>
+                    <span>4. Form</span>
+                  </div>
+                  <span id="funnelCountForm" class="text-sm font-extrabold bg-white/20 px-2.5 py-0.5 rounded-lg">0</span>
                 </div>
               </div>
             </div>
 
-            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <span class="font-semibold text-slate-600">Rasio Konversi (Leads → Konfirmasi):</span>
-              <span id="funnelConversionRate" class="font-extrabold text-emerald-600 text-sm">0%</span>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs bg-slate-50 p-3 rounded-2xl border border-slate-200/80">
+              <span class="font-bold text-slate-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-chart-line text-emerald-600"></i> Rasio Konversi (Leads → Konfirmasi):
+              </span>
+              <span id="funnelConversionRate" class="font-extrabold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-xl text-xs border border-emerald-200">0%</span>
             </div>
           </div>
 
-          <div class="lg:col-span-8 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
-              <div>
-                <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-table-cells text-emerald-600"></i> Tabel Pencapaian PPDB Per Unit Sekolah</h2>
-                <p class="text-xs text-slate-400">Unit, Level, Target (T), Leads, Existing, Daftar (D), Konfirmasi (K), % Capaian & Sisa Target</p>
+          <div class="lg:col-span-7 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
+                <div>
+                  <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-table-cells text-emerald-600"></i> Tabel Pencapaian PPDB Per Unit Sekolah</h2>
+                  <p class="text-xs text-slate-400">Unit, Target (T), Leads, Existing, Daftar (D), Konfirmasi (K), % Capaian & Sisa Target</p>
+                </div>
+                <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                  <span class="px-2 py-0.5 rounded bg-emerald-600 text-white">&ge; 80%</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-500 text-white">60-79%</span>
+                  <span class="px-2 py-0.5 rounded bg-rose-600 text-white">&lt; 60%</span>
+                </div>
               </div>
-              <div class="flex items-center gap-1.5 text-[10px] font-bold">
-                <span class="px-2 py-0.5 rounded bg-emerald-600 text-white">&ge; 80%</span>
-                <span class="px-2 py-0.5 rounded bg-amber-500 text-white">60-79%</span>
-                <span class="px-2 py-0.5 rounded bg-rose-600 text-white">&lt; 60%</span>
-              </div>
-            </div>
 
-            <div class="overflow-x-auto custom-scrollbar">
-              <table class="w-full text-xs text-left">
-                <thead>
-                  <tr class="bg-slate-900 text-white font-semibold">
-                    <th class="p-2.5 rounded-l-lg">UNIT</th>
-                    <th class="p-2.5">LEVEL</th>
-                    <th class="p-2.5 text-center">TARGET</th>
-                    <th class="p-2.5 text-center text-sky-300">LEADS</th>
-                    <th class="p-2.5 text-center">EXISTING</th>
-                    <th class="p-2.5 text-center text-amber-300">DAFTAR</th>
-                    <th class="p-2.5 text-center text-indigo-300">KONFIRMASI</th>
-                    <th class="p-2.5 text-center text-amber-300">% CAPAIAN (D/T)</th>
-                    <th class="p-2.5 text-center">SISA</th>
-                    <th class="p-2.5 text-center rounded-r-lg">% CAPAIAN (K/T)</th>
-                  </tr>
-                </thead>
-                <tbody id="unitAchievementTableBody" class="divide-y divide-slate-100 font-medium">
-                </tbody>
-              </table>
+              <div class="overflow-x-auto custom-scrollbar">
+                <table class="w-full text-xs text-left border-collapse min-w-[1000px]">
+                  <thead>
+                    <tr class="bg-slate-900 text-white font-semibold">
+                      <th class="p-2.5 rounded-l-lg whitespace-nowrap">UNIT</th>
+                      <th class="p-2.5 whitespace-nowrap">LEVEL</th>
+                      <th class="p-2.5 text-center whitespace-nowrap">TARGET (T)</th>
+                      <th class="p-2.5 text-center text-sky-300 whitespace-nowrap">LEADS</th>
+                      <th class="p-2.5 text-center whitespace-nowrap">EXISTING</th>
+                      <th class="p-2.5 text-center text-amber-300 whitespace-nowrap">DAFTAR (D)</th>
+                      <th class="p-2.5 text-center text-indigo-300 whitespace-nowrap">KONFIRMASI (K)</th>
+                      <th class="p-2.5 text-center text-amber-300 whitespace-nowrap">% CAPAIAN (D/T)</th>
+                      <th class="p-2.5 text-center text-amber-200 whitespace-nowrap">SISA (T-D)</th>
+                      <th class="p-2.5 text-center text-emerald-300 whitespace-nowrap">% CAPAIAN (K/T)</th>
+                      <th class="p-2.5 text-center text-emerald-200 rounded-r-lg whitespace-nowrap">SISA (T-K)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="unitAchievementTableBody" class="divide-y divide-slate-100 font-medium">
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -1122,48 +1151,62 @@
           grandDaftar += cntDaftar;
           grandKonfirmasi += cntKonfirmasi;
 
-          const capDaftarPct = cfg.target > 0 ? Math.round((cntDaftar / cfg.target) * 100) : 0;
-          const capKonfPct = cfg.target > 0 ? Math.round((cntKonfirmasi / cfg.target) * 100) : 0;
-          const sisaTarget = Math.max(0, cfg.target - cntKonfirmasi);
+          // % Capaian (D/T) = (D + Existing) / T
+          const capDaftarPct = cfg.target > 0 ? Math.round(((cntDaftar + cntExisting) / cfg.target) * 100) : 0;
+          // Sisa (T-D) = T - Existing - D
+          const sisaDaftar = Math.max(0, cfg.target - cntExisting - cntDaftar);
 
-          let badgeClass = "bg-rose-600 text-white";
-          if (capDaftarPct >= 80) badgeClass = "bg-emerald-600 text-white";
-          else if (capDaftarPct >= 60) badgeClass = "bg-amber-500 text-white";
+          // % Capaian (K/T) = (K + Existing) / T
+          const capKonfPct = cfg.target > 0 ? Math.round(((cntKonfirmasi + cntExisting) / cfg.target) * 100) : 0;
+          // Sisa (T-K) = T - Existing - K
+          const sisaKonfirmasi = Math.max(0, cfg.target - cntExisting - cntKonfirmasi);
+
+          let badgeDaftarClass = "bg-rose-600 text-white";
+          if (capDaftarPct >= 80) badgeDaftarClass = "bg-emerald-600 text-white";
+          else if (capDaftarPct >= 60) badgeDaftarClass = "bg-amber-500 text-white";
+
+          let badgeKonfClass = "bg-rose-600 text-white";
+          if (capKonfPct >= 80) badgeKonfClass = "bg-emerald-600 text-white";
+          else if (capKonfPct >= 60) badgeKonfClass = "bg-amber-500 text-white";
 
           const tr = document.createElement("tr");
-          tr.className = "hover:bg-slate-50";
+          tr.className = "hover:bg-slate-50 transition border-b border-slate-100 text-xs";
           tr.innerHTML = `
-            <td class="p-2.5 font-bold text-slate-800">${cfg.name}</td>
-            <td class="p-2.5 text-slate-500">${cfg.level}</td>
-            <td class="p-2.5 text-center font-bold">${cfg.target}</td>
-            <td class="p-2.5 text-center font-bold text-sky-600">${cntLeads}</td>
-            <td class="p-2.5 text-center text-slate-500">${cntExisting}</td>
-            <td class="p-2.5 text-center font-bold text-amber-600">${cntDaftar}</td>
-            <td class="p-2.5 text-center font-bold text-indigo-600">${cntKonfirmasi}</td>
-            <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badgeClass}">${capDaftarPct}%</span></td>
-            <td class="p-2.5 text-center font-bold text-slate-600">${sisaTarget}</td>
-            <td class="p-2.5 text-center font-bold text-emerald-700">${capKonfPct}%</td>
+            <td class="p-3 font-bold text-slate-800 whitespace-nowrap">${cfg.name}</td>
+            <td class="p-3 text-slate-500 whitespace-nowrap">${cfg.level}</td>
+            <td class="p-3 text-center font-bold whitespace-nowrap">${cfg.target}</td>
+            <td class="p-3 text-center font-bold text-sky-600 whitespace-nowrap">${cntLeads}</td>
+            <td class="p-3 text-center text-slate-500 whitespace-nowrap">${cntExisting}</td>
+            <td class="p-3 text-center font-bold text-amber-600 whitespace-nowrap">${cntDaftar}</td>
+            <td class="p-3 text-center font-bold text-indigo-600 whitespace-nowrap">${cntKonfirmasi}</td>
+            <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badgeDaftarClass}">${capDaftarPct}%</span></td>
+            <td class="p-3 text-center font-bold text-amber-700 whitespace-nowrap">${sisaDaftar}</td>
+            <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badgeKonfClass}">${capKonfPct}%</span></td>
+            <td class="p-3 text-center font-bold text-indigo-700 whitespace-nowrap">${sisaKonfirmasi}</td>
           `;
           tbody.appendChild(tr);
         });
 
-        const grandCapPct = grandTarget > 0 ? Math.round((grandDaftar / grandTarget) * 100) : 0;
-        const grandKonfPct = grandTarget > 0 ? Math.round((grandKonfirmasi / grandTarget) * 100) : 0;
-        const grandSisa = Math.max(0, grandTarget - grandKonfirmasi);
+        const grandCapDaftarPct = grandTarget > 0 ? Math.round(((grandDaftar + grandExisting) / grandTarget) * 100) : 0;
+        const grandSisaDaftar = Math.max(0, grandTarget - grandExisting - grandDaftar);
+
+        const grandCapKonfPct = grandTarget > 0 ? Math.round(((grandKonfirmasi + grandExisting) / grandTarget) * 100) : 0;
+        const grandSisaKonf = Math.max(0, grandTarget - grandExisting - grandKonfirmasi);
 
         const grandTr = document.createElement("tr");
         grandTr.className = "bg-slate-900 text-white font-bold text-xs";
         grandTr.innerHTML = `
-          <td class="p-2.5 rounded-l-lg">Grand Total (Hasil Filter)</td>
-          <td class="p-2.5">-</td>
-          <td class="p-2.5 text-center">${grandTarget}</td>
-          <td class="p-2.5 text-center text-sky-300">${grandLeads}</td>
-          <td class="p-2.5 text-center">${grandExisting}</td>
-          <td class="p-2.5 text-center text-amber-300">${grandDaftar}</td>
-          <td class="p-2.5 text-center text-indigo-300">${grandKonfirmasi}</td>
-          <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-900 font-extrabold text-[10px]">${grandCapPct}%</span></td>
-          <td class="p-2.5 text-center">${grandSisa}</td>
-          <td class="p-2.5 text-center text-emerald-300 rounded-r-lg">${grandKonfPct}%</td>
+          <td class="p-3 rounded-l-lg whitespace-nowrap">Grand Total (Hasil Filter)</td>
+          <td class="p-3 whitespace-nowrap">-</td>
+          <td class="p-3 text-center whitespace-nowrap">${grandTarget}</td>
+          <td class="p-3 text-center text-sky-300 whitespace-nowrap">${grandLeads}</td>
+          <td class="p-3 text-center whitespace-nowrap">${grandExisting}</td>
+          <td class="p-3 text-center text-amber-300 whitespace-nowrap">${grandDaftar}</td>
+          <td class="p-3 text-center text-indigo-300 whitespace-nowrap">${grandKonfirmasi}</td>
+          <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded bg-amber-400 text-slate-900 font-extrabold text-[10px]">${grandCapDaftarPct}%</span></td>
+          <td class="p-3 text-center text-amber-300 whitespace-nowrap">${grandSisaDaftar}</td>
+          <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded bg-emerald-400 text-slate-900 font-extrabold text-[10px]">${grandCapKonfPct}%</span></td>
+          <td class="p-3 text-center text-emerald-300 rounded-r-lg whitespace-nowrap">${grandSisaKonf}</td>
         `;
         tbody.appendChild(grandTr);
       }
