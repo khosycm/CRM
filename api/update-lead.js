@@ -1,4 +1,28 @@
 import { google } from 'googleapis';
+import crypto from 'crypto';
+
+function verifyAuthToken(req) {
+  const authHeader = req.headers['authorization'] || '';
+  const tokenFromHeader = authHeader.replace(/^Bearer\s+/i, '').trim();
+  const legacyPin = req.headers['x-admin-pin'] || (req.body && req.body.pin);
+  const token = tokenFromHeader || legacyPin || '';
+
+  const secret = process.env.SESSION_SECRET || process.env.ADMIN_PIN || 'cendekiamuda_crm_secret_key_2026';
+  const requiredPin = process.env.ADMIN_PIN || '123456';
+
+  if (token === requiredPin) return true;
+
+  try {
+    const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf8'));
+    const expectedSig = crypto.createHmac('sha256', secret).update(decoded.payloadStr).digest('hex');
+    if (expectedSig !== decoded.signature) return false;
+    const payload = JSON.parse(decoded.payloadStr);
+    if (Date.now() > payload.expiresAt) return false;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -7,7 +31,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST,PATCH,OPTIONS');
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, x-admin-pin'
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, x-admin-pin'
   );
 
   if (req.method === 'OPTIONS') {
@@ -20,12 +44,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. PIN Security Verification
-    const providedPin = req.headers['x-admin-pin'] || (req.body && req.body.pin);
-    const requiredPin = process.env.ADMIN_PIN || '123456';
-
-    if (providedPin !== requiredPin) {
-      return res.status(401).json({ status: 'error', message: 'PIN Admin tidak valid. Gagal memperbarui data.' });
+    // 1. Security Verification (Session Token / PIN)
+    if (!verifyAuthToken(req)) {
+      return res.status(401).json({ status: 'error', message: 'Sesi Admin tidak valid atau telah kadaluwarsa. Gagal memperbarui data.' });
     }
 
     const { idLead, statusLead, catatanAdmin, kategoriPendaftaran, levelTarget, discount } = req.body || {};
