@@ -529,7 +529,8 @@
         const asalSekolahWrapper = document.getElementById("asalSekolahWrapper");
         const dobInput = document.getElementById("tanggalLahir");
 
-        const isTkDaycare = unitVal === "TK" || unitVal === "Daycare";
+        const u = (unitVal || "").toLowerCase();
+        const isTkDaycare = u.includes("tk") || u.includes("daycare");
 
         if (isTkDaycare) {
           dobAgeWrapper.classList.remove("hidden");
