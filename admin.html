@@ -543,6 +543,10 @@
               <span class="text-slate-500 font-medium">Unit Tujuan:</span>
               <span id="modalUnitTujuan" class="font-semibold text-sky-700"></span>
             </div>
+            <div id="modalKebutuhanWrapper" class="hidden flex justify-between border-t border-slate-200/60 pt-1 mt-1">
+              <span class="text-slate-500 font-medium">Kebutuhan Khusus:</span>
+              <span id="modalKebutuhanDetail" class="font-bold text-amber-700 text-right max-w-[220px]"></span>
+            </div>
           </div>
 
           <div>
@@ -1489,7 +1493,10 @@
               ${isStale ? '<span class="ml-1 inline-block text-rose-500 stale-warning" title="Stale Lead: >48 jam belum di-follow up!"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}
             </td>
             <td class="p-3 text-slate-500 text-[11px]">${lead.timestamp}</td>
-            <td class="p-3 font-bold text-slate-800">${lead.namaSiswa}</td>
+            <td class="p-3 font-bold text-slate-800">
+              ${lead.namaSiswa}
+              ${lead.kebutuhanKhusus === "Ya" ? '<br/><span class="inline-block mt-0.5 px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold border border-amber-300" title="' + (lead.detailKebutuhanKhusus || 'Kebutuhan Khusus') + '"><i class="fa-solid fa-heart-pulse text-amber-600"></i> ABK: ' + (lead.detailKebutuhanKhusus || 'Ya') + '</span>' : ''}
+            </td>
             <td class="p-3">
               <a href="https://wa.me/${waClean}?text=${waMessage}" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-mono rounded-lg border border-emerald-200 transition font-medium text-xs">
                 <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
@@ -1712,6 +1719,17 @@
         document.getElementById("modalLeadId").textContent = lead.idLead;
         document.getElementById("modalNamaSiswa").textContent = lead.namaSiswa || "-";
         document.getElementById("modalUnitTujuan").textContent = lead.unitTujuan || "-";
+
+        const kebWrapper = document.getElementById("modalKebutuhanWrapper");
+        const kebDetail = document.getElementById("modalKebutuhanDetail");
+        if (kebWrapper && kebDetail) {
+          if (lead.kebutuhanKhusus === "Ya") {
+            kebWrapper.classList.remove("hidden");
+            kebDetail.textContent = lead.detailKebutuhanKhusus ? "Ya - " + lead.detailKebutuhanKhusus : "Ya";
+          } else {
+            kebWrapper.classList.add("hidden");
+          }
+        }
 
         document.getElementById("editStatusLead").value = lead.statusLead || "Leads Cold";
         document.getElementById("editKategoriPendaftaran").value = lead.kategoriPendaftaran || "Siswa Baru";

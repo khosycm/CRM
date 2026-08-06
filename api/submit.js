@@ -124,9 +124,10 @@ export default async function handler(req, res) {
       sumberStr = String(formData.sumberInfo);
     }
 
-    const sumberLainnya = formData.sumberLainnya ? formData.sumberLainnya.trim() : '';
+    const kebutuhanKhusus = formData.kebutuhanKhusus === 'Ya' ? 'Ya' : 'Tidak';
+    const detailKebutuhanKhusus = formData.detailKebutuhanKhusus ? formData.detailKebutuhanKhusus.trim() : '';
 
-    // Prepare exact 17-column row record (Col A to Q)
+    // Prepare exact 19-column row record (Col A to S)
     const rowRecord = [
       idLead,                                                      // 1. ID Lead (Col A)
       timeFormatted,                                               // 2. Timestamp (Col B)
@@ -139,12 +140,14 @@ export default async function handler(req, res) {
       formData.asalSekolah ? formData.asalSekolah.trim() : '',     // 9. Asal Sekolah (Col I)
       sumberStr,                                                   // 10. Sumber Informasi (Col J)
       sumberLainnya,                                               // 11. Sumber Informasi (Lainnya) (Col K)
-      'Leads Cold',                                                // 12. Status Lead (Col L)
-      '',                                                          // 13. Catatan Admin (Col M)
-      'Siswa Baru',                                                // 14. Kategori Pendaftaran (Col N)
-      '',                                                          // 15. Level Target (Col O)
-      '',                                                          // 16. Discount (Col P)
-      timeFormatted                                                // 17. Terakhir Diperbarui (Col Q)
+      kebutuhanKhusus,                                             // 12. Kebutuhan Khusus (Col L)
+      detailKebutuhanKhusus,                                       // 13. Detail Kebutuhan Khusus (Col M)
+      'Leads Cold',                                                // 14. Status Lead (Col N)
+      '',                                                          // 15. Catatan Admin (Col O)
+      'Siswa Baru',                                                // 16. Kategori Pendaftaran (Col P)
+      '',                                                          // 17. Level Target (Col Q)
+      '',                                                          // 18. Discount (Col R)
+      timeFormatted                                                // 19. Terakhir Diperbarui (Col S)
     ];
 
     // Append to 'Leads' sheet

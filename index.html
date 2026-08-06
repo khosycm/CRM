@@ -316,6 +316,36 @@
                     </div>
                   </div>
 
+                  <hr class="border-slate-200 my-2" />
+
+                  <!-- KEBUTUHAN KHUSUS (CONDITIONAL INPUT) -->
+                  <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/90 space-y-3">
+                    <label class="block text-xs font-bold text-slate-700">
+                      Apakah calon siswa pernah menerima diagnosis atau pendampingan terkait kebutuhan khusus? <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="flex items-center gap-6 text-xs font-medium text-slate-700">
+                      <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <input type="radio" name="kebutuhanKhusus" value="Tidak" checked onchange="toggleKebutuhanKhusus(this.value)"
+                          class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer">
+                        <span>Tidak</span>
+                      </label>
+                      <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <input type="radio" name="kebutuhanKhusus" value="Ya" onchange="toggleKebutuhanKhusus(this.value)"
+                          class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer">
+                        <span>Ya</span>
+                      </label>
+                    </div>
+
+                    <!-- Detail Textarea (Revealed when "Ya") -->
+                    <div id="detailKebutuhanWrapper" class="hidden pt-1">
+                      <label for="detailKebutuhanKhusus" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Bisa tolong dijelaskan terkait kebutuhan khususnya? <span class="text-rose-500">*</span>
+                      </label>
+                      <textarea id="detailKebutuhanKhusus" name="detailKebutuhanKhusus" rows="2.5" placeholder="Contoh: Terapi wicara, ADHD, gifted, dll..."
+                        class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"></textarea>
+                    </div>
+                  </div>
+
                   <!-- SUBMIT BUTTON -->
                   <div class="pt-2">
                     <button type="submit" id="btnSubmit" disabled
@@ -523,6 +553,22 @@
         }
       }
 
+      function toggleKebutuhanKhusus(val) {
+        const wrapper = document.getElementById("detailKebutuhanWrapper");
+        const textarea = document.getElementById("detailKebutuhanKhusus");
+        if (wrapper && textarea) {
+          if (val === "Ya") {
+            wrapper.classList.remove("hidden");
+            textarea.setAttribute("required", "required");
+            textarea.focus();
+          } else {
+            wrapper.classList.add("hidden");
+            textarea.removeAttribute("required");
+            textarea.value = "";
+          }
+        }
+      }
+
       function checkIsTkDaycare(unitName) {
         if (!unitName) return false;
         const u = String(unitName).toLowerCase();
@@ -686,6 +732,16 @@
           return;
         }
 
+        const kebutuhanRadio = document.querySelector('input[name="kebutuhanKhusus"]:checked');
+        const kebutuhanKhususVal = kebutuhanRadio ? kebutuhanRadio.value : "Tidak";
+        const detailKebutuhanEl = document.getElementById("detailKebutuhanKhusus");
+
+        if (kebutuhanKhususVal === "Ya" && detailKebutuhanEl && !detailKebutuhanEl.value.trim()) {
+          showToast("Mohon jelaskan detail kebutuhan khusus calon siswa.", "error");
+          detailKebutuhanEl.focus();
+          return;
+        }
+
         const btnSubmit = document.getElementById("btnSubmit");
         const btnText = document.getElementById("btnText");
         const btnIcon = document.getElementById("btnIcon");
@@ -708,7 +764,9 @@
           umur: document.getElementById("umur") ? document.getElementById("umur").value.trim() : "",
           asalSekolah: document.getElementById("asalSekolah") ? document.getElementById("asalSekolah").value.trim() : "",
           sumberInfo: checkedBoxes,
-          sumberLainnya: document.getElementById("sumberLainnya") ? document.getElementById("sumberLainnya").value.trim() : ""
+          sumberLainnya: document.getElementById("sumberLainnya") ? document.getElementById("sumberLainnya").value.trim() : "",
+          kebutuhanKhusus: kebutuhanKhususVal,
+          detailKebutuhanKhusus: detailKebutuhanEl ? detailKebutuhanEl.value.trim() : ""
         };
 
         btnSubmit.disabled = true;

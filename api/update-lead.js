@@ -104,8 +104,8 @@ export default async function handler(req, res) {
     const pad = (n) => String(n).padStart(2, '0');
     const timeFormatted = `${pad(wibTime.getDate())}/${pad(wibTime.getMonth() + 1)}/${wibTime.getFullYear()} ${pad(wibTime.getHours())}:${pad(wibTime.getMinutes())}:${pad(wibTime.getSeconds())}`;
 
-    // Update Columns L to Q (12th to 17th column: L=Status, M=Catatan, N=Kategori, O=Level, P=Discount, Q=Terakhir Diperbarui)
-    const updateRange = `Leads!L${targetRowIndex}:Q${targetRowIndex}`;
+    // Update Columns N to S (14th to 19th column: N=Status, O=Catatan, P=Kategori, Q=Level, R=Discount, S=Terakhir Diperbarui)
+    const updateRange = `Leads!N${targetRowIndex}:S${targetRowIndex}`;
     const updateValues = [
       [
         statusLead !== undefined ? statusLead : 'Leads Cold',

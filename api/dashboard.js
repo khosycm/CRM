@@ -122,10 +122,10 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // Fetch Leads data (17 Columns: A to Q)
+    // Fetch Leads data (19 Columns: A to S)
     const leadsResponse = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: 'Leads!A2:Q1000',
+      range: 'Leads!A2:S10000',
     });
 
     const leadRows = leadsResponse.data.values || [];
@@ -141,12 +141,14 @@ export default async function handler(req, res) {
       asalSekolah: row[8] || '',
       sumberInfo: row[9] || '',
       sumberLainnya: row[10] || '',
-      statusLead: row[11] || 'Leads Cold',
-      catatanAdmin: row[12] || '',
-      kategoriPendaftaran: row[13] || 'Siswa Baru',
-      levelTarget: row[14] || '',
-      discount: row[15] || '',
-      terakhirDiperbarui: row[16] || row[1] || ''
+      kebutuhanKhusus: row[11] || 'Tidak',
+      detailKebutuhanKhusus: row[12] || '',
+      statusLead: row[13] || 'Leads Cold',
+      catatanAdmin: row[14] || '',
+      kategoriPendaftaran: row[15] || 'Siswa Baru',
+      levelTarget: row[16] || '',
+      discount: row[17] || '',
+      terakhirDiperbarui: row[18] || row[1] || ''
     }));
 
     // Fetch MasterData (Columns A: Unit, B: Status, C: Sumber, D: Diskon)
