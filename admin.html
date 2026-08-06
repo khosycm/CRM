@@ -1246,16 +1246,19 @@
         // Base Leads Count (All guestbook entries matching date/unit filter - NEVER drops when status changes)
         const totalBaseLeads = baseLeads.length;
         
-        let totalDaftar = 0;
+        let totalDaftarRaw = 0;
         let totalKonfirmasi = 0;
         let totalForm = 0;
 
         baseLeads.forEach(l => {
           const s = (l.statusLead || "").toLowerCase();
-          if (s.includes("daftar") || s.includes("bayar")) totalDaftar++;
+          if (s.includes("daftar") || s.includes("bayar")) totalDaftarRaw++;
           if (s.includes("konfirmasi") || s.includes("verifikasi") || s.includes("closing")) totalKonfirmasi++;
           if (s.includes("form")) totalForm++;
         });
+
+        // Cumulative Registered Count (Daftar + Konfirmasi)
+        const totalDaftarCum = totalDaftarRaw + totalKonfirmasi;
 
         let targetQuota = 612;
         if (selectedUnits && selectedUnits.length > 0 && !selectedUnits.includes("all")) {
@@ -1271,13 +1274,13 @@
         // Top 4 Overview KPI Cards
         document.getElementById("statTotalTarget").textContent = targetQuota;
         document.getElementById("statTotalLeads").textContent = selectedStatusVal !== "all" ? statusLeads.length : totalBaseLeads;
-        document.getElementById("statTotalDaftar").textContent = totalDaftar;
+        document.getElementById("statTotalDaftar").textContent = totalDaftarCum;
         document.getElementById("statTotalKonfirmasi").textContent = totalKonfirmasi;
         document.getElementById("statTotalForm").textContent = totalForm;
 
         // Admission Funnel (Leads is cumulative DB total matching date/unit, ignores status filter drop)
         document.getElementById("funnelCountLeads").textContent = totalBaseLeads;
-        document.getElementById("funnelCountDaftar").textContent = totalDaftar;
+        document.getElementById("funnelCountDaftar").textContent = totalDaftarCum;
         document.getElementById("funnelCountKonfirmasi").textContent = totalKonfirmasi;
         document.getElementById("funnelCountForm").textContent = totalForm;
 
