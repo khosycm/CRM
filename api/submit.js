@@ -124,6 +124,7 @@ export default async function handler(req, res) {
       sumberStr = String(formData.sumberInfo);
     }
 
+    const sumberLainnya = formData.sumberLainnya ? formData.sumberLainnya.trim() : '';
     const kebutuhanKhusus = formData.kebutuhanKhusus === 'Ya' ? 'Ya' : 'Tidak';
     const detailKebutuhanKhusus = formData.detailKebutuhanKhusus ? formData.detailKebutuhanKhusus.trim() : '';
 
