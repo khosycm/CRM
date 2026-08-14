@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran SMP Islam Cendekia Muda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+  </style>
+</head>
+<body class="antialiased text-slate-800">
+  <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+      <div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-8 text-white text-center">
+        <h1 class="text-3xl font-bold tracking-tight">Formulir Pendaftaran</h1>
+        <p class="mt-2 text-emerald-50 text-lg">SMP Islam Cendekia Muda</p>
+      </div>
+      
+      <form id="registrationForm" class="p-8 space-y-8" enctype="multipart/form-data">
+        <input type="hidden" name="formType" value="SMP">
+        <input type="hidden" name="leadId" id="leadId">
+        
+        <!-- Data Anak -->
+        <div>
+          <h2 class="text-xl font-semibold text-slate-900 border-b pb-2 mb-4">Data Siswa</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Siswa</label><input type="text" name="Nama Lengkap Siswa" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2 border" required></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Panggilan</label><input type="text" name="Nama Panggilan" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir</label><input type="text" name="Tempat Lahir" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir</label><input type="date" name="Tanggal Lahir" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Kelamin</label>
+              <select name="Jenis Kelamin" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border">
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+            </div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Telepon Siswa</label><input type="tel" name="No. Telepon Siswa" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Akta Kelahiran</label><input type="text" name="No. Akta Kelahiran" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Kartu Keluarga</label><input type="text" name="No. Kartu Keluarga" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. NIK Siswa</label><input type="text" name="No. NIK Siswa" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            
+            <div class="sm:col-span-2 border-t mt-4 pt-4"><h3 class="font-medium text-slate-800">Upload Dokumen</h3></div>
+            <div><label class="block text-sm font-medium text-slate-700">Upload Akta Kelahiran</label><input type="file" name="Akta Kelahiran" class="mt-1 block w-full border border-slate-300 rounded-md p-2"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Upload Kartu Keluarga</label><input type="file" name="Kartu Keluarga" class="mt-1 block w-full border border-slate-300 rounded-md p-2"></div>
+
+            <div class="sm:col-span-2 border-t mt-4 pt-4"><h3 class="font-medium text-slate-800">Nilai Rapor</h3></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nilai Rapor Kelas 5 Ganjil</label><input type="text" name="Nilai Rapor Kelas 5 Ganjil" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nilai Rapor Kelas 5 Genap</label><input type="text" name="Nilai Rapor Kelas 5 Genap" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nilai Rapor Kelas 6 Ganjil</label><input type="text" name="Nilai Rapor Kelas 6 Ganjil" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            
+            <div class="sm:col-span-2 border-t mt-4 pt-4"><h3 class="font-medium text-slate-800">Keluarga & Pribadi</h3></div>
+            <div><label class="block text-sm font-medium text-slate-700">Anak Ke</label><input type="number" name="Anak Ke" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jumlah Saudara Kandung</label><input type="number" name="Jumlah Saudara Kandung" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jumlah Saudara Tiri</label><input type="number" name="Jumlah Saudara Tiri" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jumlah Saudara Angkat</label><input type="number" name="Jumlah Saudara Angkat" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Status Dalam Keluarga</label><input type="text" name="Status Dalam Keluarga" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Bahasa Sehari-hari</label><input type="text" name="Bahasa Sehari-hari" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kewarganegaraan</label><input type="text" name="Kewarganegaraan" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Asal Negara WNA</label><input type="text" name="Asal Negara WNA" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tinggi Badan</label><input type="text" name="Tinggi Badan" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Berat Badan</label><input type="text" name="Berat Badan" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah</label><input type="text" name="Golongan Darah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Siswa</label><textarea name="Alamat Siswa" rows="2" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></textarea></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kelurahan</label><input type="text" name="Kelurahan" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kecamatan</label><input type="text" name="Kecamatan" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kab/Kota</label><input type="text" name="Kab/Kota" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kode POS</label><input type="text" name="Kode POS" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Tinggal</label><input type="text" name="Jenis Tinggal" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Alat Transportasi ke Sekolah</label><input type="text" name="Alat Transportasi ke Sekolah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jarak Tempat Tinggal ke Sekolah</label><input type="text" name="Jarak Tempat Tinggal ke Sekolah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Waktu Tempuh</label><input type="text" name="Waktu Tempuh" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            
+            <div class="sm:col-span-2 border-t mt-4 pt-4"><h3 class="font-medium text-slate-800">Prestasi & Tambahan</h3></div>
+            <div><label class="block text-sm font-medium text-slate-700">Minat dan Bakat Siswa</label><input type="text" name="Minat dan Bakat Siswa" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kelainan Jasmani</label><input type="text" name="Kelainan Jasmani" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Prestasi</label><input type="text" name="Jenis Prestasi" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tingkat Prestasi</label><input type="text" name="Tingkat Prestasi" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Nama Prestasi/Tahun/Penyelenggara</label><input type="text" name="Nama Prestasi/Tahun/Penyelenggara" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Sekolah Dasar Asal</label><input type="text" name="Nama Sekolah Dasar Asal" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Alamat Sekolah Dasar Asal</label><input type="text" name="Alamat Sekolah Dasar Asal" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Tamat Sekolah Dasar</label><input type="date" name="Tanggal Tamat Sekolah Dasar" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+          </div>
+        </div>
+
+        <!-- Data Ayah -->
+        <div>
+          <h2 class="text-xl font-semibold text-slate-900 border-b pb-2 mb-4">Data Ayah</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-sm font-medium text-slate-700">Status Ayah</label><input type="text" name="Status Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ayah</label><input type="text" name="Nama Lengkap Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir Ayah</label><input type="text" name="Tempat Lahir Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir Ayah</label><input type="date" name="Tanggal Lahir Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Agama Ayah</label><input type="text" name="Agama Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Telepon Ayah</label><input type="tel" name="No. Telepon Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Rumah Ayah</label><textarea name="Alamat Rumah Ayah" rows="2" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></textarea></div>
+            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan Ayah</label><input type="text" name="Pekerjaan Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Instansi/Perusahaan Ayah</label><input type="text" name="Nama Instansi/Perusahaan/Lembaga/Wirausaha Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jabatan Ayah</label><input type="text" name="Jabatan Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Alamat Instansi Ayah</label><input type="text" name="Alamat Instansi Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Penghasilan Ayah</label><input type="text" name="Penghasilan Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenjang Pendidikan Ayah</label><input type="text" name="Jenjang Pendidikan Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kewarganegaraan Ayah</label><input type="text" name="Kewarganegaraan Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Asal Negara WNA Ayah</label><input type="text" name="Asal Negara WNA Ayah" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+          </div>
+        </div>
+
+        <!-- Data Ibu -->
+        <div>
+          <h2 class="text-xl font-semibold text-slate-900 border-b pb-2 mb-4">Data Ibu</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-sm font-medium text-slate-700">Status Ibu</label><input type="text" name="Status Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ibu</label><input type="text" name="Nama Lengkap Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir Ibu</label><input type="text" name="Tempat Lahir Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir Ibu</label><input type="date" name="Tanggal Lahir Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Agama Ibu</label><input type="text" name="Agama Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Telepon Ibu</label><input type="tel" name="No. Telepon Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Rumah Ibu</label><textarea name="Alamat Rumah Ibu" rows="2" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></textarea></div>
+            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan Ibu</label><input type="text" name="Pekerjaan Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Instansi/Perusahaan Ibu</label><input type="text" name="Nama Instansi/Perusahaan/Lembaga/Wirausaha Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jabatan Ibu</label><input type="text" name="Jabatan Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Alamat Instansi Ibu</label><input type="text" name="Alamat Instansi Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Penghasilan Ibu</label><input type="text" name="Penghasilan Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenjang Pendidikan Ibu</label><input type="text" name="Jenjang Pendidikan Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kewarganegaraan Ibu</label><input type="text" name="Kewarganegaraan Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Asal Negara WNA Ibu</label><input type="text" name="Asal Negara WNA Ibu" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+          </div>
+        </div>
+
+        <!-- Tambahan -->
+        <div>
+          <h2 class="text-xl font-semibold text-slate-900 border-b pb-2 mb-4">Informasi Tambahan</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-sm font-medium text-slate-700">Berkebutuhan Khusus Siswa</label><input type="text" name="Berkebutuhan Khusus Siswa" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Kebutuhan Khusus</label><input type="text" name="Jenis Kebutuhan Khusus" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Terapi yang Dijalani</label><input type="text" name="Terapi yang Dijalani" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Tempat Terapi</label><input type="text" name="Nama Tempat Terapi" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Terapis</label><input type="text" name="Nama Terapis" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Pengisi Data</label><input type="text" name="Nama Lengkap Pengisi Data" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border" required></div>
+          </div>
+        </div>
+
+        <div id="alertBox" class="hidden rounded-md p-4 text-sm font-medium"></div>
+
+        <div>
+          <button type="submit" id="submitBtn" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+            Kirim Pendaftaran
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('leadId')) {
+        document.getElementById('leadId').value = urlParams.get('leadId');
+      }
+
+      document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = document.getElementById('submitBtn');
+        const alertBox = document.getElementById('alertBox');
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Mengirim...';
+        alertBox.classList.add('hidden');
+        
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          if (response.ok) {
+            alertBox.innerHTML = result.message || 'Pendaftaran berhasil dikirim!';
+            alertBox.className = 'mt-4 rounded-md p-4 text-sm font-medium bg-green-50 text-green-800';
+            form.reset();
+          } else {
+            alertBox.innerHTML = result.message || 'Terjadi kesalahan.';
+            alertBox.className = 'mt-4 rounded-md p-4 text-sm font-medium bg-red-50 text-red-800';
+          }
+        } catch (error) {
+          alertBox.innerHTML = 'Terjadi kesalahan jaringan.';
+          alertBox.className = 'mt-4 rounded-md p-4 text-sm font-medium bg-red-50 text-red-800';
+        } finally {
+          alertBox.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Kirim Pendaftaran';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
