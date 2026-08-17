@@ -28,11 +28,18 @@ export default async function handler(req, res) {
     return res.status(405).json({ status: 'error', message: 'Method Not Allowed' });
   }
 
-  const form = formidable({ multiples: true });
+  const form = formidable({ 
+    multiples: true,
+    maxFileSize: 5 * 1024 * 1024, // 5MB limit
+  });
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error('Error parsing form data:', err);
+      // Check if it's a file size error
+      if (err.code === 1009 || err.message.includes('maxFileSize')) {
+        return res.status(413).json({ status: 'error', message: 'Ukuran file terlalu besar. Maksimal 5MB.' });
+      }
       return res.status(500).json({ status: 'error', message: 'Form parsing failed' });
     }
 
@@ -147,6 +154,8 @@ export default async function handler(req, res) {
         range = 'Form TK!A1';
         const kkLink = await uploadFile('Kartu Keluarga', 'KK');
         const aktaLink = await uploadFile('Akta Kelahiran', 'Akta');
+        const ktpAyahLink = await uploadFile('KTP Ayah', 'KTP_Ayah');
+        const ktpIbuLink = await uploadFile('KTP Ibu', 'KTP_Ibu');
         rowRecord = [
           cleanFields['Nama Lengkap Anak'], cleanFields['Nama Panggilan'], cleanFields['Kelas'],
           cleanFields['Tempat Lahir'], cleanFields['Tanggal Lahir'], cleanFields['Jenis Kelamin'],
@@ -160,10 +169,10 @@ export default async function handler(req, res) {
           cleanFields['Berat Badan'], cleanFields['Tinggi Badan'], cleanFields['Lingkar Kepala'],
           cleanFields['Berkebutuhan Khusus'], cleanFields['Nama Ayah/Wali'], cleanFields['Tanggal Lahir Ayah'],
           cleanFields['No. NIK Ayah'], cleanFields['Pekerjaan Ayah/Wali'], cleanFields['Penghasilan Ayah/Wali'],
-          cleanFields['Pendidikan Terakhir Ayah/Wali'], cleanFields['No. Telepon Ayah'], cleanFields['KTP Ayah'],
+          cleanFields['Pendidikan Terakhir Ayah/Wali'], cleanFields['No. Telepon Ayah'], ktpAyahLink,
           cleanFields['Nama Ibu/Wali'], cleanFields['Tanggal Lahir Ibu'], cleanFields['No. NIK Ibu'],
           cleanFields['Pekerjaan Ibu/Wali'], cleanFields['Penghasilan Ibu/Wali'], cleanFields['Pendidikan Terakhir Ibu/Wali'],
-          cleanFields['No. Telepon Ibu'], cleanFields['KTP Ibu']
+          cleanFields['No. Telepon Ibu'], ktpIbuLink
         ];
       } else if (formType === 'SD') {
         range = 'Form SD!A1';
