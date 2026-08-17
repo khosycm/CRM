@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -29,16 +29,39 @@
     }
   </script>
 </head>
-<body class="antialiased min-h-screen bg-slate-50 relative overflow-hidden py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-    <!-- Crisp Geometric Background Shapes -->
-  <div class="absolute top-[-10%] left-[-5%] w-64 h-64 rounded-full bg-tk-orange opacity-90 z-0"></div>
-  <div class="absolute bottom-[-5%] right-[-5%] w-80 h-80 rounded-full bg-tk-blue opacity-90 z-0"></div>
-  <div class="absolute top-[20%] right-[10%] w-24 h-24 rotate-45 bg-amber-400 opacity-80 z-0"></div>
-  <div class="absolute bottom-[20%] left-[10%] w-0 h-0 border-l-[40px] border-r-[40px] border-b-[70px] border-l-transparent border-r-transparent border-b-tk-orange opacity-80 z-0 rotate-12"></div>
-  <div class="absolute top-[40%] left-[5%] w-8 h-8 rounded-full bg-tk-blue opacity-70 z-0"></div>
-  <div class="absolute top-[60%] right-[5%] w-12 h-12 rounded-full border-4 border-tk-orange opacity-70 z-0"></div>
+<body class="antialiased bg-slate-50 relative min-h-screen">
+  <!-- Fixed Background Container for SVGs -->
+  <div class="fixed inset-0 overflow-hidden z-0 pointer-events-none">
+    <!-- Top Left -->
+    <svg class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] opacity-80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 12s ease-in-out infinite;">
+      <path fill="#EB6622" d="M51.6,-52.1C60.2,-43,55.8,-21.5,56.1,0.3C56.3,22.1,61.3,44.2,52.7,54.6C44.2,65.1,22.1,63.9,2.8,61C-16.5,58.2,-32.9,53.8,-44.9,43.3C-56.8,32.9,-64.3,16.5,-64.9,-0.6C-65.5,-17.7,-59.2,-35.3,-47.3,-44.3C-35.3,-53.3,-17.7,-53.7,1.9,-55.6C21.5,-57.6,43,-61.1,51.6,-52.1Z" transform="translate(100 100)" />
+    </svg>
+    <!-- Bottom Right -->
+    <svg class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] opacity-80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 15s ease-in-out infinite reverse;">
+      <path fill="#313556" d="M43.1,-13.7C49.7,6.2,44.5,30.2,26.6,45.3C8.7,60.3,-22,66.5,-42.9,52.8C-63.8,39.1,-74.9,5.6,-66.1,-17.3C-57.3,-40.3,-28.6,-52.6,-5.2,-50.9C18.3,-49.3,36.6,-33.5,43.1,-13.7Z" transform="translate(100 100)" />
+    </svg>
+    <!-- Top Right -->
+    <svg class="absolute top-[10%] right-[-5%] w-[400px] h-[400px] opacity-70" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 10s ease-in-out infinite 2s;">
+      <path fill="#EB6622" d="M54.8,-20.6C60.1,-1.6,45.8,20.9,25.9,35.3C6,49.7,-19.6,55.9,-40.3,43.7C-61,31.4,-76.9,0.6,-69.3,-21.5C-61.8,-43.6,-30.9,-57.1,-3.1,-56.1C24.8,-55.1,49.6,-39.6,54.8,-20.6Z" transform="translate(100 100)" />
+    </svg>
+    <!-- Bottom Left -->
+    <svg class="absolute bottom-[10%] left-[-5%] w-[450px] h-[450px] opacity-70" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 18s ease-in-out infinite 1s;">
+      <path fill="#313556" d="M35.4,-52.3C45.7,-48.5,53.6,-38.3,62.5,-26.3C71.5,-14.3,81.5,-0.6,81.9,13.3C82.3,27.2,73.1,41.3,62.1,53.4C51,65.5,38.1,75.6,24.4,76.6C10.8,77.6,-3.7,69.6,-17,63.2C-30.2,56.8,-42.4,52.1,-50.8,43.4C-59.3,34.8,-63.9,22.3,-64.2,10.2C-64.5,-2,-60.5,-13.9,-55.1,-24.8C-49.6,-35.8,-42.7,-45.7,-33.3,-49.8C-23.8,-53.9,-11.9,-52.3,0.3,-52.8C12.6,-53.3,25.2,-56,35.4,-52.3Z" transform="translate(100 100)" />
+    </svg>
+  </div>
+  
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); }
+      33% { transform: translateY(-30px) rotate(5deg) scale(1.05); }
+      66% { transform: translateY(20px) rotate(-5deg) scale(0.95); }
+      100% { transform: translateY(0px) rotate(0deg) scale(1); }
+    }
+  </style>
 
-  <div class="max-w-4xl w-full relative z-10">
+  <!-- Scrollable Content Wrapper -->
+  <div class="relative z-10 py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen">
+    <div class="max-w-4xl w-full">
     <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
       <div class="bg-tk-blue border-b-8 border-tk-orange p-10 text-white text-center relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full bg-black opacity-10"></div>
@@ -194,6 +217,7 @@
       });
     });
   </script>
+  </div> <!-- End Scrollable Content Wrapper -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
   <script>
@@ -207,6 +231,3 @@
   </script>
 </body>
 </html>
-
-
-
