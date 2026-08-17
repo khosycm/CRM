@@ -45,6 +45,7 @@ export default async function handler(req, res) {
       
       const formType = cleanFields.formType; // 'Daycare', 'TK', 'SD', 'SMP', 'SMA'
       const leadId = cleanFields.leadId || '';
+      const unitTujuan = (cleanFields.unitTujuan || '').toLowerCase();
 
       if (!formType) {
         return res.status(400).json({ status: 'error', message: 'Form Type missing' });
@@ -54,7 +55,18 @@ export default async function handler(req, res) {
       const spreadsheetId = process.env.SPREADSHEET_ID;
       const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
       const privateKey = (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n');
-      const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+      
+      // Dynamic Folder Routing
+      let folderId = process.env.GOOGLE_DRIVE_FOLDER_ID || '';
+      if (formType === 'Daycare') folderId = process.env.FOLDER_DAYCARE || folderId;
+      else if (formType === 'TK') folderId = process.env.FOLDER_TK || folderId;
+      else if (formType === 'SMP') folderId = process.env.FOLDER_SMP || folderId;
+      else if (formType === 'SMA') folderId = process.env.FOLDER_SMA || folderId;
+      else if (formType === 'SD') {
+        if (unitTujuan.includes('makassar')) folderId = process.env.FOLDER_SD_MAKASSAR || folderId;
+        else if (unitTujuan.includes('bilingual')) folderId = process.env.FOLDER_SD_BILINGUAL || folderId;
+        else folderId = process.env.FOLDER_SD_BANDUNG || folderId;
+      }
 
       if (!spreadsheetId || !clientEmail || !privateKey) {
         throw new Error('Google credentials not configured.');
