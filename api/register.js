@@ -214,19 +214,24 @@ export default async function handler(req, res) {
         ];
       } else if (formType === 'SD') {
         range = 'Form SD!A1';
+        
+        const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+        
         rowRecord = [
+          leadId,
           cleanFields['Nama Lengkap Siswa'], cleanFields['Jenis Kelamin'], cleanFields['Tempat Lahir'],
           cleanFields['Tanggal Lahir'], cleanFields['Anak ke'], cleanFields['Jumlah Saudara Kandung'],
           cleanFields['No. NIK Siswa'], cleanFields['No. Akta Kelahiran'], cleanFields['No. Kartu Keluarga'],
           cleanFields['Berkebutuhan Khusus'], cleanFields['Berat Badan'], cleanFields['Tinggi Badan'],
           cleanFields['Lingkar Kepala'], cleanFields['Alamat Rumah'], cleanFields['Garis Lintang dari Rumah ke Sekolah'],
           cleanFields['Garis Bujur dari Rumah ke Sekolah'], cleanFields['RT'], cleanFields['RW'],
-          cleanFields['Kelurahan'], cleanFields['Kecamatan'], cleanFields['Kab/Kota'],
+          cleanFields['Kelurahan'], cleanFields['Kecamatan'], cleanFields['Kab/Kota'], cleanFields['Provinsi'],
           cleanFields['Kode POS'], cleanFields['Jarak Rumah ke Sekolah'], cleanFields['No. Telepon Siswa'],
           cleanFields['Nama Lengkap Ayah'], cleanFields['Tanggal Lahir Ayah'], cleanFields['Jenjang Pendidikan Terakhir Ayah'],
           cleanFields['Pekerjaan Ayah'], cleanFields['Penghasilan Ayah'], cleanFields['No. NIK Ayah'],
           cleanFields['Nama Lengkap Ibu'], cleanFields['Tanggal Lahir Ibu'], cleanFields['Jenjang Pendidikan Terakhir Ibu'],
-          cleanFields['Pekerjaan Ibu'], cleanFields['Penghasilan Ibu'], cleanFields['No. NIK Ibu']
+          cleanFields['Pekerjaan Ibu'], cleanFields['Penghasilan Ibu'], cleanFields['No. NIK Ibu'],
+          timestamp
         ];
       } else if (formType === 'SMP') {
         range = 'Form SMP!A1';
@@ -283,8 +288,8 @@ export default async function handler(req, res) {
          return res.status(400).json({ status: 'error', message: 'Invalid Form Type' });
       }
       
-      // Append Lead ID for tracking at the very end for forms other than Daycare and TK
-      if (formType !== 'Daycare' && formType !== 'TK') {
+      // Append Lead ID for tracking at the very end for forms other than Daycare, TK, and SD
+      if (formType !== 'Daycare' && formType !== 'TK' && formType !== 'SD') {
           rowRecord.push(leadId);
       }
 

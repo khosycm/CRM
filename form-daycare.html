@@ -1,4 +1,7 @@
-<html lang="id"><head><script>
+<html lang="id">
+
+<head>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -12,25 +15,55 @@
         }
       }
     }
-    </script></head><body class="antialiased min-h-screen relative py-10 px-4 sm:px-6 lg:px-8 bg-brand-bg">
+  </script>
+</head>
+
+<body class="antialiased min-h-screen relative py-10 px-4 sm:px-6 lg:px-8 bg-brand-bg">
 
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pendaftaran Quranic Daycare Cendekia Muda</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { font-family: "Plus Jakarta Sans", sans-serif; background-color: #f8fafc; color: #1e293b; }
-    .gradient-text { background: linear-gradient(135deg, #f06a35 0%, #444444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 20px 40px -15px rgba(49, 53, 86, 0.15); }
-    
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #f06a35 0%, #444444 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(49, 53, 86, 0.15);
+    }
+
     @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg) scale(1); }
-      33% { transform: translateY(-30px) rotate(5deg) scale(1.05); }
-      66% { transform: translateY(20px) rotate(-5deg) scale(0.95); }
-      100% { transform: translateY(0px) rotate(0deg) scale(1); }
+      0% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+      }
+
+      33% {
+        transform: translateY(-30px) rotate(5deg) scale(1.05);
+      }
+
+      66% {
+        transform: translateY(20px) rotate(-5deg) scale(0.95);
+      }
+
+      100% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+      }
     }
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -39,20 +72,32 @@
   <!-- Fixed Background Container for SVGs -->
   <div class="fixed inset-0 overflow-hidden z-0 pointer-events-none">
     <!-- Top Left -->
-    <svg class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] opacity-80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 12s ease-in-out infinite;">
-      <path fill="#f06a35" d="M51.6,-52.1C60.2,-43,55.8,-21.5,56.1,0.3C56.3,22.1,61.3,44.2,52.7,54.6C44.2,65.1,22.1,63.9,2.8,61C-16.5,58.2,-32.9,53.8,-44.9,43.3C-56.8,32.9,-64.3,16.5,-64.9,-0.6C-65.5,-17.7,-59.2,-35.3,-47.3,-44.3C-35.3,-53.3,-17.7,-53.7,1.9,-55.6C21.5,-57.6,43,-61.1,51.6,-52.1Z" transform="translate(100 100)"></path>
+    <svg class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] opacity-80" viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg" style="animation: float 12s ease-in-out infinite;">
+      <path fill="#f06a35"
+        d="M51.6,-52.1C60.2,-43,55.8,-21.5,56.1,0.3C56.3,22.1,61.3,44.2,52.7,54.6C44.2,65.1,22.1,63.9,2.8,61C-16.5,58.2,-32.9,53.8,-44.9,43.3C-56.8,32.9,-64.3,16.5,-64.9,-0.6C-65.5,-17.7,-59.2,-35.3,-47.3,-44.3C-35.3,-53.3,-17.7,-53.7,1.9,-55.6C21.5,-57.6,43,-61.1,51.6,-52.1Z"
+        transform="translate(100 100)"></path>
     </svg>
     <!-- Bottom Right -->
-    <svg class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] opacity-80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 15s ease-in-out infinite reverse;">
-      <path fill="#444444" d="M43.1,-13.7C49.7,6.2,44.5,30.2,26.6,45.3C8.7,60.3,-22,66.5,-42.9,52.8C-63.8,39.1,-74.9,5.6,-66.1,-17.3C-57.3,-40.3,-28.6,-52.6,-5.2,-50.9C18.3,-49.3,36.6,-33.5,43.1,-13.7Z" transform="translate(100 100)"></path>
+    <svg class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] opacity-80" viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg" style="animation: float 15s ease-in-out infinite reverse;">
+      <path fill="#444444"
+        d="M43.1,-13.7C49.7,6.2,44.5,30.2,26.6,45.3C8.7,60.3,-22,66.5,-42.9,52.8C-63.8,39.1,-74.9,5.6,-66.1,-17.3C-57.3,-40.3,-28.6,-52.6,-5.2,-50.9C18.3,-49.3,36.6,-33.5,43.1,-13.7Z"
+        transform="translate(100 100)"></path>
     </svg>
     <!-- Top Right -->
-    <svg class="absolute top-[10%] right-[-5%] w-[400px] h-[400px] opacity-70" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 10s ease-in-out infinite 2s;">
-      <path fill="#f06a35" d="M54.8,-20.6C60.1,-1.6,45.8,20.9,25.9,35.3C6,49.7,-19.6,55.9,-40.3,43.7C-61,31.4,-76.9,0.6,-69.3,-21.5C-61.8,-43.6,-30.9,-57.1,-3.1,-56.1C24.8,-55.1,49.6,-39.6,54.8,-20.6Z" transform="translate(100 100)"></path>
+    <svg class="absolute top-[10%] right-[-5%] w-[400px] h-[400px] opacity-70" viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg" style="animation: float 10s ease-in-out infinite 2s;">
+      <path fill="#f06a35"
+        d="M54.8,-20.6C60.1,-1.6,45.8,20.9,25.9,35.3C6,49.7,-19.6,55.9,-40.3,43.7C-61,31.4,-76.9,0.6,-69.3,-21.5C-61.8,-43.6,-30.9,-57.1,-3.1,-56.1C24.8,-55.1,49.6,-39.6,54.8,-20.6Z"
+        transform="translate(100 100)"></path>
     </svg>
     <!-- Bottom Left -->
-    <svg class="absolute bottom-[10%] left-[-5%] w-[450px] h-[450px] opacity-70" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="animation: float 18s ease-in-out infinite 1s;">
-      <path fill="#444444" d="M35.4,-52.3C45.7,-48.5,53.6,-38.3,62.5,-26.3C71.5,-14.3,81.5,-0.6,81.9,13.3C82.3,27.2,73.1,41.3,62.1,53.4C51,65.5,38.1,75.6,24.4,76.6C10.8,77.6,-3.7,69.6,-17,63.2C-30.2,56.8,-42.4,52.1,-50.8,43.4C-59.3,34.8,-63.9,22.3,-64.2,10.2C-64.5,-2,-60.5,-13.9,-55.1,-24.8C-49.6,-35.8,-42.7,-45.7,-33.3,-49.8C-23.8,-53.9,-11.9,-52.3,0.3,-52.8C12.6,-53.3,25.2,-56,35.4,-52.3Z" transform="translate(100 100)"></path>
+    <svg class="absolute bottom-[10%] left-[-5%] w-[450px] h-[450px] opacity-70" viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg" style="animation: float 18s ease-in-out infinite 1s;">
+      <path fill="#444444"
+        d="M35.4,-52.3C45.7,-48.5,53.6,-38.3,62.5,-26.3C71.5,-14.3,81.5,-0.6,81.9,13.3C82.3,27.2,73.1,41.3,62.1,53.4C51,65.5,38.1,75.6,24.4,76.6C10.8,77.6,-3.7,69.6,-17,63.2C-30.2,56.8,-42.4,52.1,-50.8,43.4C-59.3,34.8,-63.9,22.3,-64.2,10.2C-64.5,-2,-60.5,-13.9,-55.1,-24.8C-49.6,-35.8,-42.7,-45.7,-33.3,-49.8C-23.8,-53.9,-11.9,-52.3,0.3,-52.8C12.6,-53.3,25.2,-56,35.4,-52.3Z"
+        transform="translate(100 100)"></path>
     </svg>
   </div>
 
@@ -63,256 +108,484 @@
         <h1 class="text-4xl font-extrabold tracking-tight relative z-10">Formulir Pendaftaran</h1>
         <p class="mt-3 text-slate-100 text-lg relative z-10 font-medium">Quranic Daycare Cendekia Muda</p>
       </div>
-      
+
       <form id="registrationForm" class="p-8 sm:p-12 space-y-10">
-        <input type="hidden" name="formType" value="Daycare" class="focus:border-brand-primary focus:ring-brand-primary">
+        <input type="hidden" name="formType" value="Daycare"
+          class="focus:border-brand-primary focus:ring-brand-primary">
         <input type="hidden" name="leadId" id="leadId" class="focus:border-brand-primary focus:ring-brand-primary">
-        <input type="hidden" name="unitTujuan" id="unitTujuan" class="focus:border-brand-primary focus:ring-brand-primary">
-        
+        <input type="hidden" name="unitTujuan" id="unitTujuan"
+          class="focus:border-brand-primary focus:ring-brand-primary">
+
         <!-- Data Anak -->
         <div>
-          <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">Data Anak</h2>
+          <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">
+            Data Anak</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-sm font-medium text-slate-700">Program Daycare <span class="text-red-500">*</span></label><select name="Program daycare" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
-                
-    <option value="" disabled="" selected="">-- Pilih Program --</option>
-    <option value="Halfday">Halfday</option>
-    <option value="Fullday">Fullday</option>
+            <div><label class="block text-sm font-medium text-slate-700">Program Daycare <span
+                  class="text-red-500">*</span></label><select name="Program daycare"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
 
-            </select></div>
-            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap <span class="text-red-500">*</span></label><input type="text" name="Nama Lengkap" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Mochamad Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Nama Panggilan <span class="text-red-500">*</span></label><input type="text" name="Nama Panggilan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span class="text-red-500">*</span></label><input type="text" name="Tempat Lahir" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Bandung"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Jenis Kelamin <span class="text-red-500">*</span></label>
-              <select name="Jenis Kelamin" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
+                <option value="" disabled="" selected="">-- Pilih Program --</option>
+                <option value="Halfday">Halfday</option>
+                <option value="Fullday">Fullday</option>
+
+              </select></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap <span
+                  class="text-red-500">*</span></label><input type="text" name="Nama Lengkap"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Muhammad Rayhan Ibrahim"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Panggilan <span
+                  class="text-red-500">*</span></label><input type="text" name="Nama Panggilan"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Rayhan"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span
+                  class="text-red-500">*</span></label><input type="text" name="Tempat Lahir"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Bandung"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span
+                  class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015"
+                name="Tanggal Lahir"
+                class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Kelamin <span
+                  class="text-red-500">*</span></label>
+              <select name="Jenis Kelamin"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
                 <option value="" disabled="" selected="">-- Pilih Jenis Kelamin --</option>
                 <option value="Laki-laki">Laki-laki</option>
                 <option value="Perempuan">Perempuan</option>
               </select>
             </div>
-            <div><label class="block text-sm font-medium text-slate-700">Anak ke- <span class="text-red-500">*</span></label><input type="number" name="Anak ke-" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 1"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Saudara Kandung <span class="text-red-500">*</span></label><input type="number" name="Saudara Kandung" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Saudara Kandung"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Saudara Tiri <span class="text-red-500">*</span></label><input type="number" name="Saudara Tiri" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Saudara Tiri"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Saudara Angkat <span class="text-red-500">*</span></label><input type="number" name="Saudara Angkat" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Saudara Angkat"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Status Orang Tua <span class="text-red-500">*</span></label><select name="Status Orang Tua" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
-                
-    <option value="" disabled="" selected="">-- Pilih Status --</option>
-    <option value="Lengkap">Lengkap (Kedua orang tua ada)</option>
-    <option value="Yatim">Yatim (Ayah meninggal)</option>
-    <option value="Piatu">Piatu (Ibu meninggal)</option>
-    <option value="Yatim Piatu">Yatim Piatu (Keduanya meninggal)</option>
+            <div><label class="block text-sm font-medium text-slate-700">Anak ke- <span
+                  class="text-red-500">*</span></label><input type="number" name="Anak ke-"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: 1"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Saudara Kandung <span
+                  class="text-red-500">*</span></label><input type="number" name="Saudara Kandung"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Jumlah Saudara Kandung"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Saudara Tiri <span
+                  class="text-red-500">*</span></label><input type="number" name="Saudara Tiri"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Jumlah Saudara Tiri"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Saudara Angkat <span
+                  class="text-red-500">*</span></label><input type="number" name="Saudara Angkat"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Jumlah Saudara Angkat"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Status Orang Tua <span
+                  class="text-red-500">*</span></label><select name="Status Orang Tua"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
 
-            </select></div>
-            <div><label class="block text-sm font-medium text-slate-700">Kewarganegaraan <span class="text-red-500">*</span></label><select name="Kewarganegaraan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
-                
-    <option value="" disabled="" selected="">-- Pilih Kewarganegaraan --</option>
-    <option value="WNI">WNI</option>
-    <option value="WNA">WNA</option>
+                <option value="" disabled="" selected="">-- Pilih Status --</option>
+                <option value="Lengkap">Lengkap (Kedua orang tua ada)</option>
+                <option value="Yatim">Yatim (Ayah meninggal)</option>
+                <option value="Piatu">Piatu (Ibu meninggal)</option>
+                <option value="Yatim Piatu">Yatim Piatu (Keduanya meninggal)</option>
 
-            </select></div>
-            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah <span class="text-red-500">*</span></label><select name="Golongan Darah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
-                
-    <option value="" disabled="" selected="">-- Pilih Golongan Darah --</option>
-    <option value="O">O</option>
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="AB">AB</option>
+              </select></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kewarganegaraan <span
+                  class="text-red-500">*</span></label><select name="Kewarganegaraan"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
 
-            </select></div>
-            <div><label class="block text-sm font-medium text-slate-700">Berat Badan (kg) <span class="text-red-500">*</span></label>
-        <div class="mt-1.5 flex shadow-sm">
-            <input type="number" name="Berat Badan" class="block w-full rounded-l-lg rounded-r-none border-r-0 border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 25" step="any">
-            <span class="inline-flex items-center px-3 rounded-r-lg border border-l-0 border-slate-300 bg-slate-50 text-slate-500 sm:text-sm">
-                kg
-            </span>
-        </div>
-    </div>
-            <div><label class="block text-sm font-medium text-slate-700">Tinggi Badan (cm) <span class="text-red-500">*</span></label>
-        <div class="mt-1.5 flex shadow-sm">
-            <input type="number" name="Tinggi Badan" class="block w-full rounded-l-lg rounded-r-none border-r-0 border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 120" step="any">
-            <span class="inline-flex items-center px-3 rounded-r-lg border border-l-0 border-slate-300 bg-slate-50 text-slate-500 sm:text-sm">
-                cm
-            </span>
-        </div>
-    </div>
-            
-              <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4"><div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Lengkap <span class="text-red-500">*</span></label><textarea name="Alamat Lengkap" rows="2" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Provinsi <span class="text-red-500">*</span></label>
-                  <select id="provinsi_select" name="Provinsi" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="">
-                    <option value="" disabled="" selected="">Loading...</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span class="text-red-500">*</span></label>
-                  <select id="kota_select" name="Kota/Kabupaten" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kecamatan <span class="text-red-500">*</span></label>
-                  <select id="kecamatan_select" name="Kecamatan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span class="text-red-500">*</span></label>
-                  <select id="kelurahan_select" name="Kelurahan/Desa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Kode Pos <span class="text-red-500">*</span></label>
-                    <input type="text" name="Kode Pos" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
-                </div>
+                <option value="" disabled="" selected="">-- Pilih Kewarganegaraan --</option>
+                <option value="WNI">WNI</option>
+                <option value="WNA">WNA</option>
+
+              </select></div>
+            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah <span
+                  class="text-red-500">*</span></label><select name="Golongan Darah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
+
+                <option value="" disabled="" selected="">-- Pilih Golongan Darah --</option>
+                <option value="O">O</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+
+              </select></div>
+            <div><label class="block text-sm font-medium text-slate-700">Berat Badan (kg) <span
+                  class="text-red-500">*</span></label>
+              <div class="mt-1.5 flex shadow-sm">
+                <input type="number" name="Berat Badan"
+                  class="block w-full rounded-l-lg rounded-r-none border-r-0 border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="required" placeholder="Misal: 25" step="any">
+                <span
+                  class="inline-flex items-center px-3 rounded-r-lg border border-l-0 border-slate-300 bg-slate-50 text-slate-500 sm:text-sm">
+                  kg
+                </span>
               </div>
-            
-            <div><label class="block text-sm font-medium text-slate-700">Jenis Tinggal <span class="text-red-500">*</span></label><select name="Jenis Tinggal" id="tinggal_10_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="Bersama Orang Tua">Bersama Orang Tua</option><option value="Bersama Wali">Bersama Wali</option><option value="Kos">Kos</option><option value="Asrama">Asrama</option><option value="Panti Asuhan">Panti Asuhan</option><option value="Lainnya">Lainnya</option></select>
-            <div id="tinggal_10_other_container" class="hidden mt-2">
-              <input type="text" id="tinggal_10_other" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" placeholder="Sebutkan Lainnya">
-            </div></div>
-            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit Anak <span class="text-red-500">*</span></label><input type="text" name="Riwayat PenyakitAnak" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Riwayat PenyakitAnak"></div>
-            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit Keluarga <span class="text-red-500">*</span></label><input type="text" name="Riwayat Penyakit Keluarga" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Riwayat Penyakit Keluarga"></div>
+            </div>
+            <div><label class="block text-sm font-medium text-slate-700">Tinggi Badan (cm) <span
+                  class="text-red-500">*</span></label>
+              <div class="mt-1.5 flex shadow-sm">
+                <input type="number" name="Tinggi Badan"
+                  class="block w-full rounded-l-lg rounded-r-none border-r-0 border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="required" placeholder="Misal: 120" step="any">
+                <span
+                  class="inline-flex items-center px-3 rounded-r-lg border border-l-0 border-slate-300 bg-slate-50 text-slate-500 sm:text-sm">
+                  cm
+                </span>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Lengkap <span
+                    class="text-red-500">*</span></label><textarea name="Alamat Lengkap" rows="2"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Provinsi <span
+                    class="text-red-500">*</span></label>
+                <select id="provinsi_select" name="Provinsi"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="">
+                  <option value="" disabled="" selected="">Loading...</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span
+                    class="text-red-500">*</span></label>
+                <select id="kota_select" name="Kota/Kabupaten"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kecamatan <span
+                    class="text-red-500">*</span></label>
+                <select id="kecamatan_select" name="Kecamatan"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span
+                    class="text-red-500">*</span></label>
+                <select id="kelurahan_select" name="Kelurahan/Desa"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kode Pos <span
+                    class="text-red-500">*</span></label>
+                <input type="text" name="Kode Pos"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
+              </div>
+            </div>
+
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Tinggal <span
+                  class="text-red-500">*</span></label><select name="Jenis Tinggal" id="tinggal_10_select"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="">
+                <option value="" disabled="" selected="">-- Pilih --</option>
+                <option value="Bersama Orang Tua">Bersama Orang Tua</option>
+                <option value="Bersama Wali">Bersama Wali</option>
+                <option value="Kos">Kos</option>
+                <option value="Asrama">Asrama</option>
+                <option value="Panti Asuhan">Panti Asuhan</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+              <div id="tinggal_10_other_container" class="hidden mt-2">
+                <input type="text" id="tinggal_10_other"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  placeholder="Sebutkan Lainnya">
+              </div>
+            </div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit Anak
+                <span class="text-red-500">*</span></label><input type="text" name="Riwayat PenyakitAnak"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Masukkan Riwayat PenyakitAnak"></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit Keluarga
+                <span class="text-red-500">*</span></label><input type="text" name="Riwayat Penyakit Keluarga"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Masukkan Riwayat Penyakit Keluarga"></div>
           </div>
         </div>
 
         <!-- Data Ayah -->
         <div>
-          <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">Data Ayah</h2>
+          <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">
+            Data Ayah</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ayah <span class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Mochamad Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span class="text-red-500">*</span></label><input type="text" name="Tempat Lahir Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Bandung"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir Ayah" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Nomor Handphone <span class="text-red-500">*</span></label><input type="tel" name="Nomor Handphone Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 081234567890" pattern="[0-9]{10,14}" title="Harus terdiri dari 10-14 digit angka"></div>
-            
-              <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div class="sm:col-span-2 mb-2">
-              <label class="flex items-center space-x-2 text-sm font-medium text-slate-700 cursor-pointer w-max">
-                <input type="checkbox" id="same_as_anak_ayah" class="rounded border-slate-300 text-brand-primary focus:ring-brand-primary w-4 h-4">
-                <span>Sama dengan alamat Anak</span>
-              </label>
-            </div><div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Lengkap <span class="text-red-500">*</span></label><textarea name="Alamat Lengkap Ayah" rows="2" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
-            
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Provinsi <span class="text-red-500">*</span></label>
-                  <select id="provinsi_ayah_select" name="Provinsi Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="">
-                    <option value="" disabled="" selected="">Loading...</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span class="text-red-500">*</span></label>
-                  <select id="kota_ayah_select" name="Kota/Kabupaten Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kecamatan <span class="text-red-500">*</span></label>
-                  <select id="kecamatan_ayah_select" name="Kecamatan Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span class="text-red-500">*</span></label>
-                  <select id="kelurahan_ayah_select" name="Kelurahan/Desa Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Kode Pos <span class="text-red-500">*</span></label>
-                    <input type="text" name="Kode Pos Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
-                </div>
-              </div>
-            
-            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan/Profesi <span class="text-red-500">*</span></label><select name="Pekerjaan/Profesi Ayah" id="pekerjaan_16_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option><option value="TNI/POLRI">TNI/POLRI</option><option value="Karyawan Swasta">Karyawan Swasta</option><option value="Wiraswasta">Wiraswasta</option><option value="Lainnya">Lainnya</option></select>
-            <div id="pekerjaan_16_other_container" class="hidden mt-2">
-              <input type="text" id="pekerjaan_16_other" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" placeholder="Sebutkan Lainnya">
-            </div></div>
-            <div><label class="block text-sm font-medium text-slate-700">Pendidikan Terakhir <span class="text-red-500">*</span></label><select name="Pendidikan Terakhir Ayah" id="pendidikan_17_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="SMA/SMK">SMA/SMK</option><option value="Diploma (D1-D4)">Diploma (D1-D4)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Magister (S2)">Magister (S2)</option><option value="Doktor (S3)">Doktor (S3)</option></select></div>
-            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Nama &amp; Alamat Tempat Kerja <span class="text-red-500">*</span></label><input type="text" name="Nama &amp; Alamat Tepat Kerja Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit <span class="text-red-500">*</span></label><input type="text" name="Riwayat Penyakit Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Riwayat Penyakit Ayah"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah <span class="text-red-500">*</span></label><select name="Golongan Darah Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
-                
-    <option value="" disabled="" selected="">-- Pilih Golongan Darah --</option>
-    <option value="O">O</option>
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="AB">AB</option>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ayah <span
+                  class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Ayah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Donni Tri Pamungkas"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span
+                  class="text-red-500">*</span></label><input type="text" name="Tempat Lahir Ayah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Bandung"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span
+                  class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015"
+                name="Tanggal Lahir Ayah"
+                class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nomor Handphone <span
+                  class="text-red-500">*</span></label><input type="tel" name="Nomor Handphone Ayah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: 081234567890" pattern="[0-9]{10,14}"
+                title="Harus terdiri dari 10-14 digit angka"></div>
 
-            </select></div>
+            <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div class="sm:col-span-2 mb-2">
+                <label class="flex items-center space-x-2 text-sm font-medium text-slate-700 cursor-pointer w-max">
+                  <input type="checkbox" id="same_as_anak_ayah"
+                    class="rounded border-slate-300 text-brand-primary focus:ring-brand-primary w-4 h-4">
+                  <span>Sama dengan alamat Anak</span>
+                </label>
+              </div>
+              <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Lengkap <span
+                    class="text-red-500">*</span></label><textarea name="Alamat Lengkap Ayah" rows="2"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Provinsi <span
+                    class="text-red-500">*</span></label>
+                <select id="provinsi_ayah_select" name="Provinsi Ayah"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="">
+                  <option value="" disabled="" selected="">Loading...</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span
+                    class="text-red-500">*</span></label>
+                <select id="kota_ayah_select" name="Kota/Kabupaten Ayah"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kecamatan <span
+                    class="text-red-500">*</span></label>
+                <select id="kecamatan_ayah_select" name="Kecamatan Ayah"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span
+                    class="text-red-500">*</span></label>
+                <select id="kelurahan_ayah_select" name="Kelurahan/Desa Ayah"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kode Pos <span
+                    class="text-red-500">*</span></label>
+                <input type="text" name="Kode Pos Ayah"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
+              </div>
+            </div>
+
+            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan/Profesi <span
+                  class="text-red-500">*</span></label><select name="Pekerjaan/Profesi Ayah" id="pekerjaan_16_select"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="">
+                <option value="" disabled="" selected="">-- Pilih --</option>
+                <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
+                <option value="TNI/POLRI">TNI/POLRI</option>
+                <option value="Karyawan Swasta">Karyawan Swasta</option>
+                <option value="Wiraswasta">Wiraswasta</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+              <div id="pekerjaan_16_other_container" class="hidden mt-2">
+                <input type="text" id="pekerjaan_16_other"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  placeholder="Sebutkan Lainnya">
+              </div>
+            </div>
+            <div><label class="block text-sm font-medium text-slate-700">Pendidikan Terakhir <span
+                  class="text-red-500">*</span></label><select name="Pendidikan Terakhir Ayah" id="pendidikan_17_select"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="">
+                <option value="" disabled="" selected="">-- Pilih --</option>
+                <option value="SMA/SMK">SMA/SMK</option>
+                <option value="Diploma (D1-D4)">Diploma (D1-D4)</option>
+                <option value="Sarjana (S1)">Sarjana (S1)</option>
+                <option value="Magister (S2)">Magister (S2)</option>
+                <option value="Doktor (S3)">Doktor (S3)</option>
+              </select></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Nama &amp; Alamat Tempat
+                Kerja <span class="text-red-500">*</span></label><input type="text"
+                name="Nama &amp; Alamat Tepat Kerja Ayah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit <span
+                  class="text-red-500">*</span></label><input type="text" name="Riwayat Penyakit Ayah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Masukkan Riwayat Penyakit Ayah"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah <span
+                  class="text-red-500">*</span></label><select name="Golongan Darah Ayah"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
+
+                <option value="" disabled="" selected="">-- Pilih Golongan Darah --</option>
+                <option value="O">O</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+
+              </select></div>
           </div>
         </div>
 
         <!-- Data Ibu -->
         <div>
-          <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">Data Ibu</h2>
+          <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">
+            Data Ibu</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ibu <span class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Mochamad Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span class="text-red-500">*</span></label><input type="text" name="Tempat Lahir Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Bandung"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir Ibu" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Nomor Handphone <span class="text-red-500">*</span></label><input type="tel" name="Nomor Handphone Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 081234567890" pattern="[0-9]{10,14}" title="Harus terdiri dari 10-14 digit angka"></div>
-            
-              <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div class="sm:col-span-2 mb-2">
-              <label class="flex items-center space-x-2 text-sm font-medium text-slate-700 cursor-pointer w-max">
-                <input type="checkbox" id="same_as_anak_ibu" class="rounded border-slate-300 text-brand-primary focus:ring-brand-primary w-4 h-4">
-                <span>Sama dengan alamat Anak</span>
-              </label>
-            </div><div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Lengkap <span class="text-red-500">*</span></label><textarea name="Alamat Lengkap Ibu" rows="2" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
-            
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Provinsi <span class="text-red-500">*</span></label>
-                  <select id="provinsi_ibu_select" name="Provinsi Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="">
-                    <option value="" disabled="" selected="">Loading...</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span class="text-red-500">*</span></label>
-                  <select id="kota_ibu_select" name="Kota/Kabupaten Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kecamatan <span class="text-red-500">*</span></label>
-                  <select id="kecamatan_ibu_select" name="Kecamatan Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span class="text-red-500">*</span></label>
-                  <select id="kelurahan_ibu_select" name="Kelurahan/Desa Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
-                    <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
-                  </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Kode Pos <span class="text-red-500">*</span></label>
-                    <input type="text" name="Kode Pos Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
-                </div>
-              </div>
-            
-            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan/Profesi <span class="text-red-500">*</span></label><select name="Pekerjaan/Profesi Ibu" id="pekerjaan_24_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option><option value="TNI/POLRI">TNI/POLRI</option><option value="Karyawan Swasta">Karyawan Swasta</option><option value="Wiraswasta">Wiraswasta</option><option value="Lainnya">Lainnya</option></select>
-            <div id="pekerjaan_24_other_container" class="hidden mt-2">
-              <input type="text" id="pekerjaan_24_other" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" placeholder="Sebutkan Lainnya">
-            </div></div>
-            <div><label class="block text-sm font-medium text-slate-700">Pendidikan Terakhir <span class="text-red-500">*</span></label><select name="Pendidikan Terakhir Ibu" id="pendidikan_25_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="SMA/SMK">SMA/SMK</option><option value="Diploma (D1-D4)">Diploma (D1-D4)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Magister (S2)">Magister (S2)</option><option value="Doktor (S3)">Doktor (S3)</option></select></div>
-            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Nama &amp; Alamat Tempat Kerja <span class="text-red-500">*</span></label><input type="text" name="Nama &amp; Alamat Tepat Kerja Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit <span class="text-red-500">*</span></label><input type="text" name="Riwayat Penyakit Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Riwayat Penyakit Ibu"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah <span class="text-red-500">*</span></label><select name="Golongan Darah Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
-                
-    <option value="" disabled="" selected="">-- Pilih Golongan Darah --</option>
-    <option value="O">O</option>
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="AB">AB</option>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ibu <span
+                  class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Ibu"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Ratna Tri Pamungkas"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span
+                  class="text-red-500">*</span></label><input type="text" name="Tempat Lahir Ibu"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Bandung"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span
+                  class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015"
+                name="Tanggal Lahir Ibu"
+                class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nomor Handphone <span
+                  class="text-red-500">*</span></label><input type="tel" name="Nomor Handphone Ibu"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: 081234567890" pattern="[0-9]{10,14}"
+                title="Harus terdiri dari 10-14 digit angka"></div>
 
-            </select></div>
+            <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div class="sm:col-span-2 mb-2">
+                <label class="flex items-center space-x-2 text-sm font-medium text-slate-700 cursor-pointer w-max">
+                  <input type="checkbox" id="same_as_anak_ibu"
+                    class="rounded border-slate-300 text-brand-primary focus:ring-brand-primary w-4 h-4">
+                  <span>Sama dengan alamat Anak</span>
+                </label>
+              </div>
+              <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Lengkap <span
+                    class="text-red-500">*</span></label><textarea name="Alamat Lengkap Ibu" rows="2"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Provinsi <span
+                    class="text-red-500">*</span></label>
+                <select id="provinsi_ibu_select" name="Provinsi Ibu"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="">
+                  <option value="" disabled="" selected="">Loading...</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span
+                    class="text-red-500">*</span></label>
+                <select id="kota_ibu_select" name="Kota/Kabupaten Ibu"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kecamatan <span
+                    class="text-red-500">*</span></label>
+                <select id="kecamatan_ibu_select" name="Kecamatan Ibu"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span
+                    class="text-red-500">*</span></label>
+                <select id="kelurahan_ibu_select" name="Kelurahan/Desa Ibu"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" disabled="">
+                  <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Kode Pos <span
+                    class="text-red-500">*</span></label>
+                <input type="text" name="Kode Pos Ibu"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
+              </div>
+            </div>
+
+            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan/Profesi <span
+                  class="text-red-500">*</span></label><select name="Pekerjaan/Profesi Ibu" id="pekerjaan_24_select"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="">
+                <option value="" disabled="" selected="">-- Pilih --</option>
+                <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
+                <option value="TNI/POLRI">TNI/POLRI</option>
+                <option value="Karyawan Swasta">Karyawan Swasta</option>
+                <option value="Wiraswasta">Wiraswasta</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+              <div id="pekerjaan_24_other_container" class="hidden mt-2">
+                <input type="text" id="pekerjaan_24_other"
+                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                  placeholder="Sebutkan Lainnya">
+              </div>
+            </div>
+            <div><label class="block text-sm font-medium text-slate-700">Pendidikan Terakhir <span
+                  class="text-red-500">*</span></label><select name="Pendidikan Terakhir Ibu" id="pendidikan_25_select"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="">
+                <option value="" disabled="" selected="">-- Pilih --</option>
+                <option value="SMA/SMK">SMA/SMK</option>
+                <option value="Diploma (D1-D4)">Diploma (D1-D4)</option>
+                <option value="Sarjana (S1)">Sarjana (S1)</option>
+                <option value="Magister (S2)">Magister (S2)</option>
+                <option value="Doktor (S3)">Doktor (S3)</option>
+              </select></div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Nama &amp; Alamat Tempat
+                Kerja <span class="text-red-500">*</span></label><input type="text"
+                name="Nama &amp; Alamat Tepat Kerja Ibu"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Riwayat Penyakit <span
+                  class="text-red-500">*</span></label><input type="text" name="Riwayat Penyakit Ibu"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required" placeholder="Masukkan Riwayat Penyakit Ibu"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Golongan Darah <span
+                  class="text-red-500">*</span></label><select name="Golongan Darah Ibu"
+                class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary"
+                required="required">
+
+                <option value="" disabled="" selected="">-- Pilih Golongan Darah --</option>
+                <option value="O">O</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+
+              </select></div>
           </div>
         </div>
 
-        <div id="alertBox" class="hidden rounded-xl p-4 text-sm font-medium shadow-sm transition-all duration-300"></div>
+        <div id="alertBox" class="hidden rounded-xl p-4 text-sm font-medium shadow-sm transition-all duration-300">
+        </div>
 
         <div class="pt-4">
-          <button type="submit" id="submitBtn" class="w-full flex justify-center items-center gap-2 py-4 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-white bg-[#f06a35] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f06a35] transition-all transform hover:-translate-y-0.5">
+          <button type="submit" id="submitBtn"
+            class="w-full flex justify-center items-center gap-2 py-4 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-white bg-[#f06a35] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f06a35] transition-all transform hover:-translate-y-0.5">
             <i class="fa-solid fa-paper-plane"></i>
             Kirim Pendaftaran
           </button>
@@ -321,7 +594,7 @@
     </div>
   </div>
 
-  
+
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
   <script>
@@ -346,7 +619,7 @@
       const kecSelect = document.getElementById('kecamatan_select');
       const kelSelect = document.getElementById('kelurahan_select');
 
-      if(!provSelect) return;
+      if (!provSelect) return;
 
       const fetchAPI = async (url) => {
         try { const res = await fetch(url); return await res.json(); }
@@ -372,7 +645,7 @@
 
       provSelect.addEventListener('change', async (e) => {
         const id = e.target.value.split('|')[1];
-        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/'+id+'.json');
+        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/' + id + '.json');
         populateSelect(kotaSelect, data, 'Kota/Kabupaten', 'id', 'name');
         kecSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kecamatan --</option>'; kecSelect.disabled = true;
         kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
@@ -380,264 +653,266 @@
 
       kotaSelect.addEventListener('change', async (e) => {
         const id = e.target.value.split('|')[1];
-        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/districts/'+id+'.json');
+        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/districts/' + id + '.json');
         populateSelect(kecSelect, data, 'Kecamatan', 'id', 'name');
         kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
       });
 
       kecSelect.addEventListener('change', async (e) => {
         const id = e.target.value.split('|')[1];
-        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/villages/'+id+'.json');
+        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/villages/' + id + '.json');
         populateSelect(kelSelect, data, 'Kelurahan', 'id', 'name');
       });
     }
   </script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('leadId')) {
-            const leadIdEl = document.getElementById('leadId');
-            if(leadIdEl) leadIdEl.value = urlParams.get('leadId');
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('leadId')) {
+        const leadIdEl = document.getElementById('leadId');
+        if (leadIdEl) leadIdEl.value = urlParams.get('leadId');
+      }
+      if (urlParams.has('unit')) {
+        const unitEl = document.getElementById('unitTujuan');
+        if (unitEl) unitEl.value = urlParams.get('unit');
+      }
+
+      // Location API init
+      if (typeof loadEMSIFA === 'function') loadEMSIFA();
+
+      // Lainnya Logic
+      const setupLainnya = (selectId, containerId, inputId, name) => {
+        const select = document.getElementById(selectId);
+        const container = document.getElementById(containerId);
+        const input = document.getElementById(inputId);
+        if (select && container && input) {
+          select.addEventListener('change', (e) => {
+            if (e.target.value === 'Lainnya') {
+              container.classList.remove('hidden');
+              input.setAttribute('name', name);
+              input.setAttribute('required', 'required');
+              select.removeAttribute('name');
+            } else {
+              container.classList.add('hidden');
+              input.removeAttribute('name');
+              input.removeAttribute('required');
+              select.setAttribute('name', name);
+            }
+          });
         }
-        if (urlParams.has('unit')) {
-            const unitEl = document.getElementById('unitTujuan');
-            if (unitEl) unitEl.value = urlParams.get('unit');
+      };
+
+      document.querySelectorAll('select').forEach(select => {
+        if (select.id && select.id.endsWith('_select')) {
+          const baseId = select.id.replace('_select', '');
+          setupLainnya(select.id, baseId + '_other_container', baseId + '_other', select.name);
         }
+      });
 
-        // Location API init
-        if(typeof loadEMSIFA === 'function') loadEMSIFA();
-
-        // Lainnya Logic
-        const setupLainnya = (selectId, containerId, inputId, name) => {
-            const select = document.getElementById(selectId);
-            const container = document.getElementById(containerId);
-            const input = document.getElementById(inputId);
-            if(select && container && input) {
-                select.addEventListener('change', (e) => {
-                    if (e.target.value === 'Lainnya') {
-                        container.classList.remove('hidden');
-                        input.setAttribute('name', name);
-                        input.setAttribute('required', 'required');
-                        select.removeAttribute('name');
-                    } else {
-                        container.classList.add('hidden');
-                        input.removeAttribute('name');
-                        input.removeAttribute('required');
-                        select.setAttribute('name', name);
-                    }
-                });
-            }
-        };
-
-        document.querySelectorAll('select').forEach(select => {
-            if(select.id && select.id.endsWith('_select')) {
-                const baseId = select.id.replace('_select', '');
-                setupLainnya(select.id, baseId + '_other_container', baseId + '_other', select.name);
-            }
-        });
-
-        // Auto Save Draft
-        const form = document.getElementById('registrationForm');
-        if(!form) return;
-        const draftKey = 'form-daycare.html_draft';
-        const loadDraft = () => {
-            const draft = localStorage.getItem(draftKey);
-            if (draft) {
-                const data = JSON.parse(draft);
-                for (const key in data) {
-                    const input = form.querySelector('[name="' + key + '"]');
-                    if (input && input.type !== 'file' && input.tagName !== 'SELECT') {
-                        input.value = data[key];
-                    }
-                }
-            }
-        };
-        loadDraft();
-        form.addEventListener('input', (e) => {
-            if (e.target.type !== 'file') {
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
-                localStorage.setItem(draftKey, JSON.stringify(data));
-            }
-        });
-
-        // Submit Handler
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const submitBtn = document.getElementById('submitBtn');
-          const alertBox = document.getElementById('alertBox');
-          if(!submitBtn || !alertBox) return;
-          
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
-          alertBox.classList.add('hidden');
-
-          // Check File Sizes (5MB Limit)
-          const fileInputs = form.querySelectorAll('input[type="file"]');
-          for (const input of fileInputs) {
-            if (input.files && input.files[0] && input.files[0].size > 5 * 1024 * 1024) {
-                alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>Ukuran file ' + input.files[0].name + ' terlalu besar. Maksimal 5MB.';
-                alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
-                alertBox.classList.remove('hidden');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran';
-                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return;
+      // Auto Save Draft
+      const form = document.getElementById('registrationForm');
+      if (!form) return;
+      const draftKey = 'form-daycare.html_draft';
+      const loadDraft = () => {
+        const draft = localStorage.getItem(draftKey);
+        if (draft) {
+          const data = JSON.parse(draft);
+          for (const key in data) {
+            const input = form.querySelector('[name="' + key + '"]');
+            if (input && input.type !== 'file' && input.tagName !== 'SELECT') {
+              input.value = data[key];
             }
           }
-          
-          try {
-            const formData = new FormData(form);
-            const response = await fetch('/api/register', { method: 'POST', body: formData });
-            const result = await response.json();
-            if (response.ok) {
-              alertBox.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i>' + (result.message || 'Pendaftaran berhasil dikirim!');
-              alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
-              form.reset();
-              localStorage.removeItem(draftKey);
-            } else {
-              alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>' + (result.message || 'Terjadi kesalahan.');
-              alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
-            }
-          } catch (error) {
-            alertBox.innerHTML = '<i class="fa-solid fa-wifi mr-2"></i> Terjadi kesalahan jaringan.';
+        }
+      };
+      loadDraft();
+      form.addEventListener('input', (e) => {
+        if (e.target.type !== 'file') {
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
+          localStorage.setItem(draftKey, JSON.stringify(data));
+        }
+      });
+
+      // Submit Handler
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const alertBox = document.getElementById('alertBox');
+        if (!submitBtn || !alertBox) return;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+        alertBox.classList.add('hidden');
+
+        // Check File Sizes (5MB Limit)
+        const fileInputs = form.querySelectorAll('input[type="file"]');
+        for (const input of fileInputs) {
+          if (input.files && input.files[0] && input.files[0].size > 5 * 1024 * 1024) {
+            alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>Ukuran file ' + input.files[0].name + ' terlalu besar. Maksimal 5MB.';
             alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
-          } finally {
             alertBox.classList.remove('hidden');
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran';
             alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+        }
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('/api/register', { method: 'POST', body: formData });
+          const result = await response.json();
+          if (response.ok) {
+            alertBox.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i>' + (result.message || 'Pendaftaran berhasil dikirim!');
+            alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+            form.reset();
+            localStorage.removeItem(draftKey);
+          } else {
+            alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>' + (result.message || 'Terjadi kesalahan.');
+            alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
+          }
+        } catch (error) {
+          alertBox.innerHTML = '<i class="fa-solid fa-wifi mr-2"></i> Terjadi kesalahan jaringan.';
+          alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
+        } finally {
+          alertBox.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran';
+          alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+  <script id="location-fix-script">
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const setupAddressCopy = (type) => {
+        const checkbox = document.getElementById('same_as_anak_' + type);
+        if (!checkbox) return;
+
+        const suffix = type === 'ayah' ? ' Ayah' : ' Ibu';
+
+        checkbox.addEventListener('change', (e) => {
+          const isChecked = e.target.checked;
+          const fields = ['Provinsi', 'Kota/Kabupaten', 'Kecamatan', 'Kelurahan/Desa', 'Kode Pos', 'Alamat Lengkap'];
+
+          fields.forEach(f => {
+            let source = document.querySelector('[name="' + f + '"]');
+            let target = document.querySelector('[name="' + f + suffix + '"]');
+
+            if (source && target) {
+              if (isChecked) {
+                if (target.tagName === 'SELECT') {
+                  target.innerHTML = source.innerHTML;
+                }
+                target.value = source.value;
+                target.style.pointerEvents = 'none';
+                target.style.opacity = '0.7';
+                // Clear required so hidden errors don't block
+                target.removeAttribute('required');
+              } else {
+                target.style.pointerEvents = 'auto';
+                target.style.opacity = '1';
+                target.setAttribute('required', 'required');
+                if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') target.value = '';
+                else target.value = '';
+              }
+            }
+          });
+        });
+
+        // Bind sync on change of Anak's address if checked
+        const syncFields = ['Provinsi', 'Kota/Kabupaten', 'Kecamatan', 'Kelurahan/Desa', 'Kode Pos', 'Alamat Lengkap'];
+        syncFields.forEach(f => {
+          let source = document.querySelector('[name="' + f + '"]');
+          if (source) {
+            source.addEventListener('input', () => {
+              if (checkbox.checked) {
+                let target = document.querySelector('[name="' + f + suffix + '"]');
+                if (target) {
+                  if (target.tagName === 'SELECT') target.innerHTML = source.innerHTML;
+                  target.value = source.value;
+                }
+              }
+            });
+            source.addEventListener('change', () => {
+              if (checkbox.checked) {
+                let target = document.querySelector('[name="' + f + suffix + '"]');
+                if (target) {
+                  if (target.tagName === 'SELECT') target.innerHTML = source.innerHTML;
+                  target.value = source.value;
+                }
+              }
+            });
           }
         });
-      });
-    </script>
-    
-        <script id="location-fix-script">
-          document.addEventListener("DOMContentLoaded", () => {
-            
-            const setupAddressCopy = (type) => {
-              const checkbox = document.getElementById('same_as_anak_' + type);
-              if(!checkbox) return;
-              
-              const suffix = type === 'ayah' ? ' Ayah' : ' Ibu';
-              
-              checkbox.addEventListener('change', (e) => {
-                const isChecked = e.target.checked;
-                const fields = ['Provinsi', 'Kota/Kabupaten', 'Kecamatan', 'Kelurahan/Desa', 'Kode Pos', 'Alamat Lengkap'];
-                
-                fields.forEach(f => {
-                  let source = document.querySelector('[name="' + f + '"]');
-                  let target = document.querySelector('[name="' + f + suffix + '"]');
-                  
-                  if(source && target) {
-                    if(isChecked) {
-                      if(target.tagName === 'SELECT') {
-                        target.innerHTML = source.innerHTML; 
-                      }
-                      target.value = source.value;
-                      target.style.pointerEvents = 'none';
-                      target.style.opacity = '0.7';
-                      // Clear required so hidden errors don't block
-                      target.removeAttribute('required');
-                    } else {
-                      target.style.pointerEvents = 'auto';
-                      target.style.opacity = '1';
-                      target.setAttribute('required', 'required');
-                      if(target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') target.value = '';
-                      else target.value = ''; 
-                    }
-                  }
-                });
-              });
-              
-              // Bind sync on change of Anak's address if checked
-              const syncFields = ['Provinsi', 'Kota/Kabupaten', 'Kecamatan', 'Kelurahan/Desa', 'Kode Pos', 'Alamat Lengkap'];
-              syncFields.forEach(f => {
-                  let source = document.querySelector('[name="' + f + '"]');
-                  if (source) {
-                      source.addEventListener('input', () => {
-                          if (checkbox.checked) {
-                              let target = document.querySelector('[name="' + f + suffix + '"]');
-                              if(target) {
-                                  if(target.tagName === 'SELECT') target.innerHTML = source.innerHTML;
-                                  target.value = source.value;
-                              }
-                          }
-                      });
-                      source.addEventListener('change', () => {
-                          if (checkbox.checked) {
-                              let target = document.querySelector('[name="' + f + suffix + '"]');
-                              if(target) {
-                                  if(target.tagName === 'SELECT') target.innerHTML = source.innerHTML;
-                                  target.value = source.value;
-                              }
-                          }
-                      });
-                  }
-              });
-            };
+      };
 
-            setupAddressCopy('ayah');
-            setupAddressCopy('ibu');
+      setupAddressCopy('ayah');
+      setupAddressCopy('ibu');
 
-            const initEmsifaFor = async (idSuffix) => {
-              const provSelect = document.getElementById('provinsi_' + idSuffix + '_select');
-              const kotaSelect = document.getElementById('kota_' + idSuffix + '_select');
-              const kecSelect = document.getElementById('kecamatan_' + idSuffix + '_select');
-              const kelSelect = document.getElementById('kelurahan_' + idSuffix + '_select');
+      const initEmsifaFor = async (idSuffix) => {
+        const provSelect = document.getElementById('provinsi_' + idSuffix + '_select');
+        const kotaSelect = document.getElementById('kota_' + idSuffix + '_select');
+        const kecSelect = document.getElementById('kecamatan_' + idSuffix + '_select');
+        const kelSelect = document.getElementById('kelurahan_' + idSuffix + '_select');
 
-              if(!provSelect) return;
+        if (!provSelect) return;
 
-              const fetchAPI = async (url) => {
-                try { const res = await fetch(url); return await res.json(); }
-                catch (e) { return null; }
-              };
+        const fetchAPI = async (url) => {
+          try { const res = await fetch(url); return await res.json(); }
+          catch (e) { return null; }
+        };
 
-              const populateSelect = (select, data, placeholder, valueKey, nameKey) => {
-                select.innerHTML = '<option value="" disabled selected>-- Pilih ' + placeholder + ' --</option>';
-                if (data) {
-                  data.forEach(item => {
-                    const opt = document.createElement('option');
-                    opt.value = item[nameKey] + '|' + item[valueKey];
-                    opt.textContent = item[nameKey];
-                    select.appendChild(opt);
-                  });
-                }
-                select.disabled = !data;
-              };
+        const populateSelect = (select, data, placeholder, valueKey, nameKey) => {
+          select.innerHTML = '<option value="" disabled selected>-- Pilih ' + placeholder + ' --</option>';
+          if (data) {
+            data.forEach(item => {
+              const opt = document.createElement('option');
+              opt.value = item[nameKey] + '|' + item[valueKey];
+              opt.textContent = item[nameKey];
+              select.appendChild(opt);
+            });
+          }
+          select.disabled = !data;
+        };
 
-              const provData = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json');
-              populateSelect(provSelect, provData, 'Provinsi', 'id', 'name');
+        const provData = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json');
+        populateSelect(provSelect, provData, 'Provinsi', 'id', 'name');
 
-              provSelect.addEventListener('change', async (e) => {
-                if(!e.target.value) return;
-                const id = e.target.value.split('|')[1];
-                const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/'+id+'.json');
-                populateSelect(kotaSelect, data, 'Kota/Kabupaten', 'id', 'name');
-                kecSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kecamatan --</option>'; kecSelect.disabled = true;
-                kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
-              });
+        provSelect.addEventListener('change', async (e) => {
+          if (!e.target.value) return;
+          const id = e.target.value.split('|')[1];
+          const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/' + id + '.json');
+          populateSelect(kotaSelect, data, 'Kota/Kabupaten', 'id', 'name');
+          kecSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kecamatan --</option>'; kecSelect.disabled = true;
+          kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
+        });
 
-              kotaSelect.addEventListener('change', async (e) => {
-                if(!e.target.value) return;
-                const id = e.target.value.split('|')[1];
-                const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/districts/'+id+'.json');
-                populateSelect(kecSelect, data, 'Kecamatan', 'id', 'name');
-                kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
-              });
+        kotaSelect.addEventListener('change', async (e) => {
+          if (!e.target.value) return;
+          const id = e.target.value.split('|')[1];
+          const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/districts/' + id + '.json');
+          populateSelect(kecSelect, data, 'Kecamatan', 'id', 'name');
+          kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
+        });
 
-              kecSelect.addEventListener('change', async (e) => {
-                if(!e.target.value) return;
-                const id = e.target.value.split('|')[1];
-                const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/villages/'+id+'.json');
-                populateSelect(kelSelect, data, 'Kelurahan', 'id', 'name');
-              });
-            };
+        kecSelect.addEventListener('change', async (e) => {
+          if (!e.target.value) return;
+          const id = e.target.value.split('|')[1];
+          const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/villages/' + id + '.json');
+          populateSelect(kelSelect, data, 'Kelurahan', 'id', 'name');
+        });
+      };
 
-            // Initialize for Ayah and Ibu since Anak is handled by original loadEMSIFA()
-            initEmsifaFor('ayah');
-            initEmsifaFor('ibu');
-          });
-        </script>
-        </body></html>
+      // Initialize for Ayah and Ibu since Anak is handled by original loadEMSIFA()
+      initEmsifaFor('ayah');
+      initEmsifaFor('ibu');
+    });
+  </script>
+</body>
+
+</html>
