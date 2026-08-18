@@ -274,8 +274,9 @@ export default async function handler(req, res) {
         const aktaLink = await uploadFile('Akta Lahir Siswa', 'Akta');
         const kkLink = await uploadFile('Kartu Keluarga', 'KK');
         const fotoLink = await uploadFile('Pas Foto', 'Foto');
+        const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
         rowRecord = [
-          cleanFields['Nama Lengkap'], cleanFields['Nama Panggilan'], cleanFields['Tempat Lahir'],
+          leadId, cleanFields['Nama Lengkap'], cleanFields['Nama Panggilan'], cleanFields['Tempat Lahir'],
           cleanFields['Tanggal Lahir'], cleanFields['Jenis Kelamin'], cleanFields['Agama'],
           cleanFields['Bahasa Sehari-hari'], cleanFields['Kewarganegaraan'], cleanFields['Tinggi Badan'],
           cleanFields['Berat Badan'], cleanFields['Golongan Darah'], cleanFields['Asal SMP'],
@@ -284,7 +285,7 @@ export default async function handler(req, res) {
           cleanFields['Nama & Alamat Tempat Kerja Ayah'], cleanFields['Penghasilan Ayah'], cleanFields['Pendidikan Terakhir Ayah'],
           cleanFields['Nama Lengkap Ibu'], cleanFields['Tempat Lahir Ibu'], cleanFields['Tanggal Lahir Ibu'],
           cleanFields['Pekerjaan/Profesi Ibu'], cleanFields['Nama & Alamat Tempat Kerja Ibu'], cleanFields['Penghasilan'],
-          cleanFields['Pendidikan Terakhir Ibu'], aktaLink, kkLink, fotoLink, cleanFields['NISN']
+          cleanFields['Pendidikan Terakhir Ibu'], aktaLink, kkLink, fotoLink, cleanFields['NISN'], timestamp
         ];
       }
 
@@ -292,8 +293,8 @@ export default async function handler(req, res) {
          return res.status(400).json({ status: 'error', message: 'Invalid Form Type' });
       }
       
-      // Append Lead ID for tracking at the very end for forms other than Daycare, TK, SD, and SMP
-      if (formType !== 'Daycare' && formType !== 'TK' && formType !== 'SD' && formType !== 'SMP') {
+      // Append Lead ID for tracking at the very end for forms other than Daycare, TK, SD, SMP, and SMA
+      if (formType !== 'Daycare' && formType !== 'TK' && formType !== 'SD' && formType !== 'SMP' && formType !== 'SMA') {
           rowRecord.push(leadId);
       }
 
