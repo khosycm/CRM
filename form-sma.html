@@ -237,6 +237,18 @@
 
       // Initial Load
       const provData = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json');
+      if (!provData) {
+        const toInput = (select, placeholder) => {
+            if(!select) return;
+            const input = document.createElement('input');
+            input.type = 'text'; input.name = select.name; input.placeholder = 'Ketik manual ' + placeholder; 
+            input.className = select.className; input.required = true;
+            select.parentNode.replaceChild(input, select);
+        };
+        toInput(provSelect, 'Provinsi'); toInput(kotaSelect, 'Kota/Kabupaten'); 
+        toInput(kecSelect, 'Kecamatan'); toInput(kelSelect, 'Kelurahan/Desa');
+        return;
+      }
       populateSelect(provSelect, provData, 'Provinsi', 'id', 'name');
 
       provSelect.addEventListener('change', async (e) => {
