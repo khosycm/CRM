@@ -95,8 +95,8 @@
   </style>
 
   <!-- Scrollable Content Wrapper -->
-  <div class="relative z-10 py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen">
-    <div class="max-w-4xl w-full">
+  <div class="relative z-10 py-10 px-4 sm:px-6 lg:px-8 -col min-h-screen">
+    <div class="max-w-4xl w-full mx-auto">
       <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
         <div class="bg-tk-blue border-b-8 border-tk-orange p-10 text-white text-center relative overflow-hidden">
           <div class="absolute top-0 left-0 w-full h-full bg-black opacity-10"></div>
@@ -152,9 +152,15 @@
                 </select>
               </div>
               <div class="sm:col-span-6"><label class="block text-sm font-medium text-slate-700">Golongan
-                  Darah <span class="text-red-500">*</span></label><input type="text" name="Gologan Darah"
-                  class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-tk-orange focus:ring-tk-orange sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white"
-                  required placeholder="Masukkan Gologan Darah"></div>
+                  Darah <span class="text-red-500">*</span></label>
+                <select name="Gologan Darah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-tk-orange focus:ring-tk-orange sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required>
+                  <option value="" disabled selected>-- Pilih Golongan Darah --</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="AB">AB</option>
+                  <option value="O">O</option>
+                </select>
+              </div>
               <div class="sm:col-span-6"><label class="block text-sm font-medium text-slate-700">Hobi <span
                     class="text-red-500">*</span></label><input type="text" name="Hobi"
                   class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-tk-orange focus:ring-tk-orange sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white"

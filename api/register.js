@@ -135,20 +135,53 @@ export default async function handler(req, res) {
 
       if (formType === 'Daycare') {
         range = 'Form Daycare!A1';
+        
+        const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+        
+        const formatAddress = (suffix) => {
+           const provRaw = cleanFields['Provinsi' + suffix];
+           const kotaRaw = cleanFields['Kota/Kabupaten' + suffix];
+           const kecRaw = cleanFields['Kecamatan' + suffix];
+           const kelRaw = cleanFields['Kelurahan/Desa' + suffix];
+           
+           const prov = provRaw ? provRaw.split('|')[0] : '';
+           const kota = kotaRaw ? kotaRaw.split('|')[0] : '';
+           const kec = kecRaw ? kecRaw.split('|')[0] : '';
+           const kel = kelRaw ? kelRaw.split('|')[0] : '';
+           const kodePos = cleanFields['Kode Pos' + suffix] || '';
+           const detail = cleanFields['Alamat Lengkap' + suffix] || '';
+           
+           let parts = [];
+           if (detail) parts.push(detail);
+           if (kel) parts.push(`Kel/Desa ${kel}`);
+           if (kec) parts.push(`Kec. ${kec}`);
+           if (kota) parts.push(kota);
+           if (prov) parts.push(`Prov. ${prov}`);
+           if (kodePos) parts.push(`Kode Pos ${kodePos}`);
+           
+           return parts.join(', ');
+        };
+
+        const alamatAnak = formatAddress('');
+        const alamatAyah = formatAddress(' Ayah');
+        const alamatIbu = formatAddress(' Ibu');
+
         rowRecord = [
+          leadId,
           cleanFields['Program daycare'], cleanFields['Nama Lengkap'], cleanFields['Nama Panggilan'],
           cleanFields['Tempat Lahir'], cleanFields['Tanggal Lahir'], cleanFields['Jenis Kelamin'],
           cleanFields['Anak ke-'], cleanFields['Saudara Kandung'], cleanFields['Saudara Tiri'],
           cleanFields['Saudara Angkat'], cleanFields['Status Orang Tua'], cleanFields['Kewarganegaraan'],
           cleanFields['Golongan Darah'], cleanFields['Berat Badan'], cleanFields['Tinggi Badan'],
-          cleanFields['Alamat Lengkap'], cleanFields['Jenis Tinggal'], cleanFields['Riwayat PenyakitAnak'],
+          alamatAnak, cleanFields['Jenis Tinggal'], cleanFields['Riwayat PenyakitAnak'],
           cleanFields['Riwayat Penyakit Keluarga'], cleanFields['Nama Lengkap Ayah'], cleanFields['Tempat Lahir Ayah'],
-          cleanFields['Tanggal Lahir Ayah'], cleanFields['Alamat Lengkap Ayah'], cleanFields['Nomor Handphone Ayah'],
+          cleanFields['Tanggal Lahir Ayah'], alamatAyah, cleanFields['Nomor Handphone Ayah'],
           cleanFields['Pekerjaan/Profesi Ayah'], cleanFields['Nama & Alamat Tepat Kerja Ayah'], cleanFields['Pendidikan Terakhir Ayah'],
           cleanFields['Riwayat Penyakit Ayah'], cleanFields['Golongan Darah Ayah'], cleanFields['Nama Lengkap Ibu'],
-          cleanFields['Tempat Lahir Ibu'], cleanFields['Tanggal Lahir Ibu'], cleanFields['Alamat Lengkap Ibu'],
+          cleanFields['Tempat Lahir Ibu'], cleanFields['Tanggal Lahir Ibu'], alamatIbu,
           cleanFields['Nomor Handphone Ibu'], cleanFields['Pekerjaan/Profesi Ibu'], cleanFields['Nama & Alamat Tepat Kerja Ibu'],
-          cleanFields['Pendidikan Terakhir Ibu'], cleanFields['Riwayat Penyakit Ibu'], cleanFields['Golongan Darah Ibu']
+          cleanFields['Pendidikan Terakhir Ibu'], cleanFields['Riwayat Penyakit Ibu'], cleanFields['Golongan Darah Ibu'],
+          timestamp
         ];
       } else if (formType === 'TK') {
         range = 'Form TK!A1';
@@ -156,7 +189,11 @@ export default async function handler(req, res) {
         const aktaLink = await uploadFile('Akta Kelahiran', 'Akta');
         const ktpAyahLink = await uploadFile('KTP Ayah', 'KTP_Ayah');
         const ktpIbuLink = await uploadFile('KTP Ibu', 'KTP_Ibu');
+        
+        const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+        
         rowRecord = [
+          leadId,
           cleanFields['Nama Lengkap Anak'], cleanFields['Nama Panggilan'], cleanFields['Kelas'],
           cleanFields['Tempat Lahir'], cleanFields['Tanggal Lahir'], cleanFields['Jenis Kelamin'],
           cleanFields['Gologan Darah'], cleanFields['Hobi'], cleanFields['Cita Cita'],
@@ -164,7 +201,7 @@ export default async function handler(req, res) {
           cleanFields['No. Akta Kelahiran'], aktaLink, cleanFields['Anak ke Berapa Berdasarkan KK'],
           cleanFields['Jumlah Saudara Kandung'], cleanFields['Alamat Rumah'], cleanFields['RT'],
           cleanFields['RW'], cleanFields['Kelurahan'], cleanFields['Kecamatan'],
-          cleanFields['Kab/Kota'], cleanFields['Kode POS'], cleanFields['Jenis Tinggal'],
+          cleanFields['Kab/Kota'], cleanFields['Provinsi'], cleanFields['Kode POS'], cleanFields['Jenis Tinggal'],
           cleanFields['Alat Transportasi ke Sekolah'], cleanFields['Jarak Tempat Tinggal ke Sekolah'], cleanFields['Waktu Tempuh'],
           cleanFields['Berat Badan'], cleanFields['Tinggi Badan'], cleanFields['Lingkar Kepala'],
           cleanFields['Berkebutuhan Khusus'], cleanFields['Nama Ayah/Wali'], cleanFields['Tanggal Lahir Ayah'],
@@ -172,7 +209,8 @@ export default async function handler(req, res) {
           cleanFields['Pendidikan Terakhir Ayah/Wali'], cleanFields['No. Telepon Ayah'], ktpAyahLink,
           cleanFields['Nama Ibu/Wali'], cleanFields['Tanggal Lahir Ibu'], cleanFields['No. NIK Ibu'],
           cleanFields['Pekerjaan Ibu/Wali'], cleanFields['Penghasilan Ibu/Wali'], cleanFields['Pendidikan Terakhir Ibu/Wali'],
-          cleanFields['No. Telepon Ibu'], ktpIbuLink
+          cleanFields['No. Telepon Ibu'], ktpIbuLink,
+          timestamp
         ];
       } else if (formType === 'SD') {
         range = 'Form SD!A1';
@@ -245,8 +283,10 @@ export default async function handler(req, res) {
          return res.status(400).json({ status: 'error', message: 'Invalid Form Type' });
       }
       
-      // Append Lead ID for tracking at the very end
-      rowRecord.push(leadId);
+      // Append Lead ID for tracking at the very end for forms other than Daycare and TK
+      if (formType !== 'Daycare' && formType !== 'TK') {
+          rowRecord.push(leadId);
+      }
 
       // Convert undefined to empty string to avoid errors with googleapis
       const sanitizedRowRecord = rowRecord.map(val => val === undefined || val === null ? '' : val);

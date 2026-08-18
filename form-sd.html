@@ -1,12 +1,26 @@
-﻿<!DOCTYPE html>
-<html lang="id">
-<head>
+<html lang="id"><head><script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#d62037',
+              secondary: '#313556',
+              bg: '#fefefe'
+            }
+          }
+        }
+      }
+    }
+    </script></head><body class="antialiased min-h-screen gradient-bg py-10 px-4 sm:px-6 lg:px-8 bg-brand-bg">﻿
+
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pendaftaran SD Islam Cendekia Muda</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body { font-family: "Plus Jakarta Sans", sans-serif; background-color: #f8fafc; color: #1e293b; }
     .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #064e3b 100%); }
@@ -14,56 +28,90 @@
     .glass-card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8); }
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-</head>
-<body class="antialiased min-h-screen gradient-bg py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-  <div class="max-w-4xl w-full">
+
+
+  <div class="max-w-4xl w-full mx-auto">
     <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
-      <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-10 text-white text-center relative overflow-hidden">
+      <div class="bg-gradient-to-r p-10 text-white text-center relative overflow-hidden from-brand-secondary to-brand-primary">
         <div class="absolute top-0 left-0 w-full h-full bg-black opacity-10"></div>
         <h1 class="text-4xl font-extrabold tracking-tight relative z-10">Formulir Pendaftaran</h1>
         <p class="mt-3 text-emerald-100 text-lg relative z-10 font-medium">SD Islam Cendekia Muda</p>
       </div>
       
       <form id="registrationForm" class="p-8 sm:p-12 space-y-10">
-        <input type="hidden" name="formType" value="SD">
-        <input type="hidden" name="leadId" id="leadId">
-        <input type="hidden" name="unitTujuan" id="unitTujuan">
+        <input type="hidden" name="formType" value="SD" class="focus:border-brand-primary focus:ring-brand-primary">
+        <input type="hidden" name="leadId" id="leadId" class="focus:border-brand-primary focus:ring-brand-primary">
+        <input type="hidden" name="unitTujuan" id="unitTujuan" class="focus:border-brand-primary focus:ring-brand-primary">
         
         <!-- Data Anak -->
         <div>
           <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">Data Siswa</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Siswa</label><input type="text" name="Nama Lengkap Siswa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Mochamad Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Jenis Kelamin</label>
-              <select name="Jenis Kelamin" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required>
-                <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Siswa <span class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Siswa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Mochamad Khosy"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenis Kelamin <span class="text-red-500">*</span></label>
+              <select name="Jenis Kelamin" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required">
+                <option value="" disabled="" selected="">-- Pilih Jenis Kelamin --</option>
                 <option value="Laki-laki">Laki-laki</option>
                 <option value="Perempuan">Perempuan</option>
               </select>
             </div>
-            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir</label><input type="text" name="Tempat Lahir" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Bandung"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir</label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required></div>
-            <div><label class="block text-sm font-medium text-slate-700">Anak ke</label><input type="number" name="Anak ke" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 1"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Jumlah Saudara Kandung</label><input type="number" name="Jumlah Saudara Kandung" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 1"></div>
-            <div><label class="block text-sm font-medium text-slate-700">No. NIK Siswa</label><input type="text" name="No. NIK Siswa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 3273123456789012"></div>
-            <div><label class="block text-sm font-medium text-slate-700">No. Akta Kelahiran</label><input type="text" name="No. Akta Kelahiran" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 3273-LU-12052010-0001"></div>
-            <div><label class="block text-sm font-medium text-slate-700">No. Kartu Keluarga</label><input type="text" name="No. Kartu Keluarga" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 3273098765432109"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Berkebutuhan Khusus</label><input type="text" name="Berkebutuhan Khusus" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Masukkan Berkebutuhan Khusus"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Berat Badan (kg)</label><input type="text" name="Berat Badan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 25"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tinggi Badan (cm)</label><input type="text" name="Tinggi Badan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 120"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Lingkar Kepala (cm)</label><input type="text" name="Lingkar Kepala" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Masukkan Lingkar Kepala"></div>
-            <div><label class="block text-sm font-medium text-slate-700">No. Telepon Siswa</label><input type="tel" name="No. Telepon Siswa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 081234567890"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tempat Lahir <span class="text-red-500">*</span></label><input type="text" name="Tempat Lahir" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Bandung"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir <span class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Anak ke <span class="text-red-500">*</span></label><input type="number" name="Anak ke" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 1"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jumlah Saudara Kandung <span class="text-red-500">*</span></label><input type="number" name="Jumlah Saudara Kandung" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 1"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. NIK Siswa <span class="text-red-500">*</span></label><input type="text" name="No. NIK Siswa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 3273123456789012" pattern="[0-9]{16}" minlength="16" maxlength="16" title="Harus terdiri dari 16 digit angka"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Akta Kelahiran <span class="text-red-500">*</span></label><input type="text" name="No. Akta Kelahiran" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 3273-LU-12052010-0001"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Kartu Keluarga <span class="text-red-500">*</span></label><input type="text" name="No. Kartu Keluarga" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 3273098765432109" pattern="[0-9]{16}" minlength="16" maxlength="16" title="Harus terdiri dari 16 digit angka"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Berkebutuhan Khusus <span class="text-red-500">*</span></label><select name="Berkebutuhan Khusus" id="kebutuhan_6_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="Tidak Ada">Tidak Ada</option><option value="Tunanetra">Tunanetra</option><option value="Tunarungu">Tunarungu</option><option value="Tunagrahita Ringan">Tunagrahita Ringan</option><option value="Tunagrahita Sedang">Tunagrahita Sedang</option><option value="Tunadaksa Ringan">Tunadaksa Ringan</option><option value="Tunadaksa Sedang">Tunadaksa Sedang</option><option value="Tunalaras">Tunalaras</option><option value="Tunawicara">Tunawicara</option><option value="Tuna Ganda">Tuna Ganda</option><option value="Hiper Aktif">Hiper Aktif</option><option value="Cerdas Istimewa">Cerdas Istimewa</option><option value="Bakat Istimewa">Bakat Istimewa</option><option value="Kesulitan Belajar">Kesulitan Belajar</option><option value="Narkoba">Narkoba</option><option value="Indigo">Indigo</option><option value="Down Syndrome">Down Syndrome</option><option value="Autis">Autis</option><option value="Lainnya">Lainnya</option></select>
+            <div id="kebutuhan_6_other_container" class="hidden mt-2">
+              <input type="text" id="kebutuhan_6_other" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" placeholder="Sebutkan Lainnya">
+            </div></div>
+            <div><label class="block text-sm font-medium text-slate-700">Berat Badan (kg) <span class="text-red-500">*</span></label><input type="number" name="Berat Badan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 25" step="any"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tinggi Badan (cm) <span class="text-red-500">*</span></label><input type="number" name="Tinggi Badan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 120" step="any"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Lingkar Kepala (cm) <span class="text-red-500">*</span></label><input type="number" name="Lingkar Kepala" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Lingkar Kepala" step="any"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. Telepon Siswa <span class="text-red-500">*</span></label><input type="tel" name="No. Telepon Siswa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 081234567890" pattern="[0-9]{10,14}" title="Harus terdiri dari 10-14 digit angka"></div>
             
-            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Rumah</label><textarea name="Alamat Rumah" rows="2" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
-            <div><label class="block text-sm font-medium text-slate-700">Garis Lintang dari Rumah ke Sekolah</label><input type="text" name="Garis Lintang dari Rumah ke Sekolah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Masukkan Garis Lintang dari Rumah ke Sekolah"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Garis Bujur dari Rumah ke Sekolah</label><input type="text" name="Garis Bujur dari Rumah ke Sekolah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Masukkan Garis Bujur dari Rumah ke Sekolah"></div>
-            <div><label class="block text-sm font-medium text-slate-700">RT</label><input type="text" name="RT" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 01"></div>
-            <div><label class="block text-sm font-medium text-slate-700">RW</label><input type="text" name="RW" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 01"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Kelurahan</label><input type="text" name="Kelurahan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Antapani"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Kecamatan</label><input type="text" name="Kecamatan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Antapani"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Kab/Kota</label><input type="text" name="Kab/Kota" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Kota Bandung"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Kode POS</label><input type="text" name="Kode POS" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 40291"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Jarak Rumah ke Sekolah</label><input type="text" name="Jarak Rumah ke Sekolah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 5"></div>
+            
+              <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">Provinsi <span class="text-red-500">*</span></label>
+                  <select id="provinsi_select" name="Provinsi" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="">
+                    <option value="" disabled="" selected="">Loading...</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">Kota/Kabupaten <span class="text-red-500">*</span></label>
+                  <select id="kota_select" name="Kota/Kabupaten" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
+                    <option value="" disabled="" selected="">-- Pilih Provinsi Terlebih Dahulu --</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">Kecamatan <span class="text-red-500">*</span></label>
+                  <select id="kecamatan_select" name="Kecamatan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
+                    <option value="" disabled="" selected="">-- Pilih Kota Terlebih Dahulu --</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">Kelurahan/Desa <span class="text-red-500">*</span></label>
+                  <select id="kelurahan_select" name="Kelurahan/Desa" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" disabled="">
+                    <option value="" disabled="" selected="">-- Pilih Kecamatan Terlebih Dahulu --</option>
+                  </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Kode Pos <span class="text-red-500">*</span></label>
+                    <input type="text" name="Kode Pos" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="" placeholder="Misal: 40123" pattern="[0-9]{5}" title="Kode Pos harus 5 digit angka">
+                </div>
+              </div>
+            <div class="sm:col-span-2"><label class="block text-sm font-medium text-slate-700">Alamat Rumah <span class="text-red-500">*</span></label><textarea name="Alamat Rumah" rows="2" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Jl. Cendekia No. 1, RT 01/RW 02"></textarea></div>
+            <div><label class="block text-sm font-medium text-slate-700">Garis Lintang dari Rumah ke Sekolah <span class="text-red-500">*</span></label><input type="text" name="Garis Lintang dari Rumah ke Sekolah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Garis Lintang dari Rumah ke Sekolah"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Garis Bujur dari Rumah ke Sekolah <span class="text-red-500">*</span></label><input type="text" name="Garis Bujur dari Rumah ke Sekolah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Masukkan Garis Bujur dari Rumah ke Sekolah"></div>
+            <div><label class="block text-sm font-medium text-slate-700">RT <span class="text-red-500">*</span></label><input type="text" name="RT" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 01"></div>
+            <div><label class="block text-sm font-medium text-slate-700">RW <span class="text-red-500">*</span></label><input type="text" name="RW" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 01"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kelurahan <span class="text-red-500">*</span></label><input type="text" name="Kelurahan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Antapani"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kecamatan <span class="text-red-500">*</span></label><input type="text" name="Kecamatan" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Antapani"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kab/Kota <span class="text-red-500">*</span></label><input type="text" name="Kab/Kota" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Kota Bandung"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Kode POS <span class="text-red-500">*</span></label><input type="text" name="Kode POS" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 40291"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jarak Rumah ke Sekolah <span class="text-red-500">*</span></label><input type="number" name="Jarak Rumah ke Sekolah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 5" step="any"></div>
           </div>
         </div>
 
@@ -71,12 +119,15 @@
         <div>
           <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">Data Ayah</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ayah</label><input type="text" name="Nama Lengkap Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Mochamad Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir Ayah</label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir Ayah" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required></div>
-            <div><label class="block text-sm font-medium text-slate-700">No. NIK Ayah</label><input type="text" name="No. NIK Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 3273123456789012"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Jenjang Pendidikan Terakhir Ayah</label><input type="text" name="Jenjang Pendidikan Terakhir Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Masukkan Jenjang Pendidikan Terakhir Ayah"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan Ayah</label><input type="text" name="Pekerjaan Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Wiraswasta / PNS"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Penghasilan Ayah</label><input type="text" name="Penghasilan Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Rp 5.000.000 - Rp 10.000.000"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ayah <span class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Mochamad Khosy"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir Ayah <span class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir Ayah" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. NIK Ayah <span class="text-red-500">*</span></label><input type="text" name="No. NIK Ayah" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 3273123456789012" pattern="[0-9]{16}" minlength="16" maxlength="16" title="Harus terdiri dari 16 digit angka"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenjang Pendidikan Terakhir Ayah <span class="text-red-500">*</span></label><select name="Jenjang Pendidikan Terakhir Ayah" id="pendidikan_22_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="SMA/SMK">SMA/SMK</option><option value="Diploma (D1-D4)">Diploma (D1-D4)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Magister (S2)">Magister (S2)</option><option value="Doktor (S3)">Doktor (S3)</option></select></div>
+            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan Ayah <span class="text-red-500">*</span></label><select name="Pekerjaan Ayah" id="pekerjaan_23_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option><option value="TNI/POLRI">TNI/POLRI</option><option value="Karyawan Swasta">Karyawan Swasta</option><option value="Wiraswasta">Wiraswasta</option><option value="Lainnya">Lainnya</option></select>
+            <div id="pekerjaan_23_other_container" class="hidden mt-2">
+              <input type="text" id="pekerjaan_23_other" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" placeholder="Sebutkan Lainnya">
+            </div></div>
+            <div><label class="block text-sm font-medium text-slate-700">Penghasilan Ayah <span class="text-red-500">*</span></label><select name="Penghasilan Ayah" id="penghasilan_24_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="< Rp 3.000.000">&lt; Rp 3.000.000</option><option value="Rp 3.000.000 - Rp 5.000.000">Rp 3.000.000 - Rp 5.000.000</option><option value="Rp 5.000.000 - Rp 10.000.000">Rp 5.000.000 - Rp 10.000.000</option><option value="> Rp 10.000.000">&gt; Rp 10.000.000</option></select></div>
           </div>
         </div>
 
@@ -84,19 +135,22 @@
         <div>
           <h2 class="text-2xl font-bold text-slate-800 border-b-2 border-emerald-100 pb-3 mb-6 flex items-center gap-2">Data Ibu</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ibu</label><input type="text" name="Nama Lengkap Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Mochamad Khosy"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir Ibu</label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir Ibu" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required></div>
-            <div><label class="block text-sm font-medium text-slate-700">No. NIK Ibu</label><input type="text" name="No. NIK Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: 3273123456789012"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Jenjang Pendidikan Terakhir Ibu</label><input type="text" name="Jenjang Pendidikan Terakhir Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Masukkan Jenjang Pendidikan Terakhir Ibu"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan Ibu</label><input type="text" name="Pekerjaan Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Wiraswasta / PNS"></div>
-            <div><label class="block text-sm font-medium text-slate-700">Penghasilan Ibu</label><input type="text" name="Penghasilan Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white" required placeholder="Misal: Rp 5.000.000 - Rp 10.000.000"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Nama Lengkap Ibu <span class="text-red-500">*</span></label><input type="text" name="Nama Lengkap Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: Mochamad Khosy"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Tanggal Lahir Ibu <span class="text-red-500">*</span></label><input type="text" placeholder="Misal: 17/08/2015" name="Tanggal Lahir Ibu" class="flatpickr-date mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required"></div>
+            <div><label class="block text-sm font-medium text-slate-700">No. NIK Ibu <span class="text-red-500">*</span></label><input type="text" name="No. NIK Ibu" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required="required" placeholder="Misal: 3273123456789012" pattern="[0-9]{16}" minlength="16" maxlength="16" title="Harus terdiri dari 16 digit angka"></div>
+            <div><label class="block text-sm font-medium text-slate-700">Jenjang Pendidikan Terakhir Ibu <span class="text-red-500">*</span></label><select name="Jenjang Pendidikan Terakhir Ibu" id="pendidikan_28_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="SMA/SMK">SMA/SMK</option><option value="Diploma (D1-D4)">Diploma (D1-D4)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Magister (S2)">Magister (S2)</option><option value="Doktor (S3)">Doktor (S3)</option></select></div>
+            <div><label class="block text-sm font-medium text-slate-700">Pekerjaan Ibu <span class="text-red-500">*</span></label><select name="Pekerjaan Ibu" id="pekerjaan_29_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option><option value="TNI/POLRI">TNI/POLRI</option><option value="Karyawan Swasta">Karyawan Swasta</option><option value="Wiraswasta">Wiraswasta</option><option value="Lainnya">Lainnya</option></select>
+            <div id="pekerjaan_29_other_container" class="hidden mt-2">
+              <input type="text" id="pekerjaan_29_other" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" placeholder="Sebutkan Lainnya">
+            </div></div>
+            <div><label class="block text-sm font-medium text-slate-700">Penghasilan Ibu <span class="text-red-500">*</span></label><select name="Penghasilan Ibu" id="penghasilan_30_select" class="mt-1.5 block w-full rounded-lg border-slate-300 shadow-sm sm:text-sm p-2.5 border transition-colors bg-white/50 focus:bg-white focus:border-brand-primary focus:ring-brand-primary" required=""><option value="" disabled="" selected="">-- Pilih --</option><option value="< Rp 3.000.000">&lt; Rp 3.000.000</option><option value="Rp 3.000.000 - Rp 5.000.000">Rp 3.000.000 - Rp 5.000.000</option><option value="Rp 5.000.000 - Rp 10.000.000">Rp 5.000.000 - Rp 10.000.000</option><option value="> Rp 10.000.000">&gt; Rp 10.000.000</option></select></div>
           </div>
         </div>
 
         <div id="alertBox" class="hidden rounded-xl p-4 text-sm font-medium shadow-sm transition-all duration-300"></div>
 
         <div class="pt-4">
-          <button type="submit" id="submitBtn" class="w-full flex justify-center items-center gap-2 py-4 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all transform hover:-translate-y-0.5">
+          <button type="submit" id="submitBtn" class="w-full flex justify-center items-center gap-2 py-4 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-white bg-gradient-to-r hover:from-emerald-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all transform hover:-translate-y-0.5 from-brand-secondary to-brand-primary">
             <i class="fa-solid fa-paper-plane"></i>
             Kirim Pendaftaran
           </button>
@@ -105,53 +159,7 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('leadId')) {
-        document.getElementById('leadId').value = urlParams.get('leadId');
-      }
-      if (urlParams.has('unit')) {
-        document.getElementById('unitTujuan').value = urlParams.get('unit');
-      }
-
-      document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const submitBtn = document.getElementById('submitBtn');
-        const alertBox = document.getElementById('alertBox');
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
-        alertBox.classList.add('hidden');
-        
-        try {
-          const formData = new FormData(form);
-          const response = await fetch('/api/register', {
-            method: 'POST',
-            body: formData
-          });
-          
-          const result = await response.json();
-          if (response.ok) {
-            alertBox.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i>' + (result.message || 'Pendaftaran berhasil dikirim!');
-            alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
-            form.reset();
-          } else {
-            alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>' + (result.message || 'Terjadi kesalahan.');
-            alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
-          }
-        } catch (error) {
-          alertBox.innerHTML = '<i class="fa-solid fa-wifi mr-2"></i> Terjadi kesalahan jaringan.';
-          alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
-        } finally {
-          alertBox.classList.remove('hidden');
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran';
-        }
-      });
-    });
-  </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
   <script>
@@ -163,7 +171,183 @@
       });
     });
   </script>
-</body>
-</html>
 
 
+
+
+
+  <script>
+    // Location API Logic
+    async function loadEMSIFA() {
+      const provSelect = document.getElementById('provinsi_select');
+      const kotaSelect = document.getElementById('kota_select');
+      const kecSelect = document.getElementById('kecamatan_select');
+      const kelSelect = document.getElementById('kelurahan_select');
+
+      if(!provSelect) return;
+
+      const fetchAPI = async (url) => {
+        try { const res = await fetch(url); return await res.json(); }
+        catch (e) { console.error('API Error:', e); return null; }
+      };
+
+      const populateSelect = (select, data, placeholder, valueKey, nameKey) => {
+        select.innerHTML = '<option value="" disabled selected>-- Pilih ' + placeholder + ' --</option>';
+        if (data) {
+          data.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item[nameKey] + '|' + item[valueKey];
+            opt.textContent = item[nameKey];
+            select.appendChild(opt);
+          });
+        }
+        select.disabled = !data;
+      };
+
+      // Initial Load
+      const provData = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json');
+      populateSelect(provSelect, provData, 'Provinsi', 'id', 'name');
+
+      provSelect.addEventListener('change', async (e) => {
+        const id = e.target.value.split('|')[1];
+        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/'+id+'.json');
+        populateSelect(kotaSelect, data, 'Kota/Kabupaten', 'id', 'name');
+        kecSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kecamatan --</option>'; kecSelect.disabled = true;
+        kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
+      });
+
+      kotaSelect.addEventListener('change', async (e) => {
+        const id = e.target.value.split('|')[1];
+        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/districts/'+id+'.json');
+        populateSelect(kecSelect, data, 'Kecamatan', 'id', 'name');
+        kelSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kelurahan --</option>'; kelSelect.disabled = true;
+      });
+
+      kecSelect.addEventListener('change', async (e) => {
+        const id = e.target.value.split('|')[1];
+        const data = await fetchAPI('https://kanglerian.github.io/api-wilayah-indonesia/api/villages/'+id+'.json');
+        populateSelect(kelSelect, data, 'Kelurahan', 'id', 'name');
+      });
+    }
+  </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('leadId')) {
+            const leadIdEl = document.getElementById('leadId');
+            if(leadIdEl) leadIdEl.value = urlParams.get('leadId');
+        }
+        if (urlParams.has('unit')) {
+            const unitEl = document.getElementById('unitTujuan');
+            if (unitEl) unitEl.value = urlParams.get('unit');
+        }
+
+        // Location API init
+        if(typeof loadEMSIFA === 'function') loadEMSIFA();
+
+        // Lainnya Logic
+        const setupLainnya = (selectId, containerId, inputId, name) => {
+            const select = document.getElementById(selectId);
+            const container = document.getElementById(containerId);
+            const input = document.getElementById(inputId);
+            if(select && container && input) {
+                select.addEventListener('change', (e) => {
+                    if (e.target.value === 'Lainnya') {
+                        container.classList.remove('hidden');
+                        input.setAttribute('name', name);
+                        input.setAttribute('required', 'required');
+                        select.removeAttribute('name');
+                    } else {
+                        container.classList.add('hidden');
+                        input.removeAttribute('name');
+                        input.removeAttribute('required');
+                        select.setAttribute('name', name);
+                    }
+                });
+            }
+        };
+
+        document.querySelectorAll('select').forEach(select => {
+            if(select.id && select.id.endsWith('_select')) {
+                const baseId = select.id.replace('_select', '');
+                setupLainnya(select.id, baseId + '_other_container', baseId + '_other', select.name);
+            }
+        });
+
+        // Auto Save Draft
+        const form = document.getElementById('registrationForm');
+        if(!form) return;
+        const draftKey = 'form-sd.html_draft';
+        const loadDraft = () => {
+            const draft = localStorage.getItem(draftKey);
+            if (draft) {
+                const data = JSON.parse(draft);
+                for (const key in data) {
+                    const input = form.querySelector('[name="' + key + '"]');
+                    if (input && input.type !== 'file' && input.tagName !== 'SELECT') {
+                        input.value = data[key];
+                    }
+                }
+            }
+        };
+        loadDraft();
+        form.addEventListener('input', (e) => {
+            if (e.target.type !== 'file') {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                localStorage.setItem(draftKey, JSON.stringify(data));
+            }
+        });
+
+        // Submit Handler
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById('submitBtn');
+          const alertBox = document.getElementById('alertBox');
+          if(!submitBtn || !alertBox) return;
+          
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+          alertBox.classList.add('hidden');
+
+          // Check File Sizes (5MB Limit)
+          const fileInputs = form.querySelectorAll('input[type="file"]');
+          for (const input of fileInputs) {
+            if (input.files && input.files[0] && input.files[0].size > 5 * 1024 * 1024) {
+                alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>Ukuran file ' + input.files[0].name + ' terlalu besar. Maksimal 5MB.';
+                alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
+                alertBox.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran';
+                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+          }
+          
+          try {
+            const formData = new FormData(form);
+            const response = await fetch('/api/register', { method: 'POST', body: formData });
+            const result = await response.json();
+            if (response.ok) {
+              alertBox.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i>' + (result.message || 'Pendaftaran berhasil dikirim!');
+              alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+              form.reset();
+              localStorage.removeItem(draftKey);
+            } else {
+              alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>' + (result.message || 'Terjadi kesalahan.');
+              alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
+            }
+          } catch (error) {
+            alertBox.innerHTML = '<i class="fa-solid fa-wifi mr-2"></i> Terjadi kesalahan jaringan.';
+            alertBox.className = 'mt-6 rounded-xl p-4 text-sm font-bold bg-rose-50 text-rose-800 border border-rose-200';
+          } finally {
+            alertBox.classList.remove('hidden');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran';
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      });
+    </script>
+    </body></html>
