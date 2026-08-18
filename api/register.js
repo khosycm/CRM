@@ -110,12 +110,14 @@ export default async function handler(req, res) {
           const driveRes = await drive.files.create({
             resource: fileMetadata,
             media: media,
-            fields: 'id, webViewLink'
+            fields: 'id, webViewLink',
+            supportsAllDrives: true
           });
           
           // Optionally set permissions so anyone with the link can view
           await drive.permissions.create({
             fileId: driveRes.data.id,
+            supportsAllDrives: true,
             requestBody: {
               role: 'reader',
               type: 'anyone',
@@ -231,7 +233,7 @@ export default async function handler(req, res) {
           cleanFields['Pekerjaan Ayah'], cleanFields['Penghasilan Ayah'], cleanFields['No. NIK Ayah'],
           cleanFields['Nama Lengkap Ibu'], cleanFields['Tanggal Lahir Ibu'], cleanFields['Jenjang Pendidikan Terakhir Ibu'],
           cleanFields['Pekerjaan Ibu'], cleanFields['Penghasilan Ibu'], cleanFields['No. NIK Ibu'],
-          timestamp
+          timestamp, cleanFields['unitTujuan']
         ];
       } else if (formType === 'SMP') {
         range = 'Form SMP!A1';
