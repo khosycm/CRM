@@ -237,33 +237,37 @@ export default async function handler(req, res) {
         range = 'Form SMP!A1';
         const aktaLink = await uploadFile('Akta Kelahiran', 'Akta');
         const kkLink = await uploadFile('Kartu Keluarga', 'KK');
+        const rapor5GanjilLink = await uploadFile('Nilai Rapor Kelas 5 Ganjil', 'Rapor5Ganjil');
+        const rapor5GenapLink = await uploadFile('Nilai Rapor Kelas 5 Genap', 'Rapor5Genap');
+        const rapor6GanjilLink = await uploadFile('Nilai Rapor Kelas 6 Ganjil', 'Rapor6Ganjil');
+        
+        const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+        
         rowRecord = [
-          cleanFields['Nama Lengkap Siswa'], cleanFields['Nama Panggilan'], cleanFields['Tempat Lahir'],
-          cleanFields['Tanggal Lahir'], cleanFields['Jenis Kelamin'], cleanFields['No. Telepon Siswa'],
-          cleanFields['No. Akta Kelahiran'], cleanFields['No. Kartu Keluarga'], cleanFields['No. NIK Siswa'],
-          aktaLink, kkLink, cleanFields['Nilai Rapor Kelas 5 Ganjil'],
-          cleanFields['Nilai Rapor Kelas 5 Genap'], cleanFields['Nilai Rapor Kelas 6 Ganjil'], cleanFields['Anak Ke'],
+          leadId, cleanFields['Nama Lengkap Siswa'], cleanFields['Nama Panggilan'], cleanFields['Tempat Lahir'],
+          cleanFields['Tanggal Lahir'], cleanFields['Jenis Kelamin'], cleanFields['No. Telepon Siswa'], cleanFields['No. Akta Kelahiran'],
+          cleanFields['No. Kartu Keluarga'], cleanFields['No. NIK Siswa'], aktaLink, kkLink,
+          rapor5GanjilLink, rapor5GenapLink, rapor6GanjilLink, cleanFields['Anak Ke'],
           cleanFields['Jumlah Saudara Kandung'], cleanFields['Jumlah Saudara Tiri'], cleanFields['Jumlah Saudara Angkat'],
           cleanFields['Status Dalam Keluarga'], cleanFields['Bahasa Sehari-hari'], cleanFields['Kewarganegaraan'],
-          cleanFields['Asal Negara WNA'], cleanFields['Tinggi Badan'], cleanFields['Berat Badan'],
-          cleanFields['Golongan Darah'], cleanFields['Alamat Siswa'], cleanFields['Kelurahan'],
-          cleanFields['Kecamatan'], cleanFields['Kab/Kota'], cleanFields['Kode POS'],
-          cleanFields['Jenis Tinggal'], cleanFields['Alat Transportasi ke Sekolah'], cleanFields['Jarak Tempat Tinggal ke Sekolah'],
-          cleanFields['Waktu Tempuh'], cleanFields['Minat dan Bakat Siswa'], cleanFields['Kelainan Jasmani'],
-          cleanFields['Jenis Prestasi'], cleanFields['Tingkat Prestasi'], cleanFields['Nama Prestasi/Tahun/Penyelenggara'],
-          cleanFields['Nama Sekolah Dasar Asal'], cleanFields['Alamat Sekolah Dasar Asal'], cleanFields['Tanggal Tamat Sekolah Dasar'],
-          cleanFields['Status Ayah'], cleanFields['Nama Lengkap Ayah'], cleanFields['Tempat Lahir Ayah'],
-          cleanFields['Tanggal Lahir Ayah'], cleanFields['Agama Ayah'], cleanFields['Alamat Rumah Ayah'],
+          cleanFields['Asal Negara WNA'], cleanFields['Tinggi Badan'], cleanFields['Berat Badan'], cleanFields['Golongan Darah'],
+          cleanFields['Alamat Siswa'], cleanFields['Kelurahan'], cleanFields['Kecamatan'], cleanFields['Kab/Kota'],
+          cleanFields['Kode POS'], cleanFields['Jenis Tinggal'], cleanFields['Alat Transportasi ke Sekolah'],
+          cleanFields['Jarak Tempat Tinggal ke Sekolah'], cleanFields['Waktu Tempuh'], cleanFields['Minat dan Bakat Siswa'],
+          cleanFields['Kelainan Jasmani'], cleanFields['Jenis Prestasi'], cleanFields['Tingkat Prestasi'],
+          cleanFields['Nama Prestasi/Tahun/Penyelenggara'], cleanFields['Nama Sekolah Dasar Asal'], cleanFields['Alamat Sekolah Dasar Asal'],
+          cleanFields['Tanggal Tamat Sekolah Dasar'], cleanFields['Status Ayah'], cleanFields['Nama Lengkap Ayah'],
+          cleanFields['Tempat Lahir Ayah'], cleanFields['Tanggal Lahir Ayah'], cleanFields['Agama Ayah'], cleanFields['Alamat Rumah Ayah'],
           cleanFields['No. Telepon Ayah'], cleanFields['Pekerjaan Ayah'], cleanFields['Nama Instansi/Perusahaan/Lembaga/Wirausaha Ayah'],
           cleanFields['Jabatan Ayah'], cleanFields['Alamat Instansi Ayah'], cleanFields['Penghasilan Ayah'],
           cleanFields['Jenjang Pendidikan Ayah'], cleanFields['Kewarganegaraan Ayah'], cleanFields['Asal Negara WNA Ayah'],
-          cleanFields['Status Ibu'], cleanFields['Nama Lengkap Ibu'], cleanFields['Tempat Lahir Ibu'],
-          cleanFields['Tanggal Lahir Ibu'], cleanFields['Agama Ibu'], cleanFields['Alamat Rumah Ibu'],
-          cleanFields['No. Telepon Ibu'], cleanFields['Pekerjaan Ibu'], cleanFields['Nama Instansi/Perusahaan/Lembaga/Wirausaha Ibu'],
-          cleanFields['Jabatan Ibu'], cleanFields['Alamat Instansi Ibu'], cleanFields['Penghasilan Ibu'],
-          cleanFields['Jenjang Pendidikan Ibu'], cleanFields['Kewarganegaraan Ibu'], cleanFields['Asal Negara WNA Ibu'],
-          cleanFields['Berkebutuhan Khusus Siswa'], cleanFields['Jenis Kebutuhan Khusus'], cleanFields['Terapi yang Dijalani'],
-          cleanFields['Nama Tempat Terapi'], cleanFields['Nama Terapis'], cleanFields['Nama Lengkap Pengisi Data']
+          cleanFields['Status Ibu'], cleanFields['Nama Lengkap Ibu'], cleanFields['Tempat Lahir Ibu'], cleanFields['Tanggal Lahir Ibu'],
+          cleanFields['Agama Ibu'], cleanFields['Alamat Rumah Ibu'], cleanFields['No. Telepon Ibu'], cleanFields['Pekerjaan Ibu'],
+          cleanFields['Nama Instansi/Perusahaan/Lembaga/Wirausaha Ibu'], cleanFields['Jabatan Ibu'], cleanFields['Alamat Instansi Ibu'],
+          cleanFields['Penghasilan Ibu'], cleanFields['Jenjang Pendidikan Ibu'], cleanFields['Kewarganegaraan Ibu'],
+          cleanFields['Asal Negara WNA Ibu'], cleanFields['Berkebutuhan Khusus Siswa'], cleanFields['Jenis Kebutuhan Khusus'],
+          cleanFields['Terapi yang Dijalani'], cleanFields['Nama Tempat Terapi'], cleanFields['Nama Terapis'],
+          cleanFields['Nama Lengkap Pengisi Data'], timestamp
         ];
       } else if (formType === 'SMA') {
         range = 'Form SMA!A1';
@@ -288,8 +292,8 @@ export default async function handler(req, res) {
          return res.status(400).json({ status: 'error', message: 'Invalid Form Type' });
       }
       
-      // Append Lead ID for tracking at the very end for forms other than Daycare, TK, and SD
-      if (formType !== 'Daycare' && formType !== 'TK' && formType !== 'SD') {
+      // Append Lead ID for tracking at the very end for forms other than Daycare, TK, SD, and SMP
+      if (formType !== 'Daycare' && formType !== 'TK' && formType !== 'SD' && formType !== 'SMP') {
           rowRecord.push(leadId);
       }
 
