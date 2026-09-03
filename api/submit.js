@@ -27,6 +27,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ status: 'error', message: 'Nama lengkap siswa wajib diisi.' });
     }
 
+    if (!formData.namaOrangTua || !formData.namaOrangTua.trim()) {
+      return res.status(400).json({ status: 'error', message: 'Nama orang tua wajib diisi.' });
+    }
+
+    if (!['Laki-laki', 'Perempuan'].includes(formData.jenisKelamin)) {
+      return res.status(400).json({ status: 'error', message: 'Jenis kelamin anak wajib dipilih.' });
+    }
+
     if (!formData.noWa || !formData.noWa.trim()) {
       return res.status(400).json({ status: 'error', message: 'Nomor WhatsApp wajib diisi.' });
     }
@@ -128,7 +136,7 @@ export default async function handler(req, res) {
     const kebutuhanKhusus = formData.kebutuhanKhusus === 'Ya' ? 'Ya' : 'Tidak';
     const detailKebutuhanKhusus = formData.detailKebutuhanKhusus ? formData.detailKebutuhanKhusus.trim() : '';
 
-    // Prepare exact 19-column row record (Col A to S)
+    // Keep existing columns A:W and store the new fields in X:Y.
     const rowRecord = [
       idLead,                                                      // 1. ID Lead (Col A)
       timeFormatted,                                               // 2. Timestamp (Col B)
@@ -148,7 +156,13 @@ export default async function handler(req, res) {
       'Siswa Baru',                                                // 16. Kategori Pendaftaran (Col P)
       '',                                                          // 17. Level Target (Col Q)
       '',                                                          // 18. Discount (Col R)
-      timeFormatted                                                // 19. Terakhir Diperbarui (Col S)
+      timeFormatted,                                                // 19. Terakhir Diperbarui (Col S)
+      '',                                                          // 20. Existing column T
+      '',                                                          // 21. Existing column U
+      '',                                                          // 22. Existing column V
+      '',                                                          // 23. Existing column W
+      formData.namaOrangTua ? formData.namaOrangTua.trim() : '',    // 24. Nama Orang Tua (Col X)
+      formData.jenisKelamin ? formData.jenisKelamin.trim() : ''    // 25. Jenis Kelamin (Col Y)
     ];
 
     // Append to 'Leads' sheet

@@ -61,7 +61,7 @@
           
           <div class="flex items-center space-x-3">
             <div class="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center p-1.5 flex-shrink-0 text-white text-2xl font-bold">
-              <img src="/assets/logo-cm-white.png">
+              <img src="assets/logo-cm-white.png" alt="Logo Cendekia Muda" class="block w-full h-full object-contain">
             </div>
             <div>
               <div class="flex items-center space-x-2">
@@ -200,7 +200,7 @@
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Target (T)</p>
             <div class="flex items-baseline justify-between mt-1">
-              <h3 id="statTotalTarget" class="text-2xl font-extrabold text-slate-800">612</h3>
+              <h3 id="statTotalTarget" class="text-2xl font-extrabold text-slate-800">668</h3>
               <span class="text-xs text-slate-400 font-medium">Kuota Keseluruhan</span>
             </div>
           </div>
@@ -485,6 +485,8 @@
                   <th class="p-3">ID LEAD</th>
                   <th class="p-3">WAKTU</th>
                   <th class="p-3">NAMA SISWA</th>
+                  <th class="p-3">NAMA ORANG TUA</th>
+                  <th class="p-3">JENIS KELAMIN</th>
                   <th class="p-3">WHATSAPP</th>
                   <th class="p-3">UNIT TUJUAN</th>
                   <th class="p-3">KELAS</th>
@@ -750,13 +752,14 @@
       ];
 
       const masterUnitsConfig = [
-        { name: "Quranic Daycare Cendekia Muda", level: "Daycare", target: 40, existing: 0, matchKeys: ["daycare", "quranic daycare"] },
+        { name: "Quranic Daycare Cendekia Muda 1", level: "Daycare 1", target: 40, existing: 32, matchKeys: ["daycare 1", "quranic daycare cendekia muda 1"] },
+        { name: "Quranic Daycare Cendekia Muda 2", level: "Daycare 2", target: 40, existing: 30, matchKeys: ["daycare 2", "quranic daycare cendekia muda 2"] },
         { name: "TK Islam Cendekia Muda (PG)", level: "TK (PG)", target: 20, existing: 0, matchKeys: ["pg", "playgroup"] },
         { name: "TK Islam Cendekia Muda (TK-A)", level: "TK-A", target: 80, existing: 17, matchKeys: ["tk-a", "tk a"] },
         { name: "TK Islam Cendekia Muda (TK-B)", level: "TK-B", target: 120, existing: 90, matchKeys: ["tk-b", "tk b"] },
         { name: "SD Islam Cendekia Muda Bandung", level: "SD Bandung (Reguler)", target: 84, existing: 0, matchKeys: ["sd bandung", "sd reguler", "bandung"] },
         { name: "SD Islam Cendekia Muda Bilingual", level: "SD Bandung (Bilingual)", target: 28, existing: 0, matchKeys: ["bilingual", "sd bilingual"] },
-        { name: "SD Islam Cendekia Muda Makassar", level: "SD Makassar", target: 40, existing: 0, matchKeys: ["sd makassar", "makassar"] },
+        { name: "SD Islam Cendekia Muda Makassar", level: "SD Makassar", target: 56, existing: 0, matchKeys: ["sd makassar", "makassar"] },
         { name: "SMP Islam Cendekia Muda", level: "SMP (Level 7)", target: 100, existing: 0, matchKeys: ["smp"] },
         { name: "SMA Islam Cendekia Muda", level: "SMA (Level 10)", target: 100, existing: 0, matchKeys: ["sma"] }
       ];
@@ -781,8 +784,11 @@
         }
 
         // Daycare matching
-        if (cfg.level === "Daycare" || cfg.name.toLowerCase().includes("daycare")) {
-          return ut.includes("daycare") || lt.includes("daycare");
+        if (cfg.name.toLowerCase().includes("daycare 1")) {
+          return ut.includes("daycare 1") || lt.includes("daycare 1") || ut === "quranic daycare cendekia muda" || lt === "quranic daycare cendekia muda";
+        }
+        if (cfg.name.toLowerCase().includes("daycare 2")) {
+          return ut.includes("daycare 2") || lt.includes("daycare 2");
         }
 
         // SD Sub-unit matching (Bilingual vs Makassar vs Bandung)
@@ -843,7 +849,8 @@
         const list2 = document.getElementById("unitCheckboxListTab2");
 
         const defaultUnitsList = unitsList && unitsList.length > 0 ? unitsList : [
-          "Quranic Daycare Cendekia Muda",
+          "Quranic Daycare Cendekia Muda 1",
+          "Quranic Daycare Cendekia Muda 2",
           "TK Islam Cendekia Muda",
           "SD Islam Cendekia Muda Bandung",
           "SD Islam Cendekia Muda Makassar",
@@ -924,7 +931,8 @@
         if (uv.includes("bilingual")) return ut.includes("bilingual");
         if (uv.includes("makassar")) return ut.includes("makassar");
         if (uv.includes("bandung")) return ut.includes("bandung") && !ut.includes("bilingual") && !ut.includes("makassar");
-        if (uv.includes("daycare")) return ut.includes("daycare");
+        if (uv.includes("daycare 1")) return ut.includes("daycare 1") || ut === "quranic daycare cendekia muda";
+        if (uv.includes("daycare 2")) return ut.includes("daycare 2");
         if (uv.includes("tk")) return ut.includes("tk");
         if (uv.includes("smp")) return ut.includes("smp");
         if (uv.includes("sma")) return ut.includes("sma");
@@ -1112,7 +1120,12 @@
 
         // 1. Dynamic Unit Dropdowns (Multi-Select Checkboxes)
         if (masterData.units && masterData.units.length > 0) {
-          renderUnitCheckboxes(masterData.units);
+          const units = masterData.units.flatMap(unit =>
+            unit.toLowerCase() === "quranic daycare cendekia muda"
+              ? ["Quranic Daycare Cendekia Muda 1", "Quranic Daycare Cendekia Muda 2"]
+              : [unit]
+          );
+          renderUnitCheckboxes([...new Set(units)]);
         }
 
         // 2. Dynamic Status Lead Dropdowns
@@ -1264,7 +1277,7 @@
         // Cumulative Registered Count (Daftar + Konfirmasi)
         const totalDaftarCum = totalDaftarRaw + totalKonfirmasi;
 
-        let targetQuota = 612;
+        let targetQuota = 668;
         if (selectedUnits && selectedUnits.length > 0 && !selectedUnits.includes("all")) {
           targetQuota = 0;
           masterUnitsConfig.forEach(u => {
@@ -1272,7 +1285,7 @@
               targetQuota += u.target;
             }
           });
-          if (targetQuota === 0) targetQuota = 612;
+          if (targetQuota === 0) targetQuota = 668;
         }
 
         // Top 4 Overview KPI Cards
@@ -1497,6 +1510,8 @@
               ${lead.namaSiswa}
               ${lead.kebutuhanKhusus === "Ya" ? '<br/><span class="inline-block mt-0.5 px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold border border-amber-300" title="' + (lead.detailKebutuhanKhusus || 'Kebutuhan Khusus') + '"><i class="fa-solid fa-heart-pulse text-amber-600"></i> ABK: ' + (lead.detailKebutuhanKhusus || 'Ya') + '</span>' : ''}
             </td>
+            <td class="p-3 text-slate-700 font-medium">${lead.namaOrangTua || "-"}</td>
+            <td class="p-3 text-slate-600">${lead.jenisKelamin || "-"}</td>
             <td class="p-3">
               <a href="https://wa.me/${waClean}?text=${waMessage}" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-mono rounded-lg border border-emerald-200 transition font-medium text-xs">
                 <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>

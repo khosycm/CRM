@@ -61,7 +61,7 @@
 
       .gradient-text {
         background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
-        -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
@@ -97,8 +97,8 @@
           
           <!-- Logo Brand -->
           <a href="#" class="flex items-center gap-3 group">
-            <div class="w-24 flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-              <img src="/assets/logo-cm.png">
+            <div class="w-24 h-14 flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
+              <img src="assets/logo-cm.png" alt="Logo Cendekia Muda" class="block w-full h-full object-contain">
             </div>
           </a>
 
@@ -207,6 +207,35 @@
                   </div>
 
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Nama Orang Tua -->
+                    <div>
+                      <label for="namaOrangTua" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Nama Orang Tua <span class="text-rose-500">*</span>
+                      </label>
+                      <div class="relative">
+                        <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-user-tie"></i></span>
+                        <input type="text" id="namaOrangTua" name="namaOrangTua" required placeholder="Contoh: Bapak Ahmad Fauzi"
+                          class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" />
+                      </div>
+                    </div>
+
+                    <!-- Jenis Kelamin Anak -->
+                    <div>
+                      <label for="jenisKelamin" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Jenis Kelamin Anak <span class="text-rose-500">*</span>
+                      </label>
+                      <div class="relative">
+                        <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-venus-mars"></i></span>
+                        <select id="jenisKelamin" name="jenisKelamin" required
+                          class="w-full pl-10 pr-8 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none">
+                          <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+                          <option value="Laki-laki">Laki-laki</option>
+                          <option value="Perempuan">Perempuan</option>
+                        </select>
+                        <span class="absolute right-3 top-3 text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-chevron-down"></i></span>
+                      </div>
+                    </div>
+
                     <!-- No WhatsApp Orang Tua -->
                     <div>
                       <div class="flex justify-between items-center mb-1.5">
@@ -445,7 +474,7 @@
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
       let isWaValid = false;
-      const defaultUnits = ["Quranic Daycare Cendekia Muda", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Makassar", "SD Islam Cendekia Muda Bilingual", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
+      const defaultUnits = ["Quranic Daycare Cendekia Muda 1", "Quranic Daycare Cendekia Muda 2", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Makassar", "SD Islam Cendekia Muda Bilingual", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
       const defaultSumber = ["Rekomendasi", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Lainnya"];
 
       // Toggle Mobile Menu
@@ -498,7 +527,12 @@
       }
 
       function onMasterDataLoaded(res) {
-        const units = (res && res.units && res.units.length > 0) ? res.units : defaultUnits;
+        const sourceUnits = (res && res.units && res.units.length > 0) ? res.units : defaultUnits;
+        const units = sourceUnits.flatMap(unit =>
+          unit.toLowerCase() === "quranic daycare cendekia muda"
+            ? ["Quranic Daycare Cendekia Muda 1", "Quranic Daycare Cendekia Muda 2"]
+            : [unit]
+        );
         const sumbers = (res && res.sumberInfo && res.sumberInfo.length > 0) ? res.sumberInfo : defaultSumber;
 
         const unitSelect = document.getElementById("unitTujuan");
@@ -757,6 +791,8 @@
 
         const formData = {
           namaSiswa: document.getElementById("namaSiswa").value.trim(),
+          namaOrangTua: document.getElementById("namaOrangTua").value.trim(),
+          jenisKelamin: document.getElementById("jenisKelamin").value,
           noWa: document.getElementById("noWa").value.trim(),
           unitTujuan: document.getElementById("unitTujuan").value,
           kelasSaatIni: document.getElementById("kelasSaatIni") ? document.getElementById("kelasSaatIni").value.trim() : "",

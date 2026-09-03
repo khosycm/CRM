@@ -55,7 +55,7 @@ export default async function handler(req, res) {
     const privateKey = (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n');
 
     // Default fallback masterdata options if environment variables are not set yet
-    const fallbackUnits = ["Quranic Daycare Cendekia Muda", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Makassar", "SD Islam Cendekia Muda Bilingual", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
+    const fallbackUnits = ["Quranic Daycare Cendekia Muda 1", "Quranic Daycare Cendekia Muda 2", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Bilingual", "SD Islam Cendekia Muda Makassar", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
     const fallbackStatus = ["Leads Cold", "Warm Leads", "Hot Leads", "Closing / Siswa Baru", "Batal / Inactive"];
     const fallbackSumber = ["Word of Mouth", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Lainnya"];
     const fallbackDiscount = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
@@ -122,10 +122,10 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // Fetch Leads data (19 Columns: A to S)
+    // Fetch Leads data (A to Y; X and Y are optional for legacy rows)
     const leadsResponse = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: 'Leads!A2:S10000',
+      range: 'Leads!A2:Y10000',
     });
 
     const leadRows = leadsResponse.data.values || [];
@@ -148,7 +148,9 @@ export default async function handler(req, res) {
       kategoriPendaftaran: row[15] || 'Siswa Baru',
       levelTarget: row[16] || '',
       discount: row[17] || '',
-      terakhirDiperbarui: row[18] || row[1] || ''
+      terakhirDiperbarui: row[18] || row[1] || '',
+      namaOrangTua: row[23] || '',
+      jenisKelamin: row[24] || ''
     }));
 
     // Fetch MasterData (Columns A: Unit, B: Status, C: Sumber, D: Diskon)
