@@ -257,6 +257,17 @@
                       </p>
                     </div>
 
+                    <div>
+                      <label for="noTelpSiswa" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        No. Telp Siswa <span class="text-slate-400 font-normal">(Apabila Ada)</span>
+                      </label>
+                      <div class="relative">
+                        <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-phone"></i></span>
+                        <input type="tel" id="noTelpSiswa" name="noTelpSiswa" placeholder="Contoh: 081234567890"
+                          class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" />
+                      </div>
+                    </div>
+
                     <!-- Unit Tujuan -->
                     <div>
                       <label for="unitTujuan" class="block text-xs font-bold text-slate-700 mb-1.5">
@@ -318,6 +329,177 @@
                       <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-building-columns"></i></span>
                       <input type="text" id="asalSekolah" name="asalSekolah" placeholder="Contoh: SD Islam Cendekia Muda"
                         class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" />
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <label for="statusAnakDalamKeluarga" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Status Anak dalam Keluarga <span class="text-slate-400 font-normal">(Opsional)</span>
+                      </label>
+                      <div class="relative">
+                        <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-people-roof"></i></span>
+                        <select id="statusAnakDalamKeluarga" name="statusAnakDalamKeluarga"
+                          class="w-full pl-10 pr-8 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none">
+                          <option value="" selected>-- Pilih Status --</option>
+                          <option value="Kandung">Kandung</option>
+                          <option value="Tiri">Tiri</option>
+                          <option value="Angkat">Angkat</option>
+                        </select>
+                        <span class="absolute right-3 top-3 text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-chevron-down"></i></span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label for="raporKelas56" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Upload Rapor Kelas 5 & 6 <span class="text-slate-400 font-normal">(Opsional)</span>
+                      </label>
+                      <div class="relative">
+                        <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-upload"></i></span>
+                        <input type="file" id="raporKelas56" name="raporKelas56" accept=".pdf,.jpg,.jpeg,.png"
+                          class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-100 file:text-emerald-700 file:px-2 file:py-1 file:font-bold file:text-[10px]" />
+                      </div>
+                      <p class="text-[11px] text-slate-500 mt-1">Tidak wajib diisi, terutama bila rapor masih berada di sekolah.</p>
+                    </div>
+                  </div>
+
+                  <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+                    <label class="block text-xs font-bold text-slate-700">
+                      Alamat Rumah Anak
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div class="sm:col-span-2">
+                        <input type="text" id="alamatAnak" name="alamatAnak" placeholder="Alamat lengkap rumah anak"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="kelurahanAnak" name="kelurahanAnak" placeholder="Kelurahan"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="kecamatanAnak" name="kecamatanAnak" placeholder="Kecamatan"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="kotaKabupatenAnak" name="kotaKabupatenAnak" placeholder="Kota/Kabupaten"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="provinsiAnak" name="provinsiAnak" placeholder="Provinsi"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <label for="jarakKeSekolah" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Jarak Rumah ke Sekolah <span class="text-slate-400 font-normal">(KM)</span>
+                      </label>
+                      <input type="number" id="jarakKeSekolah" name="jarakKeSekolah" min="0" step="0.1" placeholder="Contoh: 5"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" />
+                    </div>
+                    <div>
+                      <label for="waktuTempuh" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Waktu Tempuh ke Sekolah <span class="text-slate-400 font-normal">(Menit)</span>
+                      </label>
+                      <input type="number" id="waktuTempuh" name="waktuTempuh" min="0" step="1" placeholder="Contoh: 20"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" />
+                    </div>
+                  </div>
+
+                  <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 space-y-3">
+                    <div class="flex items-center justify-between gap-3 flex-wrap">
+                      <label class="block text-xs font-bold text-slate-700">
+                        Alamat Ayah
+                      </label>
+                      <label class="inline-flex items-center gap-2 text-[11px] font-semibold text-slate-700 cursor-pointer">
+                        <input type="checkbox" id="alamatAyahSama" onchange="toggleAlamatAyahSame()" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
+                        <span>Sama dengan alamat anak</span>
+                      </label>
+                    </div>
+
+                    <div id="ayahAlamatFields" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div class="sm:col-span-2">
+                        <input type="text" id="alamatAyah" name="alamatAyah" placeholder="Alamat lengkap ayah"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="kelurahanAyah" name="kelurahanAyah" placeholder="Kelurahan"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="kecamatanAyah" name="kecamatanAyah" placeholder="Kecamatan"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="kotaKabupatenAyah" name="kotaKabupatenAyah" placeholder="Kota/Kabupaten"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                      <div>
+                        <input type="text" id="provinsiAyah" name="provinsiAyah" placeholder="Provinsi"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <label for="statusAyah" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Status Ayah <span class="text-slate-400 font-normal">(Opsional)</span>
+                      </label>
+                      <select id="statusAyah" name="statusAyah"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none">
+                        <option value="" selected>-- Pilih Status --</option>
+                        <option value="Kandung">Kandung</option>
+                        <option value="Tiri">Tiri</option>
+                        <option value="Angkat">Angkat</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="statusIbu" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Status Ibu <span class="text-slate-400 font-normal">(Opsional)</span>
+                      </label>
+                      <select id="statusIbu" name="statusIbu"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none">
+                        <option value="" selected>-- Pilih Status --</option>
+                        <option value="Kandung">Kandung</option>
+                        <option value="Tiri">Tiri</option>
+                        <option value="Angkat">Angkat</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <label for="penghasilanAyah" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Penghasilan Ayah <span class="text-slate-400 font-normal">(Opsional)</span>
+                      </label>
+                      <select id="penghasilanAyah" name="penghasilanAyah"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none">
+                        <option value="" selected>-- Pilih Rentang --</option>
+                        <option value="< 3 juta">< 3 juta</option>
+                        <option value="3 - 5 juta">3 - 5 juta</option>
+                        <option value="5 - 10 juta">5 - 10 juta</option>
+                        <option value="10 - 15 juta">10 - 15 juta</option>
+                        <option value="15 - 20 juta">15 - 20 juta</option>
+                        <option value="> 20 juta">> 20 juta</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="penghasilanIbu" class="block text-xs font-bold text-slate-700 mb-1.5">
+                        Penghasilan Ibu <span class="text-slate-400 font-normal">(Opsional)</span>
+                      </label>
+                      <select id="penghasilanIbu" name="penghasilanIbu"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none">
+                        <option value="" selected>-- Pilih Rentang --</option>
+                        <option value="< 3 juta">< 3 juta</option>
+                        <option value="3 - 5 juta">3 - 5 juta</option>
+                        <option value="5 - 10 juta">5 - 10 juta</option>
+                        <option value="10 - 15 juta">10 - 15 juta</option>
+                        <option value="15 - 20 juta">15 - 20 juta</option>
+                        <option value="> 20 juta">> 20 juta</option>
+                      </select>
                     </div>
                   </div>
 
@@ -603,6 +785,32 @@
         }
       }
 
+      function toggleAlamatAyahSame() {
+        const checkbox = document.getElementById('alamatAyahSama');
+        const ayahFields = document.getElementById('ayahAlamatFields');
+
+        if (!checkbox || !ayahFields) return;
+
+        if (checkbox.checked) {
+          ayahFields.classList.add('hidden');
+          const childFields = [
+            ['alamatAnak', 'alamatAyah'],
+            ['kelurahanAnak', 'kelurahanAyah'],
+            ['kecamatanAnak', 'kecamatanAyah'],
+            ['kotaKabupatenAnak', 'kotaKabupatenAyah'],
+            ['provinsiAnak', 'provinsiAyah']
+          ];
+
+          childFields.forEach(([sourceId, targetId]) => {
+            const source = document.getElementById(sourceId);
+            const target = document.getElementById(targetId);
+            if (source && target) target.value = source.value.trim();
+          });
+        } else {
+          ayahFields.classList.remove('hidden');
+        }
+      }
+
       function checkIsTkDaycare(unitName) {
         if (!unitName) return false;
         const u = String(unitName).toLowerCase();
@@ -789,16 +997,50 @@
           if (parts.length === 3) formattedDob = `${parts[2]}/${parts[1]}/${parts[0]}`;
         }
 
+        const getFileName = (id) => {
+          const input = document.getElementById(id);
+          return input && input.files && input.files[0] ? input.files[0].name : "";
+        };
+
+        const isAyahSame = document.getElementById('alamatAyahSama') && document.getElementById('alamatAyahSama').checked;
+        const syncAddressValue = (sourceId, targetId) => {
+          const source = document.getElementById(sourceId);
+          const target = document.getElementById(targetId);
+          if (!source || !target) return source ? source.value.trim() : "";
+          const value = source.value.trim();
+          if (isAyahSame && target) target.value = value;
+          return value;
+        };
+
         const formData = {
           namaSiswa: document.getElementById("namaSiswa").value.trim(),
           namaOrangTua: document.getElementById("namaOrangTua").value.trim(),
           jenisKelamin: document.getElementById("jenisKelamin").value,
           noWa: document.getElementById("noWa").value.trim(),
+          noTelpSiswa: document.getElementById("noTelpSiswa") ? document.getElementById("noTelpSiswa").value.trim() : "",
           unitTujuan: document.getElementById("unitTujuan").value,
           kelasSaatIni: document.getElementById("kelasSaatIni") ? document.getElementById("kelasSaatIni").value.trim() : "",
           tanggalLahir: formattedDob,
           umur: document.getElementById("umur") ? document.getElementById("umur").value.trim() : "",
           asalSekolah: document.getElementById("asalSekolah") ? document.getElementById("asalSekolah").value.trim() : "",
+          statusAnakDalamKeluarga: document.getElementById("statusAnakDalamKeluarga") ? document.getElementById("statusAnakDalamKeluarga").value : "",
+          alamatAnak: document.getElementById("alamatAnak") ? document.getElementById("alamatAnak").value.trim() : "",
+          kelurahanAnak: document.getElementById("kelurahanAnak") ? document.getElementById("kelurahanAnak").value.trim() : "",
+          kecamatanAnak: document.getElementById("kecamatanAnak") ? document.getElementById("kecamatanAnak").value.trim() : "",
+          kotaKabupatenAnak: document.getElementById("kotaKabupatenAnak") ? document.getElementById("kotaKabupatenAnak").value.trim() : "",
+          provinsiAnak: document.getElementById("provinsiAnak") ? document.getElementById("provinsiAnak").value.trim() : "",
+          jarakKeSekolah: document.getElementById("jarakKeSekolah") ? document.getElementById("jarakKeSekolah").value.trim() : "",
+          waktuTempuh: document.getElementById("waktuTempuh") ? document.getElementById("waktuTempuh").value.trim() : "",
+          statusAyah: document.getElementById("statusAyah") ? document.getElementById("statusAyah").value : "",
+          statusIbu: document.getElementById("statusIbu") ? document.getElementById("statusIbu").value : "",
+          penghasilanAyah: document.getElementById("penghasilanAyah") ? document.getElementById("penghasilanAyah").value : "",
+          penghasilanIbu: document.getElementById("penghasilanIbu") ? document.getElementById("penghasilanIbu").value : "",
+          alamatAyah: isAyahSame ? syncAddressValue('alamatAnak', 'alamatAyah') : (document.getElementById("alamatAyah") ? document.getElementById("alamatAyah").value.trim() : ""),
+          kelurahanAyah: isAyahSame ? syncAddressValue('kelurahanAnak', 'kelurahanAyah') : (document.getElementById("kelurahanAyah") ? document.getElementById("kelurahanAyah").value.trim() : ""),
+          kecamatanAyah: isAyahSame ? syncAddressValue('kecamatanAnak', 'kecamatanAyah') : (document.getElementById("kecamatanAyah") ? document.getElementById("kecamatanAyah").value.trim() : ""),
+          kotaKabupatenAyah: isAyahSame ? syncAddressValue('kotaKabupatenAnak', 'kotaKabupatenAyah') : (document.getElementById("kotaKabupatenAyah") ? document.getElementById("kotaKabupatenAyah").value.trim() : ""),
+          provinsiAyah: isAyahSame ? syncAddressValue('provinsiAnak', 'provinsiAyah') : (document.getElementById("provinsiAyah") ? document.getElementById("provinsiAyah").value.trim() : ""),
+          raporKelas56: getFileName('raporKelas56'),
           sumberInfo: checkedBoxes,
           sumberLainnya: document.getElementById("sumberLainnya") ? document.getElementById("sumberLainnya").value.trim() : "",
           kebutuhanKhusus: kebutuhanKhususVal,
