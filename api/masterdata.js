@@ -1,5 +1,10 @@
 import { google } from 'googleapis';
 
+// Daycare 1 and 2 were merged into one unit.
+function normalizeUnit(unit) {
+  return /daycare/i.test(unit) ? 'Quranic Daycare Cendekia Muda' : unit;
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -10,7 +15,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const defaultUnits = ["Quranic Daycare Cendekia Muda 1", "Quranic Daycare Cendekia Muda 2", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Makassar", "SD Islam Cendekia Muda Bilingual", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
+  const defaultUnits = ["Quranic Daycare Cendekia Muda", "TK Islam Cendekia Muda", "SD Islam Cendekia Muda Bandung", "SD Islam Cendekia Muda Makassar", "SD Islam Cendekia Muda Bilingual", "SMP Islam Cendekia Muda", "SMA Islam Cendekia Muda"];
   const defaultStatus = ["Leads Cold", "Leads Warm", "Leads Hot", "Form", "Daftar", "Konfirmasi", "Cancel Setelah Daftar", "Cancel Setelah Konfirmasi", "Mutasi - Daftar", "Mutasi - Konfirmasi"];
   const defaultSumber = ["Rekomendasi", "Instagram", "Ads", "Baliho", "Website", "AI", "TikTok", "YouTube", "Influencer", "Threads", "Lainnya"];
   const defaultDiscount = ["Tanpa Diskon", "Diskon Early Bird (10%)", "Diskon Siblings (15%)", "Diskon Alumni (20%)", "Diskon Beasiswa (50%)", "Diskon Khusus (Custom)"];
@@ -50,7 +55,7 @@ export default async function handler(req, res) {
     const discounts = [];
 
     rows.forEach(row => {
-      const u = String(row[0] || '').trim();
+      const u = normalizeUnit(String(row[0] || '').trim());
       const st = String(row[1] || '').trim();
       const s = String(row[2] || '').trim();
       const d = String(row[3] || '').trim();
