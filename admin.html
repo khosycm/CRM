@@ -588,7 +588,7 @@
                   </h2>
                   <p class="text-xs text-slate-400">
                     Unit, Target (T), Leads, Existing, Daftar (D), Konfirmasi
-                    (K), % Capaian & Sisa Target
+                    (K), Cancel, % Capaian & Sisa Target
                   </p>
                 </div>
                 <div class="flex items-center gap-1.5 text-[10px] font-bold">
@@ -606,7 +606,7 @@
 
               <div class="overflow-x-auto custom-scrollbar">
                 <table
-                  class="w-full text-xs text-left border-collapse min-w-[1000px]"
+                  class="w-full text-xs text-left border-collapse min-w-[1160px]"
                 >
                   <thead>
                     <tr class="bg-slate-900 text-white font-semibold">
@@ -641,6 +641,18 @@
                         title="Status Konfirmasi / Closing"
                       >
                         KONFIRMASI (K)
+                      </th>
+                      <th
+                        class="p-2.5 text-center text-rose-300 whitespace-nowrap"
+                        title="Status Cancel Setelah Daftar"
+                      >
+                        CANCEL (D)
+                      </th>
+                      <th
+                        class="p-2.5 text-center text-rose-300 whitespace-nowrap"
+                        title="Status Cancel Setelah Konfirmasi"
+                      >
+                        CANCEL (K)
                       </th>
                       <th
                         class="p-2.5 text-center text-amber-300 whitespace-nowrap"
@@ -704,6 +716,14 @@
                   >
                   <span class="text-emerald-700"
                     ><strong>Sisa (T-K):</strong> T - Existing - K</span
+                  >
+                  <span class="text-rose-700"
+                    ><strong>Cancel:</strong> tidak dihitung di D, K, maupun %
+                    Capaian</span
+                  >
+                  <span class="text-slate-700"
+                    ><strong>Mutasi:</strong> D = Mutasi - Daftar, K = Mutasi -
+                    Konfirmasi (tidak dijumlah), masuk Grand Total</span
                   >
                 </div>
               </div>
@@ -1516,6 +1536,28 @@
         },
       ];
 
+      // Cancel & Mutasi dicek persis lebih dulu: nama status keduanya juga
+      // mengandung kata "daftar"/"konfirmasi".
+      function classifyLeadStatus(statusLead) {
+        const s = (statusLead || "")
+          .toLowerCase()
+          .replace(/\s*-\s*/g, " - ")
+          .replace(/\s+/g, " ")
+          .trim();
+        if (s === "mutasi - daftar") return "mutasiDaftar";
+        if (s === "mutasi - konfirmasi") return "mutasiKonfirmasi";
+        if (s === "cancel setelah daftar") return "cancelDaftar";
+        if (s === "cancel setelah konfirmasi") return "cancelKonfirmasi";
+        if (
+          s.includes("konfirmasi") ||
+          s.includes("verifikasi") ||
+          s.includes("closing")
+        )
+          return "konfirmasi";
+        if (s.includes("daftar") || s.includes("bayar")) return "daftar";
+        return null;
+      }
+
       function matchLeadToUnitConfig(lead, cfg) {
         const ut = (lead.unitTujuan || "").toLowerCase().trim();
         const lt = (lead.levelTarget || "").toLowerCase().trim();
@@ -2105,12 +2147,9 @@
 
         baseLeads.forEach((l) => {
           const s = (l.statusLead || "").toLowerCase();
-          if (s.includes("daftar") || s.includes("bayar")) totalDaftarRaw++;
-          if (
-            s.includes("konfirmasi") ||
-            s.includes("verifikasi") ||
-            s.includes("closing")
-          )
+          const kind = classifyLeadStatus(l.statusLead);
+          if (kind === "daftar" || kind === "mutasiDaftar") totalDaftarRaw++;
+          if (kind === "konfirmasi" || kind === "mutasiKonfirmasi")
             totalKonfirmasi++;
           if (s.includes("form")) totalForm++;
         });
@@ -2252,24 +2291,30 @@
           grandExisting = 0,
           grandDaftarRaw = 0,
           grandKonfirmasi = 0,
-          grandDaftarDisplay = 0;
+          grandCancelDaftar = 0,
+          grandCancelKonf = 0;
+
+        // Lead mutasi hanya dihitung di baris Mutasi, tidak di baris unitnya.
+        const isMutasi = (l) => {
+          const kind = classifyLeadStatus(l.statusLead);
+          return kind === "mutasiDaftar" || kind === "mutasiKonfirmasi";
+        };
+        const mutasiLeads = leads.filter(isMutasi);
+        const nonMutasiLeads = leads.filter((l) => !isMutasi(l));
+        const countKind = (list, kind) =>
+          list.filter((l) => classifyLeadStatus(l.statusLead) === kind).length;
 
         masterUnitsConfig.forEach((cfg) => {
-          const unitLeads = leads.filter((l) => matchLeadToUnitConfig(l, cfg));
+          const unitLeads = nonMutasiLeads.filter((l) =>
+            matchLeadToUnitConfig(l, cfg),
+          );
 
           const cntLeads = unitLeads.length;
           const cntExisting = cfg.existing !== undefined ? cfg.existing : 0;
-          const cntDaftarRaw = unitLeads.filter(
-            (l) =>
-              (l.statusLead || "").toLowerCase().includes("daftar") ||
-              (l.statusLead || "").toLowerCase().includes("bayar"),
-          ).length;
-          const cntKonfirmasi = unitLeads.filter(
-            (l) =>
-              (l.statusLead || "").toLowerCase().includes("konfirmasi") ||
-              (l.statusLead || "").toLowerCase().includes("verifikasi") ||
-              (l.statusLead || "").toLowerCase().includes("closing"),
-          ).length;
+          const cntDaftarRaw = countKind(unitLeads, "daftar");
+          const cntKonfirmasi = countKind(unitLeads, "konfirmasi");
+          const cntCancelDaftar = countKind(unitLeads, "cancelDaftar");
+          const cntCancelKonf = countKind(unitLeads, "cancelKonfirmasi");
 
           // Registered status (D) is displayed as cumulative D + K
           const cntDaftarDisplay = cntDaftarRaw + cntKonfirmasi;
@@ -2279,7 +2324,8 @@
           grandExisting += cntExisting;
           grandDaftarRaw += cntDaftarRaw;
           grandKonfirmasi += cntKonfirmasi;
-          grandDaftarDisplay += cntDaftarDisplay;
+          grandCancelDaftar += cntCancelDaftar;
+          grandCancelKonf += cntCancelKonf;
 
           // % Capaian (D/T) = (D + K + Existing) / T
           const capDaftarPct =
@@ -2327,6 +2373,8 @@
             <td class="p-3 text-center text-slate-500 whitespace-nowrap">${cntExisting}</td>
             <td class="p-3 text-center font-bold text-amber-600 whitespace-nowrap" title="Daftar (D) + Konfirmasi (K): ${cntDaftarRaw} + ${cntKonfirmasi} = ${cntDaftarDisplay}">${cntDaftarDisplay}</td>
             <td class="p-3 text-center font-bold text-indigo-600 whitespace-nowrap">${cntKonfirmasi}</td>
+            <td class="p-3 text-center font-bold text-rose-600 whitespace-nowrap">${cntCancelDaftar}</td>
+            <td class="p-3 text-center font-bold text-rose-700 whitespace-nowrap">${cntCancelKonf}</td>
             <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badgeDaftarClass}" title="Formula Capaian D/T: (${cntDaftarRaw} + ${cntKonfirmasi} + ${cntExisting}) / ${cfg.target}">${capDaftarPct}%</span></td>
             <td class="p-3 text-center font-bold text-amber-700 whitespace-nowrap" title="Formula Sisa T-D: ${cfg.target} - ${cntExisting} - ${cntDaftarRaw}">${sisaDaftar}</td>
             <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badgeKonfClass}" title="Formula Capaian K/T: (${cntKonfirmasi} + ${cntExisting}) / ${cfg.target}">${capKonfPct}%</span></td>
@@ -2334,6 +2382,35 @@
           `;
           tbody.appendChild(tr);
         });
+
+        // Baris Mutasi: tanpa target/existing, D tidak dijumlah dengan K.
+        const mutasiDaftar = countKind(mutasiLeads, "mutasiDaftar");
+        const mutasiKonf = countKind(mutasiLeads, "mutasiKonfirmasi");
+        grandLeads += mutasiLeads.length;
+        grandDaftarRaw += mutasiDaftar;
+        grandKonfirmasi += mutasiKonf;
+
+        const mutasiTr = document.createElement("tr");
+        mutasiTr.className =
+          "hover:bg-slate-50 transition border-b border-slate-100 text-xs";
+        mutasiTr.innerHTML = `
+          <td class="p-3 font-bold text-slate-800 whitespace-nowrap">Mutasi</td>
+          <td class="p-3 text-slate-500 whitespace-nowrap">Semua Unit</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center font-bold text-sky-600 whitespace-nowrap" title="Mutasi - Daftar + Mutasi - Konfirmasi">${mutasiLeads.length}</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center font-bold text-amber-600 whitespace-nowrap" title="Hanya status Mutasi - Daftar">${mutasiDaftar}</td>
+          <td class="p-3 text-center font-bold text-indigo-600 whitespace-nowrap" title="Hanya status Mutasi - Konfirmasi">${mutasiKonf}</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+          <td class="p-3 text-center text-slate-400 whitespace-nowrap">-</td>
+        `;
+        tbody.appendChild(mutasiTr);
+
+        const grandDaftarDisplay = grandDaftarRaw + grandKonfirmasi;
 
         const grandCapDaftarPct =
           grandTarget > 0
@@ -2367,8 +2444,10 @@
           <td class="p-3 text-center whitespace-nowrap">${grandTarget}</td>
           <td class="p-3 text-center text-sky-300 whitespace-nowrap">${grandLeads}</td>
           <td class="p-3 text-center whitespace-nowrap">${grandExisting}</td>
-          <td class="p-3 text-center text-amber-300 whitespace-nowrap">${grandDaftarDisplay}</td>
+          <td class="p-3 text-center text-amber-300 whitespace-nowrap" title="Daftar (D) + Konfirmasi (K), termasuk Mutasi: ${grandDaftarRaw} + ${grandKonfirmasi} = ${grandDaftarDisplay}">${grandDaftarDisplay}</td>
           <td class="p-3 text-center text-indigo-300 whitespace-nowrap">${grandKonfirmasi}</td>
+          <td class="p-3 text-center text-rose-300 whitespace-nowrap">${grandCancelDaftar}</td>
+          <td class="p-3 text-center text-rose-300 whitespace-nowrap">${grandCancelKonf}</td>
           <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded bg-amber-400 text-slate-900 font-extrabold text-[10px]">${grandCapDaftarPct}%</span></td>
           <td class="p-3 text-center text-amber-300 whitespace-nowrap">${grandSisaDaftar}</td>
           <td class="p-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded bg-emerald-400 text-slate-900 font-extrabold text-[10px]">${grandCapKonfPct}%</span></td>
